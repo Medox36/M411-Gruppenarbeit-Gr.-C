@@ -18,6 +18,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 
+/**
+ *
+ *
+ * @author Lorenzo Giuntini (Medox36)
+ * @since 2022.01.12
+ * @version 0.1.5
+ */
 public class JFX_GUI extends Application {
     private static final String iconLoc = Objects.requireNonNull(Main.class.getResource("/images/sort.png")).toString();
 
@@ -106,7 +113,7 @@ public class JFX_GUI extends Application {
             java.awt.MenuItem openItem = new java.awt.MenuItem("show/hide");
             openItem.addActionListener(event -> {
                 if (stage.isShowing()) {
-                    Platform.runLater(this::hidestage);
+                    Platform.runLater(this::hideStage);
                 } else {
                     Platform.runLater(this::showStage);
                 }
@@ -152,7 +159,10 @@ public class JFX_GUI extends Application {
         }
     }
 
-    private void hidestage() {
+    /**
+     * Hides the application stage.
+     */
+    private void hideStage() {
         if (stage != null) {
             stage.hide();
         }

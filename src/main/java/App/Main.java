@@ -1,10 +1,5 @@
 package App;
 
-import App.SortClasses.*;
-import javafx.application.Application;
-
-import java.util.Vector;
-
 /**
  *
  *
@@ -13,46 +8,20 @@ import java.util.Vector;
  * @version 0.1.3
  */
 public class Main {
-    private SortingInterface[] sortingTypes;
-    private Vector<Vector<Integer>> fileArrays;
-    private FileReader reader;
-    private Vector<long[]> results;
 
     public static void main(String[] args) {
         new Main().startApp();
-        //Application.launch(JFX_GUI.class, args);
     }
 
     public void startApp() {
-        reader = new FileReader();
-        fileArrays = reader.getFileArrays();
+        //GUI
 
-        sortingTypes = new SortingInterface[7];
-        sortingTypes[0] = new BinaryTreeSort();
-        sortingTypes[1] = new HeapSort();
-        sortingTypes[2] = new InsertionSort();
-        sortingTypes[3] = new MergeSort();
-        sortingTypes[4] = new QuickSort();
-        sortingTypes[5] = new Shakersort();
-        sortingTypes[6] = new BubbleSort();
+        //Application.launch(JFX_GUI.class, args);
 
-        updateSortingResults();
-        for (long[] res: results) {
-            for (int i = 0; i < 5; i++) {
-                System.out.print(res[i] + ", ");
-            }
-            System.out.println();
-        }
+
+        //Sorting
+
+        new Sorting().start();
     }
 
-    public void updateSortingResults() {
-        results = new Vector<>();
-        int i = 0;
-        for (SortingInterface s: sortingTypes) {
-            for (Vector<Integer> v: fileArrays) {
-                s.sort(v);
-                results.add(new long[] {i++, s.getAmountOfComparisons(), s.getStorageSpaceRequired(), s.getTimeForSorting(), s.getWriteChanges()});
-            }
-        }
-    }
 }

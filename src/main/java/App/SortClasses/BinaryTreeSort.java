@@ -1,7 +1,5 @@
 package App.SortClasses;
 
-import App.SortingInterface;
-
 import java.util.Vector;
 
 public class BinaryTreeSort implements SortingInterface {

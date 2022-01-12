@@ -1,4 +1,4 @@
-package App;
+package App.SortClasses;
 
 import java.util.Vector;
 

@@ -1,5 +1,7 @@
 package App;
 
+import App.SortClasses.*;
+
 import java.util.Vector;
 
 /**
@@ -23,28 +25,34 @@ public class Main {
         reader = new FileReader();
         fileArrays = reader.getFileArrays();
 
-        sortingTypes = new SortingInterface[fileArrays.size()];
-        /*
-        sortingTypes[0] = new ....
-        sortingTypes[1] = new ....
-        sortingTypes[2] = new ....
-        sortingTypes[3] = new ....
-        sortingTypes[4] = new ....
-        sortingTypes[5] = new ....
-        sortingTypes[6] = new ....
-        sortingTypes[7] = new ....
-        sortingTypes[8] = new ....
+        sortingTypes = new SortingInterface[7];
 
+        sortingTypes[0] = new BinaryTreeSort();
+        sortingTypes[1] = new HeapSort();
+        sortingTypes[2] = new InsertionSort();
+        sortingTypes[3] = new MergeSort();
+        sortingTypes[4] = new QuickSort();
+        sortingTypes[5] = new Shakersort();
+        sortingTypes[6] = new BubbleSort();
+
+        updateSortingResults();
+        /*
+        for (long[] res: results) {
+            for (int i = 0; i < 4; i++) {
+                System.out.print(res[i] + ", ");
+            }
+            System.out.println();
+        }
          */
     }
 
-    public Vector<long[]> getSortingResults() {
+    public void updateSortingResults() {
+        results = new Vector<>();
         for (SortingInterface s: sortingTypes) {
-            for (int i = 0; i < fileArrays.size(); i++) {
-                s.sort(fileArrays.get(i));
+            for (Vector<Integer> v: fileArrays) {
+                s.sort(v);
                 results.add(new long[] {s.getAmountOfComparisons(), s.getStorageSpaceRequired(), s.getTimeForSorting(), s.getWriteChanges()});
             }
         }
-        return results;
     }
 }

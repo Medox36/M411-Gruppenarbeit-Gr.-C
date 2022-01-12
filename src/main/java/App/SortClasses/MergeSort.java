@@ -1,10 +1,10 @@
-package App;
+package App.SortClasses;
 
 import App.SortingInterface;
 
 import java.util.Vector;
 
-public class Quicksort implements SortingInterface {
+public class MergeSort implements SortingInterface {
 
     @Override
     public Vector<Integer> sort(Vector<Integer> array) {
@@ -13,21 +13,21 @@ public class Quicksort implements SortingInterface {
 
     @Override
     public long getWriteChanges() {
-        return 0;
+        return writeChanges;
     }
 
     @Override
     public long getTimeForSorting() {
-        return 0;
+        return timeForSorting;
     }
 
     @Override
     public long getAmountOfComparisons() {
-        return 0;
+        return amountOfComparisons;
     }
 
     @Override
     public long getStorageSpaceRequired() {
-        return 0;
+        return storageSpaceRequired;
     }
 }

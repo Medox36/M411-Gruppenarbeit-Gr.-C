@@ -1,4 +1,10 @@
-public class Shakersort {
+package App.SortClasses;
+
+import App.SortingInterface;
+
+import java.util.Vector;
+
+public class Shakersort implements SortingInterface {
 
     public int[] intArr = { 16, 23, 14, 7, 21, 20, 6, 1, 17, 13, 12, 9, 3, 19 };
     int k;
@@ -35,14 +41,6 @@ public class Shakersort {
         }
     }
 
-    public static void main(String[] args) {
-        Shakersort ss = new Shakersort();
-        int[] arr = ss.sort();
-        for (int i = 0; i < arr.length; i++) {
-            System.out.println(i + 1 + ": " + arr[i]);
-        }
-    }
-
     @Override
     public Vector<Integer> sort(Vector<Integer> array) {
         return null;
@@ -50,21 +48,21 @@ public class Shakersort {
 
     @Override
     public long getWriteChanges() {
-        return 0;
+        return writeChanges;
     }
 
     @Override
     public long getTimeForSorting() {
-        return 0;
+        return timeForSorting;
     }
 
     @Override
     public long getAmountOfComparisons() {
-        return 0;
+        return amountOfComparisons;
     }
 
     @Override
     public long getStorageSpaceRequired() {
-        return 0;
+        return storageSpaceRequired;
     }
 }

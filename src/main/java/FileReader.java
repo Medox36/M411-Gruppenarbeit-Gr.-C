@@ -1,25 +1,26 @@
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
 
 public class FileReader {
     private final Vector<File> files;
-    public FileReader() {
+    private final Vector<Vector<Integer>> fileArrays;
 
+    /***
+     * Das ist der Constructor dieser Klasse. Hier werden die benötigte Vectors initialisiert und
+     * die gebrauchte Methoden ausgeführt
+     */
+    public FileReader() {
         files = new Vector<>();
+        fileArrays = new Vector<>();
+
         try {
             addFilesToList();
+            readFiles();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for (File file: files) {
-            System.out.println(file.getName());
-        }
-    }
-
-    public Vector<Integer[]> getList() {
-
-        return
     }
 
     public void addFilesToList() throws IOException{
@@ -32,5 +33,31 @@ public class FileReader {
                 files.add(file);
             }
         }
+    }
+
+    public void readFiles() throws FileNotFoundException{
+        Vector<Integer> array;
+        BufferedReader br;
+        for (File f: files) {
+            array = new Vector<>();
+            br = new BufferedReader(new java.io.FileReader(f));
+            String str;
+            while (true) {
+                try {
+                    if ((str = br.readLine()) != null) {
+                        array.add(Integer.valueOf(str));
+                    } else {
+                        break;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            fileArrays.add(array);
+        }
+    }
+
+    public Vector<Vector<Integer>> getFileArrays() {
+        return fileArrays;
     }
 }

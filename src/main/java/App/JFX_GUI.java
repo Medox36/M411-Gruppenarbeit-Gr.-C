@@ -103,8 +103,14 @@ public class JFX_GUI extends Application {
 
             // if the user selects the default menu item (which includes the app name),
             // show the main app stage.
-            java.awt.MenuItem openItem = new java.awt.MenuItem("hello, world");
-            openItem.addActionListener(event -> Platform.runLater(this::showStage));
+            java.awt.MenuItem openItem = new java.awt.MenuItem("show/hide");
+            openItem.addActionListener(event -> {
+                if (stage.isShowing()) {
+                    Platform.runLater(this::hidestage);
+                } else {
+                    Platform.runLater(this::showStage);
+                }
+            });
 
             // the convention for tray icons seems to be to set the default icon for opening
             // the application stage in a bold font.
@@ -143,6 +149,12 @@ public class JFX_GUI extends Application {
         if (stage != null) {
             stage.show();
             stage.toFront();
+        }
+    }
+
+    private void hidestage() {
+        if (stage != null) {
+            stage.hide();
         }
     }
 }

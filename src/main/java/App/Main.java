@@ -5,7 +5,7 @@ package App;
  *
  * @author Andras Tarlos
  * @since 2022.01.12
- * @version 0.1.3
+ * @version 0.2.0
  */
 public class Main {
 

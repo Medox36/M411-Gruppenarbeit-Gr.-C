@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.Objects;
 
 public class JFX_GUI extends Application {
-    private static final String iconLoc = Objects.requireNonNull(Main.class.getResource("../../resources/images/sort.png")).getPath();
+    private static final String iconLoc = Objects.requireNonNull(Main.class.getResource("../../resources/images/sort.png")).toString();
 
     // application stage is stored so that it can be shown and hidden based on system tray icon operations.
     private Stage stage;

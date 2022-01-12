@@ -1,8 +1,18 @@
+package App;
+
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Vector;
 
+/**
+ *
+ *
+ * @author Andras Tarlos
+ * @since 2022.01.12
+ * @version 0.1.3
+ */
 public class FileReader {
     private final Vector<File> files;
     private final Vector<Vector<Integer>> fileArrays;

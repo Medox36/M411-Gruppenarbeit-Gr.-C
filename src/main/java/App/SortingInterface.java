@@ -1,3 +1,5 @@
+package App;
+
 import java.util.Vector;
 
 /**
@@ -8,6 +10,10 @@ import java.util.Vector;
  * @version 0.1.3
  */
 public interface SortingInterface {
+    long writeChanges = 0;
+    long timeForSorting = 0;
+    long amountOfComparisons = 0;
+    long storageSpaceRequired = 0;
     /***
      *
      * @param array is the none-sorted array that has to be sorted

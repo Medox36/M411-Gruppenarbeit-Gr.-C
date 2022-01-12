@@ -1,3 +1,5 @@
+package App;
+
 import java.util.Vector;
 
 /**
@@ -11,7 +13,7 @@ public class Main {
     private SortingInterface[] sortingTypes;
     private Vector<Vector<Integer>> fileArrays;
     private FileReader reader;
-    private Vector<Vector<Long>> results;
+    private Vector<long[]> results;
 
     public static void main(String[] args) {
         new Main().startApp();
@@ -34,19 +36,15 @@ public class Main {
         sortingTypes[8] = new ....
 
          */
-
-        for (SortingInterface s: sortingTypes) {
-            for (Vector<Integer> v: fileArrays) {
-                s.sort(v);
-                s.getAmountOfComparisons();
-                s.getStorageSpaceRequired();
-                s.getTimeForSorting();
-                s.getWriteChanges();
-            }
-        }
     }
 
-    public Vector<Vector<Long>> getSortingResults() {
+    public Vector<long[]> getSortingResults() {
+        for (SortingInterface s: sortingTypes) {
+            for (int i = 0; i < fileArrays.size(); i++) {
+                s.sort(fileArrays.get(i));
+                results.add(new long[] {s.getAmountOfComparisons(), s.getStorageSpaceRequired(), s.getTimeForSorting(), s.getWriteChanges()});
+            }
+        }
         return results;
     }
 }

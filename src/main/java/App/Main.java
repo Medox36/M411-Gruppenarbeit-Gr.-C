@@ -1,5 +1,7 @@
 package App;
 
+import javafx.application.Application;
+
 /**
  *
  *
@@ -16,7 +18,7 @@ public class Main {
     public void startApp() {
         //GUI
 
-        //Application.launch(JFX_GUI.class, args);
+        //new Thread(() -> Application.launch(JFX_GUI.class)).start();
 
 
         //Sorting

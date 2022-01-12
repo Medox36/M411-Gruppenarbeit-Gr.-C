@@ -1,6 +1,7 @@
 package App;
 
 import App.SortClasses.*;
+import javafx.application.Application;
 
 import java.util.Vector;
 
@@ -18,7 +19,9 @@ public class Main {
     private Vector<long[]> results;
 
     public static void main(String[] args) {
-        new Main().startApp();
+        //Application.launch(JFX_GUI.class, args);
+        //new Main().startApp();
+        System.out.println(Main.class.getResourceAsStream("../images/sort.png"));
     }
 
     public void startApp() {
@@ -49,7 +52,6 @@ public class Main {
         for (SortingInterface s: sortingTypes) {
             for (Vector<Integer> v: fileArrays) {
                 s.sort(v);
-                // i steht für algorithmus und k für die Files
                 results.add(new long[] {i++, s.getAmountOfComparisons(), s.getStorageSpaceRequired(), s.getTimeForSorting(), s.getWriteChanges()});
             }
         }

@@ -19,9 +19,8 @@ public class Main {
     private Vector<long[]> results;
 
     public static void main(String[] args) {
+        new Main().startApp();
         //Application.launch(JFX_GUI.class, args);
-        //new Main().startApp();
-        System.out.println(Main.class.getResourceAsStream("../images/sort.png"));
     }
 
     public void startApp() {

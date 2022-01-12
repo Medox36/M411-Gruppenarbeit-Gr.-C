@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -18,7 +19,7 @@ import java.net.URL;
 import java.util.Objects;
 
 public class JFX_GUI extends Application {
-    private static final String iconLoc = Objects.requireNonNull(Main.class.getResource("../../resources/images/sort.png")).toString();
+    private static final String iconLoc = Objects.requireNonNull(Main.class.getResource("/images/sort.png")).toString();
 
     // application stage is stored so that it can be shown and hidden based on system tray icon operations.
     private Stage stage;
@@ -42,7 +43,7 @@ public class JFX_GUI extends Application {
 
         // create the layout for the javafx stage.
         StackPane layout = new StackPane(createContent());
-        layout.setStyle("-fx-background-color: rgba(255, 255, 255, 0.5);");
+        layout.setStyle("-fx-background-color: rgba(255, 255, 255, 1);");
         layout.setPrefSize(300, 200);
 
         // this dummy app just hides itself when the app screen is clicked.
@@ -52,6 +53,7 @@ public class JFX_GUI extends Application {
         // a scene with a transparent fill is necessary to implement the translucent app window.
         Scene scene = new Scene(layout);
         scene.setFill(Color.TRANSPARENT);
+        stage.getIcons().add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("/images/sort.png"))));
 
         stage.setScene(scene);
     }
@@ -93,6 +95,8 @@ public class JFX_GUI extends Application {
             URL imageLoc = new URL(iconLoc);
             java.awt.Image image = ImageIO.read(imageLoc);
             java.awt.TrayIcon trayIcon = new java.awt.TrayIcon(image);
+
+            trayIcon.setImageAutoSize(true);
 
             // if the user double-clicks on the tray icon, show the main app stage.
             trayIcon.addActionListener(event -> Platform.runLater(this::showStage));

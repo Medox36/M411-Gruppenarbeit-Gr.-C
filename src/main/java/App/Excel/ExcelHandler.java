@@ -14,9 +14,13 @@ public class ExcelHandler {
     private ExcelReader excelReader;
     private ExcelWriter excelWriter;
 
-    public ExcelHandler() throws IOException {
+    public ExcelHandler() {
         excelFile = new ExcelFile();
-        excelReader = new ExcelReader(excelFile);
-        excelWriter = new ExcelWriter(excelFile);
+        try {
+            excelReader = new ExcelReader(excelFile);
+            excelWriter = new ExcelWriter(excelFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

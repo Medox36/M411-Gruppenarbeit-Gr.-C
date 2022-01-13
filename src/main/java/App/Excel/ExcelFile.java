@@ -14,7 +14,7 @@ import java.util.Objects;
 public class ExcelFile extends File {
 
     public ExcelFile() {
-        super(Objects.requireNonNull(ExcelFile.class.getResource("../../excel/Auswertung_Gr.C.xlsx")).toString());
+        super(Objects.requireNonNull(ExcelFile.class.getResource("../../excel/Auswertung_Gr-C.xlsx")).toString());
     }
 
     public ExcelFile(String pathname) {

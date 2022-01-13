@@ -1,5 +1,7 @@
 package App.SortClasses;
 
+import App.MemoryCalculator;
+
 import java.util.Vector;
 
 /**
@@ -10,6 +12,7 @@ import java.util.Vector;
  * @version 0.1.3
  */
 public interface SortingInterface {
+    MemoryCalculator mc = new MemoryCalculator();
     /***
      *
      * @param array is the none-sorted array that has to be sorted

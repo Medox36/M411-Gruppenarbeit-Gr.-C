@@ -4,6 +4,7 @@ module App {
     requires java.desktop;
     requires org.apache.poi.poi;
     requires org.apache.poi.ooxml;
+    requires jol.core;
     opens App to javafx.graphics;
     exports App;
     exports App.SortClasses;

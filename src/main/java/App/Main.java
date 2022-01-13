@@ -3,6 +3,9 @@ package App;
 import App.Excel.ExcelHandler;
 import javafx.application.Application;
 
+import java.util.ArrayList;
+import java.util.Vector;
+
 /**
  *
  *
@@ -29,7 +32,16 @@ public class Main {
 
         //Sorting
 
-        new Sorting().start();
+        //new Sorting().start();
+
+        // Memory Testing
+        MemoryCalculator mc = new MemoryCalculator();
+        Vector<Integer> h = new Vector<>();
+        for (int i = 0; i < 100; i++) {
+            h.add(1999);
+        }
+        long k = mc.calcMem(h);
+        System.out.println(k);
     }
 
 }

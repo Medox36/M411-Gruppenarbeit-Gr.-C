@@ -3,10 +3,14 @@ package App.SortClasses;
 import java.util.Vector;
 
 public class BubbleSort implements SortingInterface {
+    private long writeChanges = 0;
+    private long timeForSorting = 0;
+    private long amountOfComparisons = 0;
+    private long storageSpaceRequired = 0;
 
     @Override
-    public Vector<Integer> sort(Vector<Integer> array) {
-        return null;
+    public void sort(Vector<Integer> array) {
+
     }
 
     @Override

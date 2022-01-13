@@ -2,7 +2,11 @@ package App.SortClasses;
 
 import java.util.Vector;
 
-public class Shakersort implements SortingInterface {
+public class ShakerSort implements SortingInterface {
+    private long writeChanges = 0;
+    private long timeForSorting = 0;
+    private long amountOfComparisons = 0;
+    private long storageSpaceRequired = 0;
 
     public int[] intArr = { 16, 23, 14, 7, 21, 20, 6, 1, 17, 13, 12, 9, 3, 19 };
     int k;
@@ -40,8 +44,8 @@ public class Shakersort implements SortingInterface {
     }
 
     @Override
-    public Vector<Integer> sort(Vector<Integer> array) {
-        return null;
+    public void sort(Vector<Integer> array) {
+
     }
 
     @Override

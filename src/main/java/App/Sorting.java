@@ -10,9 +10,7 @@ public class Sorting {
     private FileReader reader;
     private Vector<long[]> results;
 
-    public Sorting() {
-
-    }
+    public Sorting() {}
 
     public void start() {
         reader = new FileReader();
@@ -24,7 +22,7 @@ public class Sorting {
         sortingTypes[2] = new InsertionSort();
         sortingTypes[3] = new MergeSort();
         sortingTypes[4] = new QuickSort();
-        sortingTypes[5] = new Shakersort();
+        sortingTypes[5] = new ShakerSort();
         sortingTypes[6] = new BubbleSort();
 
         updateSortingResults();

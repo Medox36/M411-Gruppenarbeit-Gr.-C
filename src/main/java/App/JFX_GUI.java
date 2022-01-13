@@ -2,16 +2,11 @@ package App;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
+import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -45,42 +40,16 @@ public class JFX_GUI extends Application {
         // sets up the tray icon (using awt code run on the swing thread).
         javax.swing.SwingUtilities.invokeLater(this::addAppToTray);
 
-        // out stage will be translucent, so give it a transparent style.
-        stage.initStyle(StageStyle.TRANSPARENT);
+        Group root = new Group();
 
-        // create the layout for the javafx stage.
-        StackPane layout = new StackPane(createContent());
-        layout.setStyle("-fx-background-color: rgba(255, 255, 255, 1);");
-        layout.setPrefSize(300, 200);
+        Scene scene = new Scene(root,Color.CRIMSON);
 
-        // this dummy app just hides itself when the app screen is clicked.
-        // a real app might have some interactive UI and a separate icon which hides the app window.
-        layout.setOnMouseClicked(event -> stage.hide());
-
-        // a scene with a transparent fill is necessary to implement the translucent app window.
-        Scene scene = new Scene(layout);
-        scene.setFill(Color.TRANSPARENT);
         stage.getIcons().add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("/images/sort.png"))));
-
+        stage.setTitle("Sorting Analytics");
+        stage.setHeight(400);
+        stage.setWidth(500);
         stage.setScene(scene);
-    }
 
-    /**
-     * For this dummy app, the (JavaFX scenegraph) content, just says "hello, world".
-     * A real app, might load an FXML or something like that.
-     *
-     * @return the main window application content.
-     */
-    private Node createContent() {
-        Label hello = new Label("hello, world");
-        hello.setStyle("-fx-font-size: 40px; -fx-text-fill: forestgreen;");
-        Label instructions = new Label("(click to hide)");
-        instructions.setStyle("-fx-font-size: 12px; -fx-text-fill: orange;");
-
-        VBox content = new VBox(10, hello, instructions);
-        content.setAlignment(Pos.CENTER);
-
-        return content;
     }
 
     /**

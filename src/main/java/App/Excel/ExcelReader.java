@@ -19,7 +19,7 @@ public class ExcelReader {
 
     public ExcelReader(ExcelFile excelFile) throws IOException {
         workbook = new XSSFWorkbook(new FileInputStream(excelFile));
-        sheet = workbook.getSheetAt(0);
+        sheet = workbook.getSheet("Auswertung");
     }
 
 }

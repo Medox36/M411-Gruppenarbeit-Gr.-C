@@ -2,6 +2,7 @@ package App.Excel;
 
 import java.io.File;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Objects;
 
 /**
@@ -13,8 +14,8 @@ import java.util.Objects;
  */
 public class ExcelFile extends File {
 
-    public ExcelFile() {
-        super(Objects.requireNonNull(ExcelFile.class.getResource("../../excel/Auswertung_Gr-C.xlsx")).toString());
+    public ExcelFile() throws URISyntaxException {
+        super(Objects.requireNonNull(ExcelFile.class.getResource("/excel/Auswertung_Gr-C.xlsx")).toURI());
     }
 
     public ExcelFile(String pathname) {

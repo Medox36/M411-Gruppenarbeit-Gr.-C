@@ -1,5 +1,6 @@
 package App;
 
+import App.Excel.ExcelHandler;
 import javafx.application.Application;
 
 /**
@@ -19,6 +20,11 @@ public class Main {
         //GUI
 
         //new Thread(() -> Application.launch(JFX_GUI.class)).start();
+
+
+        //Excel
+
+        //new ExcelHandler();
 
 
         //Sorting

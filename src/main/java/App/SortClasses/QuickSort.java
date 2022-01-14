@@ -7,10 +7,11 @@ public class QuickSort implements SortingInterface {
     private long timeForSorting = 0;
     private long amountOfComparisons = 0;
     private long storageSpaceRequired = 0;
+    private int temp;
 
     @Override
     public void sort(Vector<Integer> array) {
-        storageSpaceRequired += array.size();
+        storageSpaceRequired += mc.getMemorySpace(array);
         timeForSorting = System.currentTimeMillis();
         _quickSort(0, array.size() - 1, array);
         timeForSorting = System.currentTimeMillis() - timeForSorting;
@@ -18,7 +19,7 @@ public class QuickSort implements SortingInterface {
 
 
     private void _quickSort(int leftIndex, int rightIndex, Vector<Integer> arr) {
-        amountOfComparisons += 2;
+        amountOfComparisons += 1;
         if (leftIndex >= rightIndex) {
             return;
         }
@@ -39,22 +40,22 @@ public class QuickSort implements SortingInterface {
                 k--;
                 amountOfComparisons += 2;
             }
-            amountOfComparisons += 2;
+            amountOfComparisons += 1;
             if (i<k) {
-                int temp = arr.get(i);
+                temp = arr.get(i);
                 arr.set(i, arr.get(k));
                 arr.set(k, temp);
-                writeChanges += 2;
+                writeChanges += 3;
             }
-            amountOfComparisons += 2;
+            amountOfComparisons += 1;
         } while (i < k);
 
-        amountOfComparisons += 2;
+        amountOfComparisons += 1;
         if (arr.get(i) > pivot ) {
-            int temp = arr.get(i);
+            temp = arr.get(i);
             arr.set(i, arr.get(rightIndex));
             arr.set(rightIndex, temp);
-            writeChanges += 2;
+            writeChanges += 3;
         }
 
         _quickSort(leftIndex, i - 1, arr);

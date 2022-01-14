@@ -1,7 +1,6 @@
 package App;
 
 import App.SortClasses.*;
-
 import java.util.Vector;
 
 public class Sorting {

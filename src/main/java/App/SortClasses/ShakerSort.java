@@ -7,45 +7,61 @@ public class ShakerSort implements SortingInterface {
     private long timeForSorting = 0;
     private long amountOfComparisons = 0;
     private long storageSpaceRequired = 0;
+    private int[] arr;
+    private int temp;
 
-    public int[] intArr = { 16, 23, 14, 7, 21, 20, 6, 1, 17, 13, 12, 9, 3, 19 };
-    int k;
+    @Override
+    public void sort(Vector<Integer> array) {
+        storageSpaceRequired += mc.getMemorySpace(array);
+        arr = new int[array.size()];
+        for (int i = 0; i < array.size(); i++) {
+            arr[i] = array.get(i);
+        }
+        timeForSorting = System.currentTimeMillis();
+        sort();
+        timeForSorting = System.currentTimeMillis() - timeForSorting;
+    }
 
-    public int[] sort() {
-
-        int i = 0, l = intArr.length;
+    public void sort() {
+        storageSpaceRequired += 3;
+        int i = 0, l = arr.length;
         while (i < l) {
+            amountOfComparisons++;
             shaker1(i, l);
             l--;
+            writeChanges++;
             shaker2(i, l);
             i++;
+            writeChanges++;
         }
-        return intArr;
     }
 
     private void shaker1(int i, int l) {
+        storageSpaceRequired++;
         for (int j = i; j < l - 1; j++) {
-            if (intArr[j] > intArr[j + 1]) {
-                k = intArr[j];
-                intArr[j] = intArr[j + 1];
-                intArr[j + 1] = k;
+            amountOfComparisons++;
+            if (arr[j] > arr[j + 1]) {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+                writeChanges += 3;
             }
+            writeChanges++;
         }
     }
 
     private void shaker2(int i, int l) {
+        storageSpaceRequired++;
         for (int j = l - 1; j >= i; j--) {
-            if (intArr[j] > intArr[j + 1]) {
-                k = intArr[j];
-                intArr[j] = intArr[j + 1];
-                intArr[j + 1] = k;
+            amountOfComparisons++;
+            if (arr[j] > arr[j + 1]) {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+                writeChanges += 3;
             }
+            writeChanges++;
         }
-    }
-
-    @Override
-    public void sort(Vector<Integer> array) {
-
     }
 
     @Override

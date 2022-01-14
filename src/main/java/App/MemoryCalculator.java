@@ -10,7 +10,7 @@ public class MemoryCalculator {
      * @param arr is the Vector<Integer> array that the memory will be calculated of
      * @return returns the memory-space needed for the Vector<Integer>
      */
-    public long calcMem(Vector<Integer> arr) {
+    public long getMemorySpace(Vector<Integer> arr) {
         return GraphLayout.parseInstance(arr).getClassSizes().size() * 8;
     }
 }

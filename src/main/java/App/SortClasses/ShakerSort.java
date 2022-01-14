@@ -23,7 +23,7 @@ public class ShakerSort implements SortingInterface {
     }
 
     public void sort() {
-        storageSpaceRequired += 3;
+        storageSpaceRequired += 3 * 32;
         int i = 0, l = arr.length;
         while (i < l) {
             amountOfComparisons++;
@@ -37,7 +37,7 @@ public class ShakerSort implements SortingInterface {
     }
 
     private void shaker1(int i, int l) {
-        storageSpaceRequired++;
+        storageSpaceRequired += 32;
         for (int j = i; j < l - 1; j++) {
             amountOfComparisons++;
             if (arr[j] > arr[j + 1]) {
@@ -51,7 +51,7 @@ public class ShakerSort implements SortingInterface {
     }
 
     private void shaker2(int i, int l) {
-        storageSpaceRequired++;
+        storageSpaceRequired += 32;
         for (int j = l - 1; j >= i; j--) {
             amountOfComparisons++;
             if (arr[j] > arr[j + 1]) {

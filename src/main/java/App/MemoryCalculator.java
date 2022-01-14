@@ -1,14 +1,16 @@
 package App;
 
 import org.openjdk.jol.info.GraphLayout;
-
 import java.util.Vector;
 
 public class MemoryCalculator {
     public MemoryCalculator() {}
-
+    /**
+     *
+     * @param arr is the Vector<Integer> array that the memory will be calculated of
+     * @return returns the memory-space needed for the Vector<Integer>
+     */
     public long calcMem(Vector<Integer> arr) {
-        System.out.println(GraphLayout.parseInstance(arr).toPrintable());
-        return 0;
+        return GraphLayout.parseInstance(arr).getClassSizes().size() * 8;
     }
 }

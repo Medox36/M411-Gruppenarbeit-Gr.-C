@@ -24,7 +24,8 @@ import java.util.Objects;
 public class JFX_GUI extends Application {
     private static final String iconLoc = Objects.requireNonNull(Main.class.getResource("/images/sort.png")).toString();
 
-    // das Anwendungsfenster(application stage) wird gespeichert, um das Anwendungsfenster zu verstecken und wieder anzuzeigen, je nach SystemTrayIcon operation.
+    /* das Anwendungsfenster(application stage) wird gespeichert, um das Anwendungsfenster zu verstecken und
+       wieder anzuzeigen, je nach SystemTrayIcon operation.*/
     private Stage stage;
 
     @Override

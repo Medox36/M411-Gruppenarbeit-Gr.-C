@@ -19,7 +19,7 @@ import java.util.Objects;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.1.5
+ * @version 0.1.6
  */
 public class JFX_GUI extends Application {
     private static final String iconLoc = Objects.requireNonNull(Main.class.getResource("/images/sort.png")).toString();
@@ -47,6 +47,10 @@ public class JFX_GUI extends Application {
 
         // change the title of the stage
         stage.setTitle("Sorting Analytics");
+
+        // define the minimum height and width of the stage
+        stage.setMinHeight(400);
+        stage.setMinWidth(500);
 
         // define height and width of the stage
         stage.setHeight(400);
@@ -90,7 +94,7 @@ public class JFX_GUI extends Application {
             // if the user selects the default menu item (which includes the app name),
             // show the main app stage.
             java.awt.MenuItem openItem = new java.awt.MenuItem("show/hide");
-            openItem.addActionListener(event -> {
+            openItem.addActionListener(e -> {
                 if (stage.isShowing()) {
                     Platform.runLater(this::hideStage);
                 } else {
@@ -108,7 +112,7 @@ public class JFX_GUI extends Application {
             // and select the exit option, this will shut down JavaFX and remove the
             // tray icon (removing the tray icon will also shut down AWT).
             java.awt.MenuItem exitItem = new java.awt.MenuItem("Exit");
-            exitItem.addActionListener(event -> {
+            exitItem.addActionListener(e -> {
                 Platform.exit();
                 tray.remove(trayIcon);
             });

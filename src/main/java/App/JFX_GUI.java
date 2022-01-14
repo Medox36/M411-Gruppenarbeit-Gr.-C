@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -23,31 +24,40 @@ import java.util.Objects;
 public class JFX_GUI extends Application {
     private static final String iconLoc = Objects.requireNonNull(Main.class.getResource("/images/sort.png")).toString();
 
-    // application stage is stored so that it can be shown and hidden based on system tray icon operations.
+    // das Anwendungsfenster(application stage) wird gespeichert, um das Anwendungsfenster zu verstecken und wieder anzuzeigen, je nach SystemTrayIcon operation.
     private Stage stage;
-
-    // format used to display the current time in a tray icon notification.
-    //private DateFormat timeFormat = SimpleDateFormat.getTimeInstance();
 
     @Override
     public void start(Stage stage) {
-        // stores a reference to the stage.
+        // abspeichern der Referenz des Fensters(application stage)
         this.stage = stage;
 
-        // instructs the javafx system not to exit implicitly when the last application window is shut.
+        // sagt dem JavaFX system, dass es sich nicht beenden soll, wenn das letzte Fenster geschlossen wird.
         Platform.setImplicitExit(false);
 
-        // sets up the tray icon (using awt code run on the swing thread).
+        // fügt das TrayIcon dem SystemTray hinzu (benutzung von java.awt code, ausführung auf javax.swing Thread).
         javax.swing.SwingUtilities.invokeLater(this::addAppToTray);
 
         Group root = new Group();
 
         Scene scene = new Scene(root,Color.CRIMSON);
 
+        // dem Fenster wird ein Logo zugeteilt
         stage.getIcons().add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("/images/sort.png"))));
+
+        // umbenennung des Fensternamens
         stage.setTitle("Sorting Analytics");
+
+        // Höhe und Breite werden definiert
         stage.setHeight(400);
         stage.setWidth(500);
+
+        // das Fenster wird relativ zum Bildschirm zentriert
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        stage.setX((d.width-stage.getWidth())/2);
+        stage.setY((d.height-stage.getHeight())/2);
+
+        // dem Fenster wird die Scene zugeteilt
         stage.setScene(scene);
 
     }
@@ -57,16 +67,17 @@ public class JFX_GUI extends Application {
      */
     private void addAppToTray() {
         try {
-            // ensure awt toolkit is initialized.
+            // sichergehen, das das java.awt.Toolkit initialisiert ist.
             java.awt.Toolkit.getDefaultToolkit();
 
-            // app requires system tray support, just exit if there is no support.
+            /* überprüfen, ob das SystemTray vom aktuellen Betriebssystem unterstützt wird.
+               wenn nicht, beendet sich das Programm.*/
             if (!java.awt.SystemTray.isSupported()) {
                 System.out.println("No system tray support, application exiting.");
                 Platform.exit();
             }
 
-            // set up a system tray icon.
+            // erstellen des SystemTrayIcon
             java.awt.SystemTray tray = java.awt.SystemTray.getSystemTray();
             URL imageLoc = new URL(iconLoc);
             java.awt.Image image = ImageIO.read(imageLoc);
@@ -74,11 +85,11 @@ public class JFX_GUI extends Application {
 
             trayIcon.setImageAutoSize(true);
 
-            // if the user double-clicks on the tray icon, show the main app stage.
+            // wenn der Benutzer einen Doppelklick auf das TrayIcon macht soll das Anwendungsfenster gezeigt werden.
             trayIcon.addActionListener(event -> Platform.runLater(this::showStage));
 
-            // if the user selects the default menu item (which includes the app name),
-            // show the main app stage.
+            /* wenn der Benutzer das "show/hide" MenuItem auswählt soll das Fenster je nach aktuellem zustand
+               sichtbar oder unsichtbar werden.*/
             java.awt.MenuItem openItem = new java.awt.MenuItem("show/hide");
             openItem.addActionListener(event -> {
                 if (stage.isShowing()) {
@@ -88,29 +99,29 @@ public class JFX_GUI extends Application {
                 }
             });
 
-            // the convention for tray icons seems to be to set the default icon for opening
-            // the application stage in a bold font.
+            /* Die Konvention für TrayIcons scheint darin zu bestehen, das Standardsymbol zum Öffnen der
+               Anwendungsfenster in Fettschrift festzulegen.*/
             java.awt.Font defaultFont = java.awt.Font.decode(null);
             java.awt.Font boldFont = defaultFont.deriveFont(java.awt.Font.BOLD);
             openItem.setFont(boldFont);
 
-            // to really exit the application, the user must go to the system tray icon
-            // and select the exit option, this will shutdown JavaFX and remove the
-            // tray icon (removing the tray icon will also shut down AWT).
+            /*Um die Anwendung wirklich zu beenden, muss der Benutzer zum SystemTrayIcon gehen und die Option
+              zum Beenden auswählen. Dadurch wird JavaFX heruntergefahren und das SystemTrayIcon entfernt
+              (durch Entfernen des SystemTrayIcon wird auch AWT heruntergefahren).*/
             java.awt.MenuItem exitItem = new java.awt.MenuItem("Exit");
             exitItem.addActionListener(event -> {
                 Platform.exit();
                 tray.remove(trayIcon);
             });
 
-            // setup the popup menu for the application.
+            // erstellen des PopupMenu für das SystemTrayIvon
             final java.awt.PopupMenu popup = new java.awt.PopupMenu();
             popup.add(openItem);
             popup.addSeparator();
             popup.add(exitItem);
             trayIcon.setPopupMenu(popup);
 
-            // add the application tray icon to the system tray.
+            // hinzufügen des Anwendung-TrayIcon zum SystemTray.
             tray.add(trayIcon);
         } catch (java.awt.AWTException | IOException e) {
             System.out.println("Unable to init system tray");
@@ -119,7 +130,7 @@ public class JFX_GUI extends Application {
     }
 
     /**
-     * Shows the application stage and ensures that it is brought ot the front of all stages.
+     * Macht das Hauptfenster sichtbar und stellt sicher, dass es vor allen anderen Fenster angezeigt wird.
      */
     private void showStage() {
         if (stage != null) {
@@ -129,7 +140,7 @@ public class JFX_GUI extends Application {
     }
 
     /**
-     * Hides the application stage.
+     * Macht das hauptfenster unsichtbar.
      */
     private void hideStage() {
         if (stage != null) {

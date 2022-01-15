@@ -132,6 +132,14 @@ public class ExcelWriter {
      *
      * used if all Algorithms sort all Files
      */
+    private void writeRowAndColumnNamesOneSheet() {
+
+    }
+
+    /**
+     *
+     * used if all Algorithms sort all Files
+     */
     public void initColumnsAndRowsInMultipleSheets() {
         for (int i = 0; i< 3; i++) {
             for (int j = 0; j < 9; j++) {
@@ -171,6 +179,14 @@ public class ExcelWriter {
 
             sheets[i].getRow(1).setHeight((short) 10);
         }
+    }
+
+    /**
+     *
+     * used if all Algorithms sort all Files
+     */
+    private void writeRowAndColumnNamesMultipleSheet() {
+
     }
 
 

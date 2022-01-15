@@ -14,6 +14,12 @@ import java.util.Objects;
  */
 public class ExcelFile extends File {
 
+    /**
+     * default constructor
+     * will use the default file Auswertung_Gr-C.xlsx
+     *
+     * @throws URISyntaxException when the default file has not been found or is missing for some reason
+     */
     public ExcelFile() throws URISyntaxException {
         super(Objects.requireNonNull(ExcelFile.class.getResource("/excel/Auswertung_Gr-C.xlsx")).toURI());
     }

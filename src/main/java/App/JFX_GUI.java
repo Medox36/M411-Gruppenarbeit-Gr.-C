@@ -67,7 +67,7 @@ public class JFX_GUI extends Application {
     }
 
     /**
-     * Sets up a system tray icon for the application.
+     * Sets up a system TrayIcon for the application.
      */
     private void addAppToTray() {
         try {

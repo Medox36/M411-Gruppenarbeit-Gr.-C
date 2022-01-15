@@ -83,8 +83,7 @@ public class ExcelWriter {
      */
     private void initColumnsAndRowsInOneSheet() {
         for (int i = 0; i < 38; i++) {
-            sheets[0].createRow(i);
-            rows[i] = sheets[0].getRow(i);
+            rows[i] = sheets[0].createRow(i);
             if (i == 1 || i == 11 || i == 21|| i == 31) {
                 rows[i].setHeight((short) 10);
             }

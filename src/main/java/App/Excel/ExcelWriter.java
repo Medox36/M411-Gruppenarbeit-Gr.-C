@@ -6,9 +6,10 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Arrays;
 
 /**
  *
@@ -152,8 +153,7 @@ public class ExcelWriter {
         String[] algorithms = {"BinaryTreeSort", "BubbleSort", "HeapSort",
                 "InsertionSort", "MergeSort", "QuickSort", "ShakerSort"};
         for (int i = 0; i < 38; i++) {
-            // TODO assure that if statement is working and if necessary find alternative
-            if (Arrays.asList(skip).contains(i)) {
+            if (ArrayUtils.contains(skip, i)) {
                 continue;
             }
             for (int j = 0; j < 7; j++) {

@@ -5,6 +5,7 @@ module App {
     requires org.apache.poi.poi;
     requires org.apache.poi.ooxml;
     requires jol.core;
+    requires org.apache.commons.lang3;
     opens App to javafx.graphics;
     exports App;
     exports App.SortClasses;

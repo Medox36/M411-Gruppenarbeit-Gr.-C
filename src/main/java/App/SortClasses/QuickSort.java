@@ -17,7 +17,6 @@ public class QuickSort implements SortingInterface {
         timeForSorting = System.currentTimeMillis() - timeForSorting;
     }
 
-
     private void _quickSort(int leftIndex, int rightIndex, Vector<Integer> arr) {
         amountOfComparisons += 1;
         if (leftIndex >= rightIndex) {
@@ -81,6 +80,4 @@ public class QuickSort implements SortingInterface {
     public long getStorageSpaceRequired() {
         return storageSpaceRequired;
     }
-
-
 }

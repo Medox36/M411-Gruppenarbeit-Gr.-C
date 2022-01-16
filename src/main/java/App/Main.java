@@ -20,10 +20,18 @@ import java.util.Objects;
 public class Main {
 
     public static void main(String[] args) {
-        new Main().startApp();
+        new Main().startApp(args);
     }
 
-    public void startApp() {
+    public void startApp(String[] args) {
+        if (args[0].equals("--help") || args[0].equals("-h"))
+            System.out.println("--no-gui\t- There will be no GUI shown");
+        else if (args[0].equals("--no-gui"))
+            new Sorting().start();
+        else {
+            new Thread(() -> Application.launch(JFX_GUI.class)).start();
+            new Sorting().start();
+        }
         //GUI
 
         //new Thread(() -> Application.launch(JFX_GUI.class)).start();

@@ -16,7 +16,7 @@ import java.io.IOException;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.0.4
+ * @version 0.0.5
  */
 public class ExcelWriter {
     private XSSFWorkbook workbook;
@@ -32,18 +32,12 @@ public class ExcelWriter {
         // TODO create Sheet in the ExcelFile
     }
 
-    public ExcelWriter(ExcelFile excelFile) throws IOException {
-        workbook = new XSSFWorkbook(new FileInputStream(excelFile));
-        rows = new XSSFRow[39];
-        cells = new XSSFCell[39][11];
-        sheets[0] = workbook.getSheet("Auswertung");
-    }
-
     public ExcelWriter(ExcelFile excelFile, boolean multipleSheets) throws IOException {
         workbook = new XSSFWorkbook(new FileInputStream(excelFile));
         rows = new XSSFRow[39];
         cells = new XSSFCell[39][11];
         this.multipleSheets = multipleSheets;
+        removeExistingSheets();
         if (multipleSheets) {
             sheets = new XSSFSheet[4];
             sheets[0] = workbook.createSheet("Benötigte Zeit");
@@ -53,6 +47,12 @@ public class ExcelWriter {
         } else {
             sheets = new XSSFSheet[1];
             sheets[0] = workbook.createSheet("Auswertung");
+        }
+    }
+
+    private void removeExistingSheets() {
+        for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
+            workbook.removeSheetAt(i);
         }
     }
 

@@ -1,9 +1,12 @@
 package App;
 
+import App.Excel.ExcelFile;
 import App.Excel.ExcelHandler;
 import javafx.application.Application;
 
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Vector;
 
 /**
@@ -27,7 +30,11 @@ public class Main {
 
         //Excel
 
-        //new ExcelHandler();
+        /*try {
+            new ExcelHandler(new ExcelFile(Objects.requireNonNull(Main.class.getResource("/excel/test.xlsx")).toURI()), false);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }*/
 
 
         //Sorting

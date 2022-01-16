@@ -8,7 +8,7 @@ import java.net.URISyntaxException;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.0.3
+ * @version 0.0.4
  */
 public class ExcelHandler {
     private ExcelFile excelFile;
@@ -25,8 +25,8 @@ public class ExcelHandler {
             e.printStackTrace();
         }
         try {
-            excelReader = new ExcelReader(excelFile);
-            excelWriter = new ExcelWriter(excelFile);
+            excelReader = new ExcelReader(excelFile, false);
+            excelWriter = new ExcelWriter(excelFile, false);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -38,11 +38,11 @@ public class ExcelHandler {
      *
      * @param excelFile an .xlsx-File
      */
-    public ExcelHandler(ExcelFile excelFile) {
+    public ExcelHandler(ExcelFile excelFile, boolean multipleSheets) {
         this.excelFile = excelFile;
         try {
-            excelReader = new ExcelReader(excelFile);
-            excelWriter = new ExcelWriter(excelFile);
+            excelReader = new ExcelReader(excelFile, multipleSheets);
+            excelWriter = new ExcelWriter(excelFile, multipleSheets);
         } catch (IOException e) {
             e.printStackTrace();
         }

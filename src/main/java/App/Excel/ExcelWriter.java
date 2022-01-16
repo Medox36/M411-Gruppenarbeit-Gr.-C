@@ -1,17 +1,21 @@
 package App.Excel;
 
 import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.xssf.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  *
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.0.3
+ * @version 0.0.4
  */
 public class ExcelWriter {
     private XSSFWorkbook workbook;
@@ -66,6 +70,7 @@ public class ExcelWriter {
     private void createAllTablesInOneSheet() {
         initColumnsAndRowsInOneSheet();
         styleRowsAndColumnsInOneSheet();
+        writeRowAndColumnNamesOneSheet();
     }
 
     /**
@@ -75,8 +80,11 @@ public class ExcelWriter {
     private void createAllTablesInMultipleSheets() {
         initColumnsAndRowsInMultipleSheets();
         styleRowsAndColumnsInMultipleSheets();
+        writeRowAndColumnNamesMultipleSheet();
     }
 
+
+    // OneSheet-Methods
     /**
      *
      * used if all Algorithms sort all Files
@@ -87,20 +95,12 @@ public class ExcelWriter {
             if (i == 1 || i == 11 || i == 21|| i == 31) {
                 rows[i].setHeight((short) 10);
             }
-        }
-        for (int i = 0; i < 38; i++) {
             for (int j = 0; j < 11; j++) {
                 if (j < 2 && (i == 0 || i == 1 || i == 10 || i == 11 || i == 20 || i == 21 || i == 30 || i == 31)) {
-                    rows[i].createCell(j);
+                    cells[i][j] = rows[i].createCell(j);
                 } else {
-                    rows[i].createCell(j, CellType.NUMERIC);
+                    cells[i][j] = rows[i].createCell(j, CellType.NUMERIC);
                 }
-            }
-        }
-
-        for (int i = 0; i < 38; i++) {
-            for (int j = 0; j < 11; j++) {
-                cells[i][j] = rows[i].getCell(j);
             }
         }
     }
@@ -133,9 +133,37 @@ public class ExcelWriter {
      * used if all Algorithms sort all Files
      */
     private void writeRowAndColumnNamesOneSheet() {
+        cells[0][0].setCellValue("Benbötigte Zeit");
+        cells[10][0].setCellValue("Anzahl Vergleiche");
+        cells[20][0].setCellValue("Anzahl Schreibzugriffe");
+        cells[30][0].setCellValue("Speicherbedarf");
 
+        String[] files = {"InversTeilsortiert1000", "InversTeilsortiert10000", "InversTeilsortiert100000",
+                "Ramdom1000", "Ramdom10000", "Ramdom100000",
+                "Teilsortiert1000", "Teilsortiert10000", "Teilsortiert100000"};
+        for (int i = 0; i < 9; i++) {
+            cells[0][(i+2)].setCellValue(files[i]);
+            cells[10][(i+2)].setCellValue(files[i]);
+            cells[20][(i+2)].setCellValue(files[i]);
+            cells[30][(i+2)].setCellValue(files[i]);
+        }
+
+        final int[] skip = {0,1,9,10,11,19,20,21,29,30,31};
+        String[] algorithms = {"BinaryTreeSort", "BubbleSort", "HeapSort",
+                "InsertionSort", "MergeSort", "QuickSort", "ShakerSort"};
+        for (int i = 0; i < 38; i++) {
+            // TODO assure that if statement is working and if necessary find alternative
+            if (Arrays.asList(skip).contains(i)) {
+                continue;
+            }
+            for (int j = 0; j < 7; j++) {
+                cells[i][0].setCellValue(algorithms[j]);
+            }
+        }
     }
 
+
+    // MultipleSheet-Methods
     /**
      *
      * used if all Algorithms sort all Files
@@ -186,7 +214,23 @@ public class ExcelWriter {
      * used if all Algorithms sort all Files
      */
     private void writeRowAndColumnNamesMultipleSheet() {
-
+        String[] algorithms = {"BinaryTreeSort", "BubbleSort", "HeapSort",
+                "InsertionSort", "MergeSort", "QuickSort", "ShakerSort"};
+        for (int i = 2; i < 9; i++) {
+            sheets[0].getRow(i).getCell(0).setCellValue(algorithms[i-2]);
+            sheets[1].getRow(i).getCell(0).setCellValue(algorithms[i-2]);
+            sheets[2].getRow(i).getCell(0).setCellValue(algorithms[i-2]);
+            sheets[3].getRow(i).getCell(0).setCellValue(algorithms[i-2]);
+        }
+        String[] files = {"InversTeilsortiert1000", "InversTeilsortiert10000", "InversTeilsortiert100000",
+                "Ramdom1000", "Ramdom10000", "Ramdom100000",
+                "Teilsortiert1000", "Teilsortiert10000", "Teilsortiert100000"};
+        for (int i = 2; i < 11; i++) {
+            sheets[0].getRow(0).getCell(i).setCellValue(files[i-2]);
+            sheets[1].getRow(0).getCell(i).setCellValue(files[i-2]);
+            sheets[2].getRow(0).getCell(i).setCellValue(files[i-2]);
+            sheets[3].getRow(0).getCell(i).setCellValue(files[i-2]);
+        }
     }
 
 

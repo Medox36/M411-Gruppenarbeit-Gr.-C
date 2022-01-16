@@ -11,7 +11,7 @@ import java.io.*;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.0.9
+ * @version 0.0.10
  */
 public class ExcelWriter {
     private ExcelFile excelFile;

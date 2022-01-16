@@ -30,7 +30,9 @@ public class Main {
 
         /*
         try {
-            new ExcelHandler(new ExcelFile(Objects.requireNonNull(Main.class.getResource("/excel/test.xlsx")).toURI()), false);
+            ExcelHandler excelHandler = new ExcelHandler(new ExcelFile(Objects.requireNonNull(Main.class.getResource("/excel/test.xlsx")).toURI()), false);
+            excelHandler.initFile();
+            excelHandler.writeAndFinish();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }

@@ -24,13 +24,16 @@ public class Main {
     }
 
     public void startApp(String[] args) {
-        if (args[0].equals("--help") || args[0].equals("-h"))
-            System.out.println("--no-gui\t- There will be no GUI shown");
-        else if (args[0].equals("--no-gui"))
-            new Sorting().start();
-        else {
-            new Thread(() -> Application.launch(JFX_GUI.class)).start();
-            new Sorting().start();
+        if (args.length != 0) {
+            if (args[0].equals("--help") || args[0].equals("-h")) {
+                System.out.println("--no-gui\t- There will be no GUI shown");
+            } else if (args[0].equals("--no-gui")) {
+                System.out.println("No GUI will be shown");
+                new Sorting().start();
+            } else {
+                new Thread(() -> Application.launch(JFX_GUI.class)).start();
+                new Sorting().start();
+            }
         }
         //GUI
 
@@ -55,11 +58,6 @@ public class Main {
             e.printStackTrace();
         }
         */
-
-
-        //Sorting
-
-        new Sorting().start();
     }
 
 }

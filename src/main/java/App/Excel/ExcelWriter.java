@@ -9,7 +9,7 @@ import java.io.*;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.0.8
+ * @version 0.0.9
  */
 public class ExcelWriter {
     private ExcelFile excelFile;
@@ -100,7 +100,6 @@ public class ExcelWriter {
         styleRowsAndColumnsInMultipleSheets();
     }
 
-
     // OneSheet-Methods
     /**
      *
@@ -158,7 +157,6 @@ public class ExcelWriter {
             cells[20][(i+2)].setCellValue(files[i]);
             cells[30][(i+2)].setCellValue(files[i]);
         }
-
         String[] algorithms = {"BinaryTreeSort", "BubbleSort", "HeapSort",
                 "InsertionSort", "MergeSort", "QuickSort", "ShakerSort"};
         for (int i = 2; i < 33; i+=10) {
@@ -206,7 +204,7 @@ public class ExcelWriter {
             sheets[i].autoSizeColumn(10);
             sheets[i].setColumnWidth(1, 512);
 
-            rowies[i][1].setHeight((short) 100);
+            rowies[i][1].setHeightInPoints(11);
         }
     }
 
@@ -215,6 +213,11 @@ public class ExcelWriter {
      * used if all Algorithms sort all Files
      */
     private void writeRowAndColumnNamesMultipleSheet() {
+        cellies[0][0][0].setCellValue("Benötigte Zeit");
+        cellies[1][0][0].setCellValue("Anzahl Vergleiche");
+        cellies[2][0][0].setCellValue("Anzahl Schreibzugriffe");
+        cellies[3][0][0].setCellValue("Speicherbedarf");
+
         String[] algorithms = {"BinaryTreeSort", "BubbleSort", "HeapSort",
                 "InsertionSort", "MergeSort", "QuickSort", "ShakerSort"};
         for (int i = 0; i < 4; i++) {

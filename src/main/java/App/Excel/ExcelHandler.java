@@ -8,7 +8,7 @@ import java.net.URISyntaxException;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.0.4
+ * @version 0.0.5
  */
 public class ExcelHandler {
     private ExcelFile excelFile;
@@ -46,5 +46,13 @@ public class ExcelHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void initFile() {
+        excelWriter.initFile();
+    }
+
+    public void writeAndFinish() {
+        excelWriter.writeAndFinish();
     }
 }

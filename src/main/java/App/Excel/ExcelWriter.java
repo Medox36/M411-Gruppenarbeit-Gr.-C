@@ -55,7 +55,7 @@ public class ExcelWriter {
     }
 
     private void removeExistingSheets() {
-        for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
+        for (int i = workbook.getNumberOfSheets() - 1; i >= 0; i--) {
             workbook.removeSheetAt(i);
         }
     }
@@ -130,10 +130,11 @@ public class ExcelWriter {
         sheets[0].autoSizeColumn(8);
         sheets[0].autoSizeColumn(9);
         sheets[0].autoSizeColumn(10);
+        sheets[0].setColumnWidth(1, 512);
 
         for (int i = 0; i < 39; i++) {
             if (i == 1 || i == 11 || i == 21 || i == 31) {
-                rows[i].setHeight((short) 200);
+                rows[i].setHeightInPoints(11);
             }
         }
     }
@@ -203,6 +204,7 @@ public class ExcelWriter {
             sheets[i].autoSizeColumn(8);
             sheets[i].autoSizeColumn(9);
             sheets[i].autoSizeColumn(10);
+            sheets[i].setColumnWidth(1, 512);
 
             rowies[i][1].setHeight((short) 100);
         }

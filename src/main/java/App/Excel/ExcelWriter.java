@@ -11,7 +11,7 @@ import java.io.*;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.0.10
+ * @version 0.0.11
  */
 public class ExcelWriter {
     private ExcelFile excelFile;
@@ -166,6 +166,9 @@ public class ExcelWriter {
 
         // apply the style to all cells
         for (int i = 0; i < 39; i++) {
+            if (i == 9||i == 19 ||i == 29) {
+                continue;
+            }
             for (int j = 0; j < 11; j++) {
                 cells[i][j].setCellStyle(style);
             }

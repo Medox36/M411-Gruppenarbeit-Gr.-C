@@ -15,12 +15,31 @@ public class ExcelHandler {
     private ExcelReader excelReader;
     private ExcelWriter excelWriter;
 
+    /**
+     * default constructor
+     */
     public ExcelHandler() {
         try {
             excelFile = new ExcelFile();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+        try {
+            excelReader = new ExcelReader(excelFile);
+            excelWriter = new ExcelWriter(excelFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *
+     * used if another Excel-File should be used
+     *
+     * @param excelFile an .xlsx-File
+     */
+    public ExcelHandler(ExcelFile excelFile) {
+        this.excelFile = excelFile;
         try {
             excelReader = new ExcelReader(excelFile);
             excelWriter = new ExcelWriter(excelFile);

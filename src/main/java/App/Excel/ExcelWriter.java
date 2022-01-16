@@ -1,5 +1,7 @@
 package App.Excel;
 
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.xssf.usermodel.*;
 
 import java.io.*;
@@ -100,6 +102,28 @@ public class ExcelWriter {
         styleRowsAndColumnsInMultipleSheets();
     }
 
+    private XSSFCellStyle getBorderCellStyle() {
+        // add Borders to all cells
+        XSSFCellStyle cellStyle = workbook.createCellStyle();
+
+        // index of IndexedColors.BLACK
+        short color = IndexedColors.BLACK.getIndex();
+        // bottom border
+        cellStyle.setBorderBottom(BorderStyle.THIN);
+        cellStyle.setBottomBorderColor(color);
+        // right border
+        cellStyle.setBorderRight(BorderStyle.THIN);
+        cellStyle.setRightBorderColor(color);
+        // left border
+        cellStyle.setBorderLeft(BorderStyle.THIN);
+        cellStyle.setLeftBorderColor(color);
+        // top border
+        cellStyle.setBorderTop(BorderStyle.THIN);
+        cellStyle.setTopBorderColor(color);
+
+        return cellStyle;
+    }
+
     // OneSheet-Methods
     /**
      *
@@ -134,6 +158,16 @@ public class ExcelWriter {
         for (int i = 0; i < 39; i++) {
             if (i == 1 || i == 11 || i == 21 || i == 31) {
                 rows[i].setHeightInPoints(11);
+            }
+        }
+
+        // get the CellStyle for the borders
+        XSSFCellStyle style = getBorderCellStyle();
+
+        // apply the style to all cells
+        for (int i = 0; i < 39; i++) {
+            for (int j = 0; j < 11; j++) {
+                cells[i][j].setCellStyle(style);
             }
         }
     }
@@ -206,6 +240,18 @@ public class ExcelWriter {
 
             rowies[i][1].setHeightInPoints(11);
         }
+
+        // get the CellStyle for the borders
+        XSSFCellStyle style = getBorderCellStyle();
+
+        // apply the style to all cells
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 9; j++) {
+                for (int k = 0; k < 11; k++) {
+                    cellies[i][j][k].setCellStyle(style);
+                }
+            }
+        }
     }
 
     /**
@@ -234,6 +280,4 @@ public class ExcelWriter {
             }
         }
     }
-
-
 }

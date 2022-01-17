@@ -2,37 +2,30 @@ package App.SortClasses;
 
 import App.MemoryCalculator;
 
-import java.util.Vector;
-
 /**
  *
  *
  * @author Andras Tarlos
  * @since 2022.01.12
- * @version 0.1.3
+ * @version 0.1.4
  */
 public interface SortingInterface {
     MemoryCalculator mc = new MemoryCalculator();
 
-    public void start();
-
-    /***
-     * @return Gibt Anzahl von Schreibzugriffen zurück
+    /**
+     * @return The amount of write changes
      */
-    public long getWriteChanges();
-    /***
-     *
-     * @return Gibt die Zeit für die Sortierung in ms zurück
+    long getWriteChanges();
+    /**
+     * @return The elapsed time for sorting
      */
-    public long getTimeForSorting();
-    /***
-     *
-     * @return Gibt die Anzahl Vergleiche zurück
+    long getTimeForSorting();
+    /**
+     * @return The amount of comparisons
      */
-    public long getAmountOfComparisons();
-    /***
-     *
-     * @return Gibt den Speicherbedarf in bit zurück
+    long getAmountOfComparisons();
+    /**
+     * @return The needed storage space in bits
      */
-    public long getStorageSpaceRequired();
+    long getStorageSpaceRequired();
 }

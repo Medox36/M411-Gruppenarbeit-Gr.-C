@@ -6,14 +6,7 @@ import java.util.Vector;
 public class Sorting {
     private Vector<Vector<Integer>> fileArrays;
     private FileReader reader;
-    private Vector<long[]> results;
-    private Vector<long[]> binarySRes;
-    private Vector<long[]> heapSRes;
-    private Vector<long[]> insertionSRes;
-    private Vector<long[]> mergeSRes;
-    private Vector<long[]> quickSRes;
-    private Vector<long[]> shakerSRes;
-    private Vector<long[]> bubbleSRes;
+    private Vector<long[]> results, binarySRes, heapSRes, insertionSRes, mergeSRes, quickSRes, shakerSRes, bubbleSRes;
 
     public Sorting() {}
 

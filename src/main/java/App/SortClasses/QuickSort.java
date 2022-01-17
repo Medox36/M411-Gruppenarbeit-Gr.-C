@@ -7,21 +7,24 @@ public class QuickSort extends Thread implements SortingInterface {
     private long timeForSorting = 0;
     private long amountOfComparisons = 0;
     private long storageSpaceRequired = 0;
-    private Vector<Integer> array;
+    private int[] arr;
     private int temp;
 
     public QuickSort(Vector<Integer> array) {
-        this.array = array;
+        storageSpaceRequired += mc.getMemorySpace(array);
+        arr = new int[array.size()];
+        for (int i = 0; i < array.size(); i++) {
+            arr[i] = array.get(i);
+        }
     }
     @Override
     public void run() {
-        storageSpaceRequired += mc.getMemorySpace(array);
         timeForSorting = System.nanoTime();
-        _quickSort(0, array.size() - 1, array);
+        _quickSort(0, arr.length - 1);
         timeForSorting = System.nanoTime() - timeForSorting;
     }
 
-    private void _quickSort(int leftIndex, int rightIndex, Vector<Integer> arr) {
+    private void _quickSort(int leftIndex, int rightIndex) {
         amountOfComparisons += 1;
         if (leftIndex >= rightIndex) {
             return;
@@ -29,40 +32,40 @@ public class QuickSort extends Thread implements SortingInterface {
 
         int i = leftIndex;
         int k = rightIndex - 1;
-        int pivot = arr.get(rightIndex);
+        int pivot = arr[rightIndex];
         storageSpaceRequired += 32 * 3;
 
         do {
             amountOfComparisons += 2;
-            while (arr.get(i) <= pivot && i < rightIndex) {
+            while (arr[i] <= pivot && i < rightIndex) {
                 i++;
                 amountOfComparisons += 2;
             }
             amountOfComparisons += 2;
-            while (arr.get(k) >= pivot && k > leftIndex) {
+            while (arr[k] >= pivot && k > leftIndex) {
                 k--;
                 amountOfComparisons += 2;
             }
             amountOfComparisons += 1;
             if (i<k) {
-                temp = arr.get(i);
-                arr.set(i, arr.get(k));
-                arr.set(k, temp);
+                temp = arr[i];
+                arr[i] = arr[k];
+                arr[k] = temp;
                 writeChanges += 3;
             }
             amountOfComparisons += 1;
         } while (i < k);
 
         amountOfComparisons += 1;
-        if (arr.get(i) > pivot ) {
-            temp = arr.get(i);
-            arr.set(i, arr.get(rightIndex));
-            arr.set(rightIndex, temp);
+        if (arr[i] > pivot ) {
+            temp = arr[i];
+            arr[i] = arr[rightIndex];
+            arr[rightIndex] = temp;
             writeChanges += 3;
         }
 
-        _quickSort(leftIndex, i - 1, arr);
-        _quickSort(i + 1, rightIndex, arr);
+        _quickSort(leftIndex, i - 1);
+        _quickSort(i + 1, rightIndex);
     }
 
     @Override

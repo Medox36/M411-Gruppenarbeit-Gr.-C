@@ -21,9 +21,9 @@ public class ShakerSort extends Thread implements SortingInterface {
         for (int i = 0; i < array.size(); i++) {
             arr[i] = array.get(i);
         }
-        timeForSorting = System.currentTimeMillis();
+        timeForSorting = System.nanoTime();
         sort();
-        timeForSorting = System.currentTimeMillis() - timeForSorting;
+        timeForSorting = System.nanoTime() - timeForSorting;
     }
 
     public void sort() {

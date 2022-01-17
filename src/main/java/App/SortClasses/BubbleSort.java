@@ -1,11 +1,8 @@
-
 package App.SortClasses;
+
 import java.util.Vector;
 
 public class BubbleSort implements SortingInterface {
-
-
-
     private long writeChanges = 0;
     private long timeForSorting = 0;
     private long amountOfComparisons = 0;

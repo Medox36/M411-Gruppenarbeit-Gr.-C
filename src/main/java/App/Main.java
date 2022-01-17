@@ -28,18 +28,13 @@ public class Main {
             if (args[0].equals("--help") || args[0].equals("-h")) {
                 System.out.println("--no-gui\t- There will be no GUI shown");
             } else if (args[0].equals("--no-gui")) {
-                System.out.println("No GUI will be shown");
+                System.out.println("--no-gui: No GUI will be shown");
                 new Sorting().start();
             } else {
                 new Thread(() -> Application.launch(JFX_GUI.class)).start();
                 new Sorting().start();
             }
         }
-        //GUI
-
-        //new Thread(() -> Application.launch(JFX_GUI.class)).start();
-
-
         //Excel
 
         /*

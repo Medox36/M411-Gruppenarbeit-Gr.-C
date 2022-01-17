@@ -2,16 +2,20 @@ package App.SortClasses;
 
 import java.util.Vector;
 
-public class ShakerSort implements SortingInterface {
+public class ShakerSort extends Thread implements SortingInterface {
     private long writeChanges = 0;
     private long timeForSorting = 0;
     private long amountOfComparisons = 0;
     private long storageSpaceRequired = 0;
     private int[] arr;
     private int temp;
+    private Vector<Integer> array;
 
+    public ShakerSort(Vector<Integer> array) {
+        this.array = array;
+    }
     @Override
-    public void sort(Vector<Integer> array) {
+    public void run() {
         storageSpaceRequired += mc.getMemorySpace(array);
         arr = new int[array.size()];
         for (int i = 0; i < array.size(); i++) {

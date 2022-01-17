@@ -2,15 +2,19 @@ package App.SortClasses;
 
 import java.util.Vector;
 
-public class QuickSort implements SortingInterface {
+public class QuickSort extends Thread implements SortingInterface {
     private long writeChanges = 0;
     private long timeForSorting = 0;
     private long amountOfComparisons = 0;
     private long storageSpaceRequired = 0;
+    private Vector<Integer> array;
     private int temp;
 
+    public QuickSort(Vector<Integer> array) {
+        this.array = array;
+    }
     @Override
-    public void sort(Vector<Integer> array) {
+    public void run() {
         storageSpaceRequired += mc.getMemorySpace(array);
         timeForSorting = System.currentTimeMillis();
         _quickSort(0, array.size() - 1, array);

@@ -2,14 +2,19 @@ package App.SortClasses;
 
 import java.util.Vector;
 
-public class HeapSort implements SortingInterface {
+public class HeapSort extends Thread implements SortingInterface {
     private long writeChanges = 0;
     private long timeForSorting = 0;
     private long amountOfComparisons = 0;
     private long storageSpaceRequired = 0;
+    private Vector<Integer> array;
+    private int temp;
 
+    public HeapSort(Vector<Integer> array) {
+        this.array = array;
+    }
     @Override
-    public void sort(Vector<Integer> array) {
+    public void run() {
 
     }
 

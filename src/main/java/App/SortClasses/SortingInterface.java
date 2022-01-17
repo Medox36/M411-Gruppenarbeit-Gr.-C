@@ -13,12 +13,9 @@ import java.util.Vector;
  */
 public interface SortingInterface {
     MemoryCalculator mc = new MemoryCalculator();
-    /***
-     *
-     * @param array is the none-sorted array that has to be sorted
-     * @return returns the sorted array
-     */
-    public void sort(Vector<Integer> array);
+
+    public void start();
+
     /***
      * @return Gibt Anzahl von Schreibzugriffen zurück
      */

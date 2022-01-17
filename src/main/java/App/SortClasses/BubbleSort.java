@@ -7,7 +7,7 @@ public class BubbleSort implements SortingInterface {
 
 
     private long writeChanges = 0;
-    private long SortingTime = 0;
+    private long timeForSorting = 0;
     private long amountOfComparisons = 0;
     private long storageSpaceRequired = 0;
 
@@ -22,7 +22,7 @@ public class BubbleSort implements SortingInterface {
     }
 
     @Override
-    public long getSortingTime() {
+    public long getTimeForSorting() {
         return timeForSorting;
     }
 

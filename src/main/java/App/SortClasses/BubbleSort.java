@@ -1,18 +1,20 @@
-
 package App.SortClasses;
+
 import java.util.Vector;
 
-public class BubbleSort implements SortingInterface {
-
-
-
+public class BubbleSort extends Thread implements SortingInterface {
     private long writeChanges = 0;
-    private long SortingTime = 0;
+    private long timeForSorting = 0;
     private long amountOfComparisons = 0;
     private long storageSpaceRequired = 0;
+    private Vector<Integer> array;
+    private int temp;
 
+    public BubbleSort(Vector<Integer> array) {
+        this.array = array;
+    }
     @Override
-    public void sort(Vector<Integer> array) {
+    public void run() {
 
     }
 
@@ -22,7 +24,7 @@ public class BubbleSort implements SortingInterface {
     }
 
     @Override
-    public long getSortingTime() {
+    public long getTimeForSorting() {
         return timeForSorting;
     }
 

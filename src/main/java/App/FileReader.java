@@ -33,7 +33,7 @@ public class FileReader {
         }
     }
 
-    public void addFilesToList() throws IOException{
+    public void addFilesToList() throws IOException {
         File folder = new File(new File("./src/main/resources/Files/").getCanonicalPath());
         File[] listOfFiles = folder.listFiles();
 
@@ -45,7 +45,7 @@ public class FileReader {
         }
     }
 
-    public void readFiles() throws FileNotFoundException{
+    public void readFiles() throws FileNotFoundException {
         Vector<Integer> array;
         BufferedReader br;
         for (File f: files) {

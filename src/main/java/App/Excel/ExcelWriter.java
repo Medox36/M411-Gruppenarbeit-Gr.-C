@@ -11,16 +11,47 @@ import java.io.*;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.0.11
+ * @version 0.0.12
  */
 public class ExcelWriter {
+
+    /**
+     *
+     * @see ExcelFile
+     */
     private ExcelFile excelFile;
 
+    /**
+     *
+     * @see org.apache.poi.xssf.usermodel.XSSFWorkbook
+     */
     private XSSFWorkbook workbook;
+
+    /**
+     * XSSFSheet-Array containing all the sheets
+     * either containing 1 sheet when all data is in one sheet
+     * or containing 4 sheets, when the data is stored in multiple sheets each containing one table
+     *
+     *
+     * @see org.apache.poi.xssf.usermodel.XSSFSheet
+     */
     private XSSFSheet[] sheets;
 
     // One-Sheet
+    /**
+     * XSSFRow-Array containing all 39 rows of the sheet
+     *
+     * Note: Used when the data is stored in one Sheet containing multiple tables.
+     * @see org.apache.poi.xssf.usermodel.XSSFRow
+     */
     private XSSFRow[] rows;
+
+    /**
+     * XSSFCell-Array containing all 429 cells of the sheet
+     *
+     * Note: Used when the data is stored in one Sheet containing multiple tables.
+     * @see org.apache.poi.xssf.usermodel.XSSFCell
+     */
     private XSSFCell[][] cells;
 
     // Multiple-Sheets
@@ -56,17 +87,28 @@ public class ExcelWriter {
         }
     }
 
+    /**
+     * Removes all the existing sheets of the given ExcelFile in the constructor
+     */
     private void removeExistingSheets() {
         for (int i = workbook.getNumberOfSheets() - 1; i >= 0; i--) {
             workbook.removeSheetAt(i);
         }
     }
 
+    /**
+     * Takes care of all tables and sheets necessary for evaluation of the Algorithms.
+     * Creates, writes row and column headers and styles the cells for the user to read the tables better.
+     */
     public void initFile() {
         if (multipleSheets) {
-            createAllTablesInMultipleSheets();
+            initColumnsAndRowsInMultipleSheets();
+            writeRowAndColumnNamesMultipleSheet();
+            styleRowsAndColumnsInMultipleSheets();
         } else {
-            createAllTablesInOneSheet();
+            initColumnsAndRowsInOneSheet();
+            writeRowAndColumnNamesOneSheet();
+            styleRowsAndColumnsInOneSheet();
         }
     }
 
@@ -83,27 +125,14 @@ public class ExcelWriter {
     }
 
     /**
+     * Creates a XSSFCellStyle object which contains styling of the borders.
+     * Border on the Bottom, the Top, the Right and zhe Left are all thin, black borders.
      *
-     * used if all Algorithms sort all Files
-     */
-    private void createAllTablesInOneSheet() {
-        initColumnsAndRowsInOneSheet();
-        writeRowAndColumnNamesOneSheet();
-        styleRowsAndColumnsInOneSheet();
-    }
-
-    /**
+     * XSSFCellStyle can be used to apply a Style to cells.
      *
-     * used if all Algorithms sort all Files
+     * @return XSSFCellStyle object containing border styling
      */
-    private void createAllTablesInMultipleSheets() {
-        initColumnsAndRowsInMultipleSheets();
-        writeRowAndColumnNamesMultipleSheet();
-        styleRowsAndColumnsInMultipleSheets();
-    }
-
     private XSSFCellStyle getBorderCellStyle() {
-        // add Borders to all cells
         XSSFCellStyle cellStyle = workbook.createCellStyle();
 
         // index of IndexedColors.BLACK
@@ -126,23 +155,37 @@ public class ExcelWriter {
 
     // OneSheet-Methods
     /**
+     * Creates 39 rows and to each row 11 cells.
+     * Creates all rows and cells in one Excel-Sheet.
+     * Total of cells: 429
      *
-     * used if all Algorithms sort all Files
+     * Note: Used if all Algorithms sort all Files
+     *       Used when the data is stored in one Sheet containing multiple tables.
      */
     private void initColumnsAndRowsInOneSheet() {
         for (int i = 0; i < 39; i++) {
+            // creating row
             rows[i] = sheets[0].createRow(i);
             for (int j = 0; j < 11; j++) {
+                // crating cell
                 cells[i][j] = rows[i].createCell(j);
             }
         }
     }
 
     /**
+     * Styles the rows, columns and cells of the ExcelFile given in the constructor.
+     * It auto-sizes the columns, which contain text so the text doesn't overlap.
+     * It sets the width of the 2nd column(in Excel column B), which is used to make the table look better.
+     * It sets the height of the rows, which used to make the tables look better.
+     * And it adds borders to te cells, which are used to create the tables.
+     * The rows in between two tables will get no borders.
      *
-     * used if all Algorithms sort all Files
+     * Note: Used if all Algorithms sort all Files.
+     *       Used when the data is stored in one Sheet containing multiple tables.
      */
     private void styleRowsAndColumnsInOneSheet() {
+        // set auto-sizing to the necessary columns
         sheets[0].autoSizeColumn(0);
         sheets[0].autoSizeColumn(2);
         sheets[0].autoSizeColumn(3);
@@ -153,8 +196,11 @@ public class ExcelWriter {
         sheets[0].autoSizeColumn(8);
         sheets[0].autoSizeColumn(9);
         sheets[0].autoSizeColumn(10);
+
+        // set the width of the remaining column to 22 Pixels(measurement of Excel)
         sheets[0].setColumnWidth(1, 512);
 
+        // set the height of the selected rows 1, 11, 21 and 31 to 11 Points = 22 Pixels(measurement of Excel)
         for (int i = 0; i < 39; i++) {
             if (i == 1 || i == 11 || i == 21 || i == 31) {
                 rows[i].setHeightInPoints(11);
@@ -164,12 +210,14 @@ public class ExcelWriter {
         // get the CellStyle for the borders
         XSSFCellStyle style = getBorderCellStyle();
 
-        // apply the style to all cells
+        // apply the style to all cells off all rows, except for rows 9, 19 and 29
         for (int i = 0; i < 39; i++) {
+            // leave out rows 9, 19 and 29
             if (i == 9||i == 19 ||i == 29) {
                 continue;
             }
             for (int j = 0; j < 11; j++) {
+                // apply the style
                 cells[i][j].setCellStyle(style);
             }
         }
@@ -177,7 +225,9 @@ public class ExcelWriter {
 
     /**
      *
-     * used if all Algorithms sort all Files
+     *
+     * Note: used if all Algorithms sort all Files.
+     *       used when the data is stored in one Sheet containing multiple tables.
      */
     private void writeRowAndColumnNamesOneSheet() {
         cells[0][0].setCellValue("Benötigte Zeit");
@@ -205,19 +255,21 @@ public class ExcelWriter {
 
     // MultipleSheet-Methods
     /**
+     * Creates 9 rows to each of the 4 tables in the 4 Excel-Sheets and to each row 11 cells.
+     * Total of cells per sheet/table: 99
+     * Total of cells: 396
      *
-     * used if all Algorithms sort all Files
+     * Note: Used if all Algorithms sort all Files.
+     *       Used when the data is stored in multiple sheets each containing one table.
      */
     public void initColumnsAndRowsInMultipleSheets() {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 9; j++) {
+                // creating row
                 rowies[i][j] = sheets[i].createRow(j);
-            }
-        }
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 9; j++) {
                 for (int k = 0; k < 11; k++) {
-                    cellies[i][j][k] = sheets[i].getRow(j).createCell(k);
+                    // creating cell
+                    cellies[i][j][k] = rowies[i][j].createCell(k);
                 }
             }
         }
@@ -225,10 +277,13 @@ public class ExcelWriter {
 
     /**
      *
-     * used if all Algorithms sort all Files
+     *
+     * Note: Used if all Algorithms sort all Files.
+     *       Used when the data is stored in multiple sheets each containing one table.
      */
     private void styleRowsAndColumnsInMultipleSheets() {
         for (int i = 0; i < 4; i++) {
+            // set auto-sizing to the necessary columns
             sheets[i].autoSizeColumn(0);
             sheets[i].autoSizeColumn(2);
             sheets[i].autoSizeColumn(3);
@@ -239,18 +294,22 @@ public class ExcelWriter {
             sheets[i].autoSizeColumn(8);
             sheets[i].autoSizeColumn(9);
             sheets[i].autoSizeColumn(10);
+
+            // set the width of the remaining column to 22 Pixels(measurement of Excel)
             sheets[i].setColumnWidth(1, 512);
 
+            // set the height of the 2nd row on each sheet to 11 Points = 22 Pixels(measurement of Excel)
             rowies[i][1].setHeightInPoints(11);
         }
 
         // get the CellStyle for the borders
         XSSFCellStyle style = getBorderCellStyle();
 
-        // apply the style to all cells
+        // apply the style to all cells off all rows of all sheets
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 9; j++) {
                 for (int k = 0; k < 11; k++) {
+                    // apply the style
                     cellies[i][j][k].setCellStyle(style);
                 }
             }
@@ -259,7 +318,9 @@ public class ExcelWriter {
 
     /**
      *
-     * used if all Algorithms sort all Files
+     *
+     * Note: Used if all Algorithms sort all Files.
+     *       Used when the data is stored in multiple sheets each containing one table.
      */
     private void writeRowAndColumnNamesMultipleSheet() {
         cellies[0][0][0].setCellValue("Benötigte Zeit");

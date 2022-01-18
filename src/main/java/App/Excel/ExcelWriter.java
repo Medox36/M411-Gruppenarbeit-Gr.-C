@@ -11,11 +11,12 @@ import java.io.*;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.0.12
+ * @version 0.0.13
  */
 public class ExcelWriter {
 
     /**
+     * Reference to the ExcelFile which the data will be written to.
      *
      * @see ExcelFile
      */
@@ -28,10 +29,9 @@ public class ExcelWriter {
     private XSSFWorkbook workbook;
 
     /**
-     * XSSFSheet-Array containing all the sheets
-     * either containing 1 sheet when all data is in one sheet
-     * or containing 4 sheets, when the data is stored in multiple sheets each containing one table
-     *
+     * XSSFSheet-Array containing all the sheets,
+     * either containing 1 sheet, when all data is in one sheet
+     * or containing 4 sheets, when the data is stored in multiple sheets each containing one table.
      *
      * @see org.apache.poi.xssf.usermodel.XSSFSheet
      */
@@ -39,25 +39,63 @@ public class ExcelWriter {
 
     // One-Sheet
     /**
-     * XSSFRow-Array containing all 39 rows of the sheet
+     * XSSFRow-Array containing all 39 rows of the sheet.<br><br>
      *
-     * Note: Used when the data is stored in one Sheet containing multiple tables.
+     * @apiNote
+     * Used when the data is stored in one sheet containing multiple tables.
+     *
      * @see org.apache.poi.xssf.usermodel.XSSFRow
      */
     private XSSFRow[] rows;
 
     /**
-     * XSSFCell-Array containing all 429 cells of the sheet
+     * XSSFCell-Array containing all 429 cells of the sheet.<br><br>
      *
-     * Note: Used when the data is stored in one Sheet containing multiple tables.
+     * @apiNote
+     * Used when the data is stored in one sheet containing multiple tables.
+     *
      * @see org.apache.poi.xssf.usermodel.XSSFCell
      */
     private XSSFCell[][] cells;
 
     // Multiple-Sheets
+    /**
+     * <p>
+     * XSSFRow-Array containing a total of 36 rows, 9 rows per sheet/table.<br>
+     * First array-dimension is the identifier for the sheet and the second array-dimension is the row of the sheet.
+     * <p>
+     * XSSFRow[x][y] ->
+     *      x: from 0 to 3,
+     *      y: from 0 to 8.
+     * <br><br>
+     * @apiNote
+     * Used when the data is stored in four different sheets, each containing one table.
+     *
+     * @see org.apache.poi.xssf.usermodel.XSSFRow
+     */
     private XSSFRow[][] rowies;
+
+    /**
+     * <p>
+     * XSSFCell-Array containing total of 396 cells, 99 per sheet/table, 11 per row.<br>
+     * First array-dimension is the identifier for the sheet, the second array-dimension is the identifier for the row and
+     * the third array-dimension is the cell in the row of a sheet.
+     * <p>
+     * XSSFCell[x][y][z] ->
+     *      x: from 0 to 3,
+     *      y: from 0 to 8.
+     *      z: from 0 to 10.
+     * <br><br>
+     * @apiNote
+     * Used when the data is stored in four different sheets containing one table.
+     *
+     * @see org.apache.poi.xssf.usermodel.XSSFCell
+     */
     private XSSFCell[][][] cellies;
 
+    /**
+     *
+     */
     private boolean multipleSheets;
 
 
@@ -104,10 +142,12 @@ public class ExcelWriter {
         if (multipleSheets) {
             initColumnsAndRowsInMultipleSheets();
             writeRowAndColumnNamesMultipleSheet();
+            //TODO before styling the data from the algorithms should be written into the tables.
             styleRowsAndColumnsInMultipleSheets();
         } else {
             initColumnsAndRowsInOneSheet();
             writeRowAndColumnNamesOneSheet();
+            //TODO before styling the data from the algorithms should be written into the tables.
             styleRowsAndColumnsInOneSheet();
         }
     }
@@ -126,9 +166,9 @@ public class ExcelWriter {
 
     /**
      * Creates a XSSFCellStyle object which contains styling of the borders.
-     * Border on the Bottom, the Top, the Right and zhe Left are all thin, black borders.
+     * Border on the Bottom, the Top, the Right and the Left are all thin, black borders.<br><br>
      *
-     * XSSFCellStyle can be used to apply a Style to cells.
+     * XSSFCellStyle can be used to apply a Style to cells.<br><br>
      *
      * @return XSSFCellStyle object containing border styling
      */
@@ -155,12 +195,14 @@ public class ExcelWriter {
 
     // OneSheet-Methods
     /**
+     * <p>
      * Creates 39 rows and to each row 11 cells.
-     * Creates all rows and cells in one Excel-Sheet.
-     * Total of cells: 429
+     * Creates all rows and cells in one Excel-Sheet.<br>
+     * Total of cells: 429<br>
      *
-     * Note: Used if all Algorithms sort all Files
-     *       Used when the data is stored in one Sheet containing multiple tables.
+     * @apiNote
+     * Used if all Algorithms sort all Files<br>
+     * Used when the data is stored in one sheet containing multiple tables.
      */
     private void initColumnsAndRowsInOneSheet() {
         for (int i = 0; i < 39; i++) {
@@ -174,15 +216,17 @@ public class ExcelWriter {
     }
 
     /**
+     * <p>
      * Styles the rows, columns and cells of the ExcelFile given in the constructor.
      * It auto-sizes the columns, which contain text so the text doesn't overlap.
      * It sets the width of the 2nd column(in Excel column B), which is used to make the table look better.
      * It sets the height of the rows, which used to make the tables look better.
      * And it adds borders to te cells, which are used to create the tables.
-     * The rows in between two tables will get no borders.
+     * The rows in between two tables will get no borders.<br>
      *
-     * Note: Used if all Algorithms sort all Files.
-     *       Used when the data is stored in one Sheet containing multiple tables.
+     * @apiNote
+     * Used if all Algorithms sort all Files.<br>
+     * Used when the data is stored in one sheet containing multiple tables.
      */
     private void styleRowsAndColumnsInOneSheet() {
         // set auto-sizing to the necessary columns
@@ -225,9 +269,9 @@ public class ExcelWriter {
 
     /**
      *
-     *
-     * Note: used if all Algorithms sort all Files.
-     *       used when the data is stored in one Sheet containing multiple tables.
+     * @apiNote
+     * Used if all Algorithms sort all Files.<br>
+     * Used when the data is stored in one sheet containing multiple tables.
      */
     private void writeRowAndColumnNamesOneSheet() {
         cells[0][0].setCellValue("Benötigte Zeit");
@@ -255,12 +299,14 @@ public class ExcelWriter {
 
     // MultipleSheet-Methods
     /**
-     * Creates 9 rows to each of the 4 tables in the 4 Excel-Sheets and to each row 11 cells.
-     * Total of cells per sheet/table: 99
-     * Total of cells: 396
+     * <p>
+     * Creates 9 rows to each of the 4 tables in the 4 Excel-Sheets and to each row 11 cells.<br>
+     * Total of cells per sheet/table: 99<br>
+     * Total of cells: 396<br>
      *
-     * Note: Used if all Algorithms sort all Files.
-     *       Used when the data is stored in multiple sheets each containing one table.
+     * @apiNote
+     * Used if all Algorithms sort all Files.<br>
+     * Used when the data is stored in four different sheets each containing one table.
      */
     public void initColumnsAndRowsInMultipleSheets() {
         for (int i = 0; i < 4; i++) {
@@ -278,8 +324,9 @@ public class ExcelWriter {
     /**
      *
      *
-     * Note: Used if all Algorithms sort all Files.
-     *       Used when the data is stored in multiple sheets each containing one table.
+     * @apiNote
+     * Used if all Algorithms sort all Files.<br>
+     * Used when the data is stored in four different sheets each containing one table.
      */
     private void styleRowsAndColumnsInMultipleSheets() {
         for (int i = 0; i < 4; i++) {
@@ -319,8 +366,9 @@ public class ExcelWriter {
     /**
      *
      *
-     * Note: Used if all Algorithms sort all Files.
-     *       Used when the data is stored in multiple sheets each containing one table.
+     * @apiNote
+     * Used if all Algorithms sort all Files.<br>
+     * Used when the data is stored in four different sheets each containing one table.
      */
     private void writeRowAndColumnNamesMultipleSheet() {
         cellies[0][0][0].setCellValue("Benötigte Zeit");

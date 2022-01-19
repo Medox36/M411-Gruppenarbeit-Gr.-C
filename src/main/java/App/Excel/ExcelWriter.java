@@ -14,7 +14,7 @@ import java.util.Vector;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.1.0
+ * @version 0.1.1
  */
 public class ExcelWriter {
 
@@ -23,7 +23,7 @@ public class ExcelWriter {
      *
      * @see ExcelFile
      */
-    private ExcelFile excelFile;
+    private final ExcelFile excelFile;
 
     /**
      * High level representation of an Excel workbook. This object is used for reading or writing a workbook.
@@ -32,7 +32,7 @@ public class ExcelWriter {
      * @see org.apache.poi.xssf.usermodel.XSSFWorkbook
      * @see org.apache.poi.ss.usermodel.Workbook
      */
-    private XSSFWorkbook workbook;
+    private final XSSFWorkbook workbook;
 
     /**
      * XSSFSheet-Array containing all the sheets,
@@ -107,13 +107,8 @@ public class ExcelWriter {
      * If boolean is false: th data will be written to one single sheet.
      *
      */
-    private boolean multipleSheets;
+    private final boolean multipleSheets;
 
-
-    public ExcelWriter() {
-        // TODO create new ExcelFile and crate new XSSFWorkbook
-        // TODO create Sheet in the ExcelFile
-    }
 
     public ExcelWriter(ExcelFile excelFile, boolean multipleSheets) throws IOException {
         this.excelFile = excelFile;
@@ -153,13 +148,9 @@ public class ExcelWriter {
         if (multipleSheets) {
             initColumnsAndRowsInMultipleSheets();
             writeRowAndColumnNamesMultipleSheet();
-            //TODO before styling the data from the algorithms should be written into the tables.
-            styleRowsAndColumnsInMultipleSheets();
         } else {
             initColumnsAndRowsInOneSheet();
             writeRowAndColumnNamesOneSheet();
-            //TODO before styling the data from the algorithms should be written into the tables.
-            styleRowsAndColumnsInOneSheet();
         }
     }
 
@@ -178,8 +169,10 @@ public class ExcelWriter {
     public void write(Vector<long[]> data) throws DataArraySyntaxException {
         if (multipleSheets) {
             writeToMultipleSheets(data);
+            styleRowsAndColumnsInMultipleSheets();
         } else {
             writeToOneSheet(data);
+            styleRowsAndColumnsInOneSheet();
         }
     }
 

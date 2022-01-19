@@ -14,7 +14,7 @@ import java.util.Vector;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.0.17
+ * @version 0.0.18
  */
 public class ExcelWriter {
 
@@ -300,7 +300,7 @@ public class ExcelWriter {
 
     /**
      * <p>
-     * Will write the changes to the .xlsx-file.
+     * Will write the changes to the .xlsx-file given in the constructor.
      * <p>
      * After writing the workbook wil be closed and the FileOutputStream, which is opened to write to the .xlsx-file
      * will be closed as well.<br><br>

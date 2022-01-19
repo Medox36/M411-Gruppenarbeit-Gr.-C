@@ -12,6 +12,7 @@ public class MergeSort extends Thread implements SortingInterface {
 
     public MergeSort(Vector<Integer> array) {
         this.array = array;
+        start();
     }
     @Override
     public void run() {

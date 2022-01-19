@@ -7,18 +7,22 @@ public class QuickSort extends Thread implements SortingInterface {
     private long timeForSorting = 0;
     private long amountOfComparisons = 0;
     private long storageSpaceRequired = 0;
+    private Vector<Integer> array;
     private int[] arr;
     private int temp;
 
     public QuickSort(Vector<Integer> array) {
+        this.array = array;
+        start();
+    }
+    @Override
+    public void run() {
         storageSpaceRequired += mc.getMemorySpace(array);
         arr = new int[array.size()];
         for (int i = 0; i < array.size(); i++) {
             arr[i] = array.get(i);
         }
-    }
-    @Override
-    public void run() {
+
         timeForSorting = System.nanoTime();
         _quickSort(0, arr.length - 1);
         timeForSorting = System.nanoTime() - timeForSorting;

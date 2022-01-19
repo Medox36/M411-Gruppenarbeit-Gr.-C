@@ -12,6 +12,7 @@ public class InsertionSort extends Thread implements SortingInterface {
 
     public InsertionSort(Vector<Integer> array) {
         this.array = array;
+        start();
     }
     @Override
     public void run() {

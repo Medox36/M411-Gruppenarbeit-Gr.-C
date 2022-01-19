@@ -12,6 +12,7 @@ public class BinaryTreeSort extends Thread implements SortingInterface {
 
     public BinaryTreeSort(Vector<Integer> array) {
         this.array = array;
+        this.start();
     }
     @Override
     public void run() {

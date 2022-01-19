@@ -14,7 +14,7 @@ import java.util.Vector;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.0.18
+ * @version 0.0.19
  */
 public class ExcelWriter {
 
@@ -422,17 +422,23 @@ public class ExcelWriter {
     }
 
     /**
+     * Writes the column headers and the row headers into the correct cells.
+     * So it becomes clear what the data in the table is about.<br>
+     * The column headers contain the file names and the topic and
+     * the row headers contain the algorithm names.<br><br>
      *
      * @apiNote
      * Used if all Algorithms sort all Files.<br>
      * Used when the data is stored in one sheet containing multiple tables.
      */
     private void writeRowAndColumnNamesOneSheet() {
+        // add the topics
         cells[0][0].setCellValue("Benötigte Zeit");
         cells[10][0].setCellValue("Anzahl Vergleiche");
         cells[20][0].setCellValue("Anzahl Schreibzugriffe");
         cells[30][0].setCellValue("Speicherbedarf");
 
+        // add th file names as column headers
         String[] files = {"InversTeilsortiert1000", "InversTeilsortiert10000", "InversTeilsortiert100000",
                 "Ramdom1000", "Ramdom10000", "Ramdom100000",
                 "Teilsortiert1000", "Teilsortiert10000", "Teilsortiert100000"};
@@ -442,6 +448,8 @@ public class ExcelWriter {
             cells[20][(i+2)].setCellValue(files[i]);
             cells[30][(i+2)].setCellValue(files[i]);
         }
+
+        // add the algorithm names as row headers
         String[] algorithms = {"BinaryTreeSort", "BubbleSort", "HeapSort",
                 "InsertionSort", "MergeSort", "QuickSort", "ShakerSort"};
         for (int i = 2; i < 33; i+=10) {
@@ -476,7 +484,13 @@ public class ExcelWriter {
     }
 
     /**
-     *
+     * <p>
+     * Styles the rows, columns and cells of the ExcelFile given in the constructor.
+     * It auto-sizes the columns, which contain text so the text doesn't overlap.
+     * It sets the width of the 2nd column(in Excel column B), which is used to make the table look better.
+     * It sets the height of the rows, which used to make the tables look better.
+     * And it adds borders to te cells, which are used to create the tables.
+     * The rows in between two tables will get no borders.<br>
      *
      * @apiNote
      * Used if all Algorithms sort all Files.<br>
@@ -518,7 +532,10 @@ public class ExcelWriter {
     }
 
     /**
-     *
+     * Writes the column headers and the row headers into the correct cells.
+     * So it becomes clear what the data in the table is about.<br>
+     * The column headers contain the file names and the topic and
+     * the row headers contain the algorithm names.<br><br>
      *
      * @apiNote
      * Used if all Algorithms sort all files.<br>

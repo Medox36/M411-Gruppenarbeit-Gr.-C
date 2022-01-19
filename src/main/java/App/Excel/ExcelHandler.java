@@ -1,5 +1,7 @@
 package App.Excel;
 
+import App.DataArraySyntaxException;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Vector;
@@ -9,7 +11,7 @@ import java.util.Vector;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.0.5
+ * @version 0.0.6
  */
 public class ExcelHandler {
     private ExcelFile excelFile;
@@ -54,7 +56,11 @@ public class ExcelHandler {
     }
 
     public void write(Vector<long[]> data) {
-        excelWriter.write(data);
+        try {
+            excelWriter.write(data);
+        } catch (DataArraySyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     public void writeAndFinish() {

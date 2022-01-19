@@ -13,7 +13,7 @@ import java.util.Vector;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.0.15
+ * @version 0.0.16
  */
 public class ExcelWriter {
 
@@ -163,7 +163,7 @@ public class ExcelWriter {
     }
 
     /**
-     * Will write the data, given in a Vector<long[]>, into the right place in the tables.<br><br>
+     * Will write the data, given in a Vector, into the right place in the tables.<br><br>
      *
      * @param data Vector of type long[], containing data from the sorting through the algorithms.
      *
@@ -173,17 +173,51 @@ public class ExcelWriter {
      * @see Sorting#updateSortingResults()
      */
     public void write(Vector<long[]> data) {
+        if (multipleSheets) {
+            writeToMultipleSheets(data);
+        } else {
+            writeToOneSheet(data);
+        }
+    }
 
+    /**
+     * Will write the data, given in a Vector, into the right place in the tables in one single sheet.<br><br>
+     *
+     * @param data Vector of type long[], containing data from the sorting through the algorithms.
+     *
+     * @apiNote
+     * Used if all Algorithms sort all files.<br>
+     * Used when the data is stored in one sheet containing multiple tables.
+     */
+    private void writeToOneSheet(Vector<long[]> data) {
+        
+    }
+
+    /**
+     * Will write the data, given in a Vector, into the right place in the tables in four multiple sheets.<br><br>
+     *
+     * @param data Vector of type long[], containing data from the sorting through the algorithms.
+     *
+     * @apiNote
+     * Used if all Algorithms sort all Files.<br>
+     * Used when the data is stored in one sheet containing multiple tables.
+     */
+    private void writeToMultipleSheets(Vector<long[]> data) {
+        
     }
 
     /**
      * <p>
      * Will write the changes to the .xlsx-file.
      * <p>
-     * After writing the workbook wil be closed and the FileOutputStream, which is opened to write to the .xlsx-File
-     * will be closed as well.
-     *
+     * After writing the workbook wil be closed and the FileOutputStream, which is opened to write to the .xlsx-file
+     * will be closed as well.<br><br>
+     * 
      * @throws IOException if the file either doesn't exist or it can't be written to.
+     * 
+     * @apiNote
+     * After calling this method the ExelWriter instance must not be used again. Doing so can cause multiple problems, 
+     * because a closed Workbook can't be opened again.
      */
     public void finish() throws IOException {
         OutputStream out = new FileOutputStream(excelFile);
@@ -229,7 +263,7 @@ public class ExcelWriter {
      * Total of cells: 429<br>
      *
      * @apiNote
-     * Used if all Algorithms sort all Files<br>
+     * Used if all Algorithms sort all files<br>
      * Used when the data is stored in one sheet containing multiple tables.
      */
     private void initColumnsAndRowsInOneSheet() {
@@ -253,7 +287,7 @@ public class ExcelWriter {
      * The rows in between two tables will get no borders.<br>
      *
      * @apiNote
-     * Used if all Algorithms sort all Files.<br>
+     * Used if all Algorithms sort all files.<br>
      * Used when the data is stored in one sheet containing multiple tables.
      */
     private void styleRowsAndColumnsInOneSheet() {
@@ -333,7 +367,7 @@ public class ExcelWriter {
      * Total of cells: 396<br>
      *
      * @apiNote
-     * Used if all Algorithms sort all Files.<br>
+     * Used if all Algorithms sort all files.<br>
      * Used when the data is stored in four different sheets each containing one table.
      */
     public void initColumnsAndRowsInMultipleSheets() {
@@ -395,7 +429,7 @@ public class ExcelWriter {
      *
      *
      * @apiNote
-     * Used if all Algorithms sort all Files.<br>
+     * Used if all Algorithms sort all files.<br>
      * Used when the data is stored in four different sheets each containing one table.
      */
     private void writeRowAndColumnNamesMultipleSheet() {

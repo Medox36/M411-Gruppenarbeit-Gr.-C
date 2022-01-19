@@ -14,7 +14,7 @@ import java.util.Vector;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.0.19
+ * @version 0.1.0
  */
 public class ExcelWriter {
 

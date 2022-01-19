@@ -13,7 +13,7 @@ import java.util.Vector;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.0.14
+ * @version 0.0.15
  */
 public class ExcelWriter {
 
@@ -136,7 +136,7 @@ public class ExcelWriter {
     }
 
     /**
-     * Removes all the existing sheets of the given ExcelFile in the constructor
+     * Removes all the existing sheets of the ExcelFile given in the constructor
      */
     private void removeExistingSheets() {
         for (int i = workbook.getNumberOfSheets() - 1; i >= 0; i--) {

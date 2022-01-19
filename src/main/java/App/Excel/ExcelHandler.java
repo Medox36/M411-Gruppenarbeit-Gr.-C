@@ -2,6 +2,7 @@ package App.Excel;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Vector;
 
 /**
  *
@@ -52,7 +53,15 @@ public class ExcelHandler {
         excelWriter.initFile();
     }
 
+    public void write(Vector<long[]> data) {
+        excelWriter.write(data);
+    }
+
     public void writeAndFinish() {
-        excelWriter.writeAndFinish();
+        try {
+            excelWriter.finish();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

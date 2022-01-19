@@ -1,17 +1,19 @@
 package App.Excel;
 
+import App.Sorting;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.xssf.usermodel.*;
 
 import java.io.*;
+import java.util.Vector;
 
 /**
  *
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.0.13
+ * @version 0.0.14
  */
 public class ExcelWriter {
 
@@ -23,14 +25,17 @@ public class ExcelWriter {
     private ExcelFile excelFile;
 
     /**
+     * High level representation of an Excel workbook. This object is used for reading or writing a workbook.
+     * It is also the top level object for creating new sheets/etc.
      *
      * @see org.apache.poi.xssf.usermodel.XSSFWorkbook
+     * @see org.apache.poi.ss.usermodel.Workbook
      */
     private XSSFWorkbook workbook;
 
     /**
      * XSSFSheet-Array containing all the sheets,
-     * either containing 1 sheet, when all data is in one sheet
+     * either containing 1 sheet, when all data is stored in one sheet
      * or containing 4 sheets, when the data is stored in multiple sheets each containing one table.
      *
      * @see org.apache.poi.xssf.usermodel.XSSFSheet
@@ -94,6 +99,11 @@ public class ExcelWriter {
     private XSSFCell[][][] cellies;
 
     /**
+     * <p>
+     * Signalizing if the ExcelWriter stores/writes the data in one or four different sheets.
+     * <p>
+     * If boolean is true: the data will be written to four different sheets.<br>
+     * If boolean is false: th data will be written to one single sheet.
      *
      */
     private boolean multipleSheets;
@@ -152,16 +162,34 @@ public class ExcelWriter {
         }
     }
 
-    public void writeAndFinish() {
-        try {
-            OutputStream out = new FileOutputStream(excelFile);
-            workbook.write(out);
-            out.close();
-            workbook.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    /**
+     * Will write the data, given in a Vector<long[]>, into the right place in the tables.<br><br>
+     *
+     * @param data Vector of type long[], containing data from the sorting through the algorithms.
+     *
+     * @apiNote
+     * Can be used when the data is stored in one sheet or four different sheets.
+     *
+     * @see Sorting#updateSortingResults()
+     */
+    public void write(Vector<long[]> data) {
 
+    }
+
+    /**
+     * <p>
+     * Will write the changes to the .xlsx-file.
+     * <p>
+     * After writing the workbook wil be closed and the FileOutputStream, which is opened to write to the .xlsx-File
+     * will be closed as well.
+     *
+     * @throws IOException if the file either doesn't exist or it can't be written to.
+     */
+    public void finish() throws IOException {
+        OutputStream out = new FileOutputStream(excelFile);
+        workbook.write(out);
+        out.close();
+        workbook.close();
     }
 
     /**

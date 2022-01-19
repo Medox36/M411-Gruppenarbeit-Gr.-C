@@ -1,6 +1,7 @@
 package App.Excel;
 
 import App.Sorting;
+import App.DataArraySyntaxException;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.xssf.usermodel.*;
@@ -13,7 +14,7 @@ import java.util.Vector;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.0.16
+ * @version 0.0.17
  */
 public class ExcelWriter {
 
@@ -167,12 +168,14 @@ public class ExcelWriter {
      *
      * @param data Vector of type long[], containing data from the sorting through the algorithms.
      *
+     * @throws DataArraySyntaxException when the method finds that the array isn't matching the syntax logic.
+     *
      * @apiNote
      * Can be used when the data is stored in one sheet or four different sheets.
      *
      * @see Sorting#updateSortingResults()
      */
-    public void write(Vector<long[]> data) {
+    public void write(Vector<long[]> data) throws DataArraySyntaxException {
         if (multipleSheets) {
             writeToMultipleSheets(data);
         } else {
@@ -185,12 +188,58 @@ public class ExcelWriter {
      *
      * @param data Vector of type long[], containing data from the sorting through the algorithms.
      *
+     * @throws DataArraySyntaxException when the method finds that the array isn't matching the syntax logic.
+     *
      * @apiNote
      * Used if all Algorithms sort all files.<br>
      * Used when the data is stored in one sheet containing multiple tables.
      */
-    private void writeToOneSheet(Vector<long[]> data) {
-        
+    private void writeToOneSheet(Vector<long[]> data) throws DataArraySyntaxException {
+        // counter for knowing which of the 4 data categories is written to the cell
+        int h = 0;
+
+        // counter to iterate through the data Vector<long[]>
+        int k = 0;
+
+        //rows
+        for (int i = 0; i < 39; i++) {
+            // rows to skip
+            if (i == 0||i == 1||i == 9||i == 10||i == 11||i == 19||i == 20||i == 21||i == 29||i == 30||i == 31) {
+                continue;
+            }
+            // cell
+            for (int j = 0; j < 11; j++) {
+                // cells to skip
+                if (j == 0||j == 1) {
+                    continue;
+                }
+                long[] arr = data.get(k);
+                // check if the syntax logic for the arrays has been followed correctly
+                if (arr[0] != k) {
+                    throw new DataArraySyntaxException();
+                }
+                // time
+                if (h == 0) {
+                    cells[i][j].setCellValue(arr[2]);
+                }
+                // comparisons
+                if (h == 1) {
+                    cells[i][j].setCellValue(arr[1]);
+                }
+                // write changes
+                if (h == 2) {
+                    cells[i][j].setCellValue(arr[4]);
+                }
+                // memory
+                if (h == 3) {
+                    cells[i][j].setCellValue(arr[3]);
+                }
+                k++;
+            }
+            if (i == 8||i == 18||i == 28) {
+                h++;
+            }
+        }
     }
 
     /**
@@ -198,12 +247,55 @@ public class ExcelWriter {
      *
      * @param data Vector of type long[], containing data from the sorting through the algorithms.
      *
+     * @throws DataArraySyntaxException when the method finds that the array isn't matching the syntax logic.
+     *
      * @apiNote
      * Used if all Algorithms sort all Files.<br>
      * Used when the data is stored in one sheet containing multiple tables.
      */
-    private void writeToMultipleSheets(Vector<long[]> data) {
-        
+    private void writeToMultipleSheets(Vector<long[]> data) throws DataArraySyntaxException {
+        // counter to iterate through the data Vector<long[]>
+        int h = 0;
+
+        // sheets
+        for (int i = 0; i < 4; i++) {
+            // rows
+            for (int j = 0; j < 9; j++) {
+                // rows to skip
+                if (j == 0||j == 1) {
+                    continue;
+                }
+                // cells
+                for (int k = 0; k < 11; k++) {
+                    // cells to skip
+                    if (k == 0||k==1) {
+                        continue;
+                    }
+                    long[] arr = data.get(h);
+                    // check if the syntax logic for the arrays has been followed correctly
+                    if (arr[0] != k) {
+                        throw new DataArraySyntaxException();
+                    }
+                    // time
+                    if (i == 0) {
+                        cellies[i][j][k].setCellValue(arr[2]);
+                    }
+                    // comparisons
+                    if (i == 1) {
+                        cellies[i][j][k].setCellValue(arr[1]);
+                    }
+                    // write changes
+                    if (i == 2) {
+                        cellies[i][j][k].setCellValue(arr[4]);
+                    }
+                    // memory
+                    if (i == 3) {
+                        cellies[i][j][k].setCellValue(arr[3]);
+                    }
+                    h++;
+                }
+            }
+        }
     }
 
     /**
@@ -308,7 +400,7 @@ public class ExcelWriter {
 
         // set the height of the selected rows 1, 11, 21 and 31 to 11 Points = 22 Pixels(measurement of Excel)
         for (int i = 0; i < 39; i++) {
-            if (i == 1 || i == 11 || i == 21 || i == 31) {
+            if (i == 1||i == 11||i == 21||i == 31) {
                 rows[i].setHeightInPoints(11);
             }
         }
@@ -319,7 +411,7 @@ public class ExcelWriter {
         // apply the style to all cells off all rows, except for rows 9, 19 and 29
         for (int i = 0; i < 39; i++) {
             // leave out rows 9, 19 and 29
-            if (i == 9||i == 19 ||i == 29) {
+            if (i == 9||i == 19||i == 29) {
                 continue;
             }
             for (int j = 0; j < 11; j++) {

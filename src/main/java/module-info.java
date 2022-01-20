@@ -9,4 +9,6 @@ module App {
     exports App;
     exports App.SortClasses;
     opens App.SortClasses to javafx.graphics;
+    exports App.Excel;
+    opens App.Excel to javafx.graphics;
 }

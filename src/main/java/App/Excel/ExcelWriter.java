@@ -1,7 +1,6 @@
 package App.Excel;
 
 import App.Sorting;
-import App.DataArraySyntaxException;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.xssf.usermodel.*;

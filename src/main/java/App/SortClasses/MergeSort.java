@@ -1,21 +1,19 @@
 package App.SortClasses;
 
+import App.ArrayCopier;
+import App.SortingInterface;
+
 import java.util.Vector;
 
-public class MergeSort extends Thread implements SortingInterface {
+public class MergeSort extends ArrayCopier implements SortingInterface {
     private long writeChanges = 0;
     private long timeForSorting = 0;
     private long amountOfComparisons = 0;
     private long storageSpaceRequired = 0;
-    private Vector<Integer> array;
-    private int temp;
 
-    public MergeSort(Vector<Integer> array) {
-        this.array = array;
-        start();
-    }
+
     @Override
-    public void run() {
+    public void run(Vector<Integer> array) {
 
     }
 

@@ -1,27 +1,22 @@
 package App.SortClasses;
 
+import App.ArrayCopier;
+import App.SortingInterface;
+
 import java.util.Vector;
 
-public class ShakerSort extends Thread implements SortingInterface {
+public class ShakerSort extends ArrayCopier implements SortingInterface {
     private long writeChanges = 0;
     private long timeForSorting = 0;
     private long amountOfComparisons = 0;
     private long storageSpaceRequired = 0;
-    private Vector<Integer> array;
     private int[] arr;
     private int temp;
 
-    public ShakerSort(Vector<Integer> array) {
-        this.array = array;
-        start();
-    }
     @Override
-    public void run() {
+    public void run(Vector<Integer> array) {
+        arr = copyVectorToArray(array);
         storageSpaceRequired += mc.getMemorySpace(array);
-        arr = new int[array.size()];
-        for (int i = 0; i < array.size(); i++) {
-            arr[i] = array.get(i);
-        }
         timeForSorting = System.nanoTime();
         sort();
         timeForSorting = System.nanoTime() - timeForSorting;

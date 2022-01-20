@@ -1,6 +1,8 @@
-package App.SortClasses;
+package App;
 
 import App.MemoryCalculator;
+
+import java.util.Vector;
 
 /**
  *
@@ -12,6 +14,7 @@ import App.MemoryCalculator;
 public interface SortingInterface {
     MemoryCalculator mc = new MemoryCalculator();
 
+    void run(Vector<Integer> array);
     /**
      * @return The amount of write changes
      */

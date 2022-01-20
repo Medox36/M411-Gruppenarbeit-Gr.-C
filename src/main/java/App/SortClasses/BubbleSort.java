@@ -1,30 +1,28 @@
 package App.SortClasses;
 
+import App.SortingInterface;
+
 import java.util.Vector;
 
-public class BubbleSort extends Thread implements SortingInterface {
+public class BubbleSort implements SortingInterface {
     private long writeChanges = 0;
     private long timeForSorting = 0;
     private long amountOfComparisons = 0;
     private long storageSpaceRequired = 0;
-    private int[] arr;
 
-  public BubbleSort(Vector<Integer> array) {
-      storageSpaceRequired += mc.getMemorySpace(array);
-      arr = new int[array.size()];
-      for (int i = 0; i < array.size(); i++) {
-          arr[i] = array.get(i);
-      }
-      start();
-    }
     @Override
-    public void run() {
+    public void run(Vector<Integer> array) {
+        int[] arr = new int[array.size()];
+        storageSpaceRequired += mc.getMemorySpace(array);
+        for (int i = 0; i < array.size(); i++) {
+            arr[i] = array.get(i);
+        }
         timeForSorting = System.nanoTime();
-        sort();
+        sort(arr);
         timeForSorting = System.nanoTime() - timeForSorting;
     }
     
-    public void sort () {
+    public void sort(int[] arr) {
       int i,j,temp,n=7;
       
         for(i=0;i<n;i++)
@@ -39,12 +37,6 @@ public class BubbleSort extends Thread implements SortingInterface {
                 }
             }
         }
-        System.out.println("The arr after sorting is: \n");
-        for(i=0;i<n;i++)
-        {
-            System.out.print(arr[i]);
-        } 
-
     }
 
     @Override

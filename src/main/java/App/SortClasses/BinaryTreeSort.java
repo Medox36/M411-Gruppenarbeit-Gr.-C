@@ -1,21 +1,17 @@
 package App.SortClasses;
 
+import App.SortingInterface;
+
 import java.util.Vector;
 
-public class BinaryTreeSort extends Thread implements SortingInterface {
+public class BinaryTreeSort implements SortingInterface {
     private long writeChanges = 0;
     private long timeForSorting = 0;
     private long amountOfComparisons = 0;
     private long storageSpaceRequired = 0;
-    private Vector<Integer> array;
-    private int temp;
 
-    public BinaryTreeSort(Vector<Integer> array) {
-        this.array = array;
-        this.start();
-    }
     @Override
-    public void run() {
+    public void run(Vector<Integer> array) {
 
     }
 

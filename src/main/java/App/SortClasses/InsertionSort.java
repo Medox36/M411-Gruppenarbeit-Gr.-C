@@ -1,21 +1,18 @@
 package App.SortClasses;
 
+import App.ArrayCopier;
+import App.SortingInterface;
+
 import java.util.Vector;
 
-public class InsertionSort extends Thread implements SortingInterface {
+public class InsertionSort extends ArrayCopier implements SortingInterface {
     private long writeChanges = 0;
     private long timeForSorting = 0;
     private long amountOfComparisons = 0;
     private long storageSpaceRequired = 0;
-    private Vector<Integer> array;
-    private int temp;
 
-    public InsertionSort(Vector<Integer> array) {
-        this.array = array;
-        start();
-    }
     @Override
-    public void run() {
+    public void run(Vector<Integer> array) {
 
     }
 

@@ -5,7 +5,7 @@ import App.SortingInterface;
 
 import java.util.Vector;
 
-public class QuickSort extends ArrayCopier implements SortingInterface {
+public class QuickSort2 extends ArrayCopier implements SortingInterface {
     private long writeChanges = 0;
     private long timeForSorting = 0;
     private long amountOfComparisons = 0;

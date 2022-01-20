@@ -1,21 +1,26 @@
 package App.SortClasses;
 
+import App.ArrayCopier;
+import App.SortingInterface;
+
 import java.util.Vector;
 
-public class HeapSort extends Thread implements SortingInterface {
+public class HeapSort extends ArrayCopier implements SortingInterface {
     private long writeChanges = 0;
     private long timeForSorting = 0;
     private long amountOfComparisons = 0;
     private long storageSpaceRequired = 0;
-    private Vector<Integer> array;
-    private int temp;
 
-    public HeapSort(Vector<Integer> array) {
-        this.array = array;
-        start();
-    }
+
     @Override
-    public void run() {
+    public void run(Vector<Integer> array) {
+        storageSpaceRequired += mc.getMemorySpace(array);
+        timeForSorting = System.nanoTime();
+        sort(copyVectorToArray(array));
+        timeForSorting = System.nanoTime() - timeForSorting;
+    }
+
+    public void sort(int[] arr) {
 
     }
 

@@ -11,11 +11,10 @@ import java.util.Vector;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.0.6
+ * @version 0.0.7
  */
 public class ExcelHandler {
     private ExcelFile excelFile;
-    private ExcelReader excelReader;
     private ExcelWriter excelWriter;
 
     /**
@@ -28,7 +27,6 @@ public class ExcelHandler {
             e.printStackTrace();
         }
         try {
-            excelReader = new ExcelReader(excelFile, false);
             excelWriter = new ExcelWriter(excelFile, false);
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,7 +42,6 @@ public class ExcelHandler {
     public ExcelHandler(ExcelFile excelFile, boolean multipleSheets) {
         this.excelFile = excelFile;
         try {
-            excelReader = new ExcelReader(excelFile, multipleSheets);
             excelWriter = new ExcelWriter(excelFile, multipleSheets);
         } catch (IOException e) {
             e.printStackTrace();
@@ -64,6 +61,20 @@ public class ExcelHandler {
     }
 
     public void writeAndFinish() {
+        try {
+            excelWriter.finish();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void initWriteAndFinish(Vector<long[]> data) {
+        excelWriter.initFile();
+        try {
+            excelWriter.write(data);
+        } catch (DataArraySyntaxException e) {
+            e.printStackTrace();
+        }
         try {
             excelWriter.finish();
         } catch (IOException e) {

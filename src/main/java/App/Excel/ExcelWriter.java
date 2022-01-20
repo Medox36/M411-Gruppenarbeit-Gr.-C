@@ -14,7 +14,7 @@ import java.util.Vector;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.1.1
+ * @version 0.2.0
  */
 public class ExcelWriter {
 
@@ -41,7 +41,7 @@ public class ExcelWriter {
      *
      * @see org.apache.poi.xssf.usermodel.XSSFSheet
      */
-    private XSSFSheet[] sheets;
+    private final XSSFSheet[] sheets;
 
     // One-Sheet
     /**
@@ -109,24 +109,45 @@ public class ExcelWriter {
      */
     private final boolean multipleSheets;
 
+    /**
+     * The maximum of rows in one sheet.
+     *
+     * @apiNote
+     * Used when the data is stored in one sheet containing multiple tables.
+     */
+    private final int MAX_ROWS_ONE_SHEET = 43;
+
+    /**
+     * The maximum of rows in one of four sheets.
+     *
+     * @apiNote
+     * Used when the data is stored in one sheet containing multiple tables.
+     */
+    private final int MAX_ROWS_MULTIPLE_SHEETS = 10;
+
+    /**
+     * The maximum of cells there can be in a row.
+     */
+    private final int MAX_CELLS_PER_ROW = 11;
+
 
     public ExcelWriter(ExcelFile excelFile, boolean multipleSheets) throws IOException {
         this.excelFile = excelFile;
         workbook = new XSSFWorkbookFactory().create(new FileInputStream(excelFile));
-        rows = new XSSFRow[39];
-        cells = new XSSFCell[39][11];
         this.multipleSheets = multipleSheets;
         removeExistingSheets();
         if (multipleSheets) {
             sheets = new XSSFSheet[4];
-            rowies = new XSSFRow[4][9];
-            cellies = new XSSFCell[4][9][11];
+            rowies = new XSSFRow[4][MAX_ROWS_MULTIPLE_SHEETS];
+            cellies = new XSSFCell[4][MAX_ROWS_MULTIPLE_SHEETS][MAX_CELLS_PER_ROW];
             sheets[0] = workbook.createSheet("Benötigte Zeit");
             sheets[1] = workbook.createSheet("Anzahl Vergleiche");
             sheets[2] = workbook.createSheet("Anzahl Schreibzugriffe");
             sheets[3] = workbook.createSheet("Speicherbedarf");
         } else {
             sheets = new XSSFSheet[1];
+            rows = new XSSFRow[MAX_ROWS_ONE_SHEET];
+            cells = new XSSFCell[MAX_ROWS_ONE_SHEET][MAX_CELLS_PER_ROW];
             sheets[0] = workbook.createSheet("Auswertung");
         }
     }
@@ -148,9 +169,11 @@ public class ExcelWriter {
         if (multipleSheets) {
             initColumnsAndRowsInMultipleSheets();
             writeRowAndColumnNamesMultipleSheet();
+            styleRowsAndColumnsInMultipleSheets();
         } else {
             initColumnsAndRowsInOneSheet();
             writeRowAndColumnNamesOneSheet();
+            styleRowsAndColumnsInOneSheet();
         }
     }
 
@@ -184,53 +207,34 @@ public class ExcelWriter {
      * @throws DataArraySyntaxException when the method finds that the array isn't matching the syntax logic.
      *
      * @apiNote
-     * Used if all Algorithms sort all files.<br>
      * Used when the data is stored in one sheet containing multiple tables.
      */
     private void writeToOneSheet(Vector<long[]> data) throws DataArraySyntaxException {
-        // counter for knowing which of the 4 data categories is written to the cell
-        int h = 0;
-
         // counter to iterate through the data Vector<long[]>
         int k = 0;
 
-        //rows
-        for (int i = 0; i < 39; i++) {
-            // rows to skip
-            if (i == 0||i == 1||i == 9||i == 10||i == 11||i == 19||i == 20||i == 21||i == 29||i == 30||i == 31) {
+        // counter to check the syntax logic of the array
+        int h = 0;
+
+        //rows, skipping row 0 and 1
+        for (int i = 2; i < MAX_ROWS_ONE_SHEET; i++) {
+            // further rows to skip
+            if (i == 10||i == 11||i == 12||i == 19||i == 21||i == 22||i == 23||i == 32||i == 33||i == 34) {
                 continue;
             }
-            // cell
-            for (int j = 0; j < 11; j++) {
-                // cells to skip
-                if (j == 0||j == 1) {
-                    continue;
-                }
+            // cell, skipping cell 0 and 1
+            for (int j = 2; j < MAX_CELLS_PER_ROW; j++) {
                 long[] arr = data.get(k);
                 // check if the syntax logic for the arrays has been followed correctly
-                if (arr[0] != k) {
+                if (arr[0] != h) {
                     throw new DataArraySyntaxException();
                 }
-                // time
-                if (h == 0) {
-                    cells[i][j].setCellValue(arr[2]);
-                }
-                // comparisons
-                if (h == 1) {
-                    cells[i][j].setCellValue(arr[1]);
-                }
-                // write changes
-                if (h == 2) {
-                    cells[i][j].setCellValue(arr[4]);
-                }
-                // memory
-                if (h == 3) {
-                    cells[i][j].setCellValue(arr[3]);
-                }
+                cells[i][j].setCellValue(arr[1]);
                 k++;
-            }
-            if (i == 8||i == 18||i == 28) {
                 h++;
+                if (h == 63) {
+                    h = 0;
+                }
             }
         }
     }
@@ -243,51 +247,32 @@ public class ExcelWriter {
      * @throws DataArraySyntaxException when the method finds that the array isn't matching the syntax logic.
      *
      * @apiNote
-     * Used if all Algorithms sort all Files.<br>
      * Used when the data is stored in one sheet containing multiple tables.
      */
     private void writeToMultipleSheets(Vector<long[]> data) throws DataArraySyntaxException {
         // counter to iterate through the data Vector<long[]>
         int h = 0;
 
+        // counter to check the syntax logic of the array
+        int l = 0;
+
         // sheets
         for (int i = 0; i < 4; i++) {
-            // rows
-            for (int j = 0; j < 9; j++) {
-                // rows to skip
-                if (j == 0||j == 1) {
-                    continue;
-                }
-                // cells
-                for (int k = 0; k < 11; k++) {
-                    // cells to skip
-                    if (k == 0||k==1) {
-                        continue;
-                    }
+            // rows, skipping row 0 and 1
+            for (int j = 2; j < MAX_ROWS_MULTIPLE_SHEETS; j++) {
+                // cells, skipping cell 0 and 1
+                for (int k = 2; k < MAX_CELLS_PER_ROW; k++) {
                     long[] arr = data.get(h);
                     // check if the syntax logic for the arrays has been followed correctly
-                    if (arr[0] != k) {
+                    if (arr[0] != l) {
                         throw new DataArraySyntaxException();
                     }
-                    // time
-                    if (i == 0) {
-                        cellies[i][j][k].setCellValue(arr[2]);
-                    }
-                    // comparisons
-                    if (i == 1) {
-                        cellies[i][j][k].setCellValue(arr[1]);
-                    }
-                    // write changes
-                    if (i == 2) {
-                        cellies[i][j][k].setCellValue(arr[4]);
-                    }
-                    // memory
-                    if (i == 3) {
-                        cellies[i][j][k].setCellValue(arr[3]);
-                    }
+                    cellies[i][j][k].setCellValue(arr[1]);
                     h++;
+                    l++;
                 }
             }
+            l = 0;
         }
     }
 
@@ -348,14 +333,13 @@ public class ExcelWriter {
      * Total of cells: 429<br>
      *
      * @apiNote
-     * Used if all Algorithms sort all files<br>
      * Used when the data is stored in one sheet containing multiple tables.
      */
     private void initColumnsAndRowsInOneSheet() {
-        for (int i = 0; i < 39; i++) {
+        for (int i = 0; i < MAX_ROWS_ONE_SHEET; i++) {
             // creating row
             rows[i] = sheets[0].createRow(i);
-            for (int j = 0; j < 11; j++) {
+            for (int j = 0; j < MAX_CELLS_PER_ROW; j++) {
                 // crating cell
                 cells[i][j] = rows[i].createCell(j);
             }
@@ -372,7 +356,6 @@ public class ExcelWriter {
      * The rows in between two tables will get no borders.<br>
      *
      * @apiNote
-     * Used if all Algorithms sort all files.<br>
      * Used when the data is stored in one sheet containing multiple tables.
      */
     private void styleRowsAndColumnsInOneSheet() {
@@ -391,9 +374,9 @@ public class ExcelWriter {
         // set the width of the remaining column to 22 Pixels(measurement of Excel)
         sheets[0].setColumnWidth(1, 512);
 
-        // set the height of the selected rows 1, 11, 21 and 31 to 11 Points = 22 Pixels(measurement of Excel)
-        for (int i = 0; i < 39; i++) {
-            if (i == 1||i == 11||i == 21||i == 31) {
+        // set the height of the selected rows 1, 12, 23 and 34 to 11 Points = 22 Pixels(measurement of Excel)
+        for (int i = 0; i < MAX_ROWS_ONE_SHEET; i++) {
+            if (i == 1||i == 12||i == 23||i == 34) {
                 rows[i].setHeightInPoints(11);
             }
         }
@@ -402,12 +385,12 @@ public class ExcelWriter {
         XSSFCellStyle style = getBorderCellStyle();
 
         // apply the style to all cells off all rows, except for rows 9, 19 and 29
-        for (int i = 0; i < 39; i++) {
-            // leave out rows 9, 19 and 29
-            if (i == 9||i == 19||i == 29) {
+        for (int i = 0; i < MAX_ROWS_ONE_SHEET; i++) {
+            // leave out rows 9, 21 and 32
+            if (i == 10||i == 21||i == 32) {
                 continue;
             }
-            for (int j = 0; j < 11; j++) {
+            for (int j = 0; j < MAX_CELLS_PER_ROW; j++) {
                 // apply the style
                 cells[i][j].setCellStyle(style);
             }
@@ -421,32 +404,33 @@ public class ExcelWriter {
      * the row headers contain the algorithm names.<br><br>
      *
      * @apiNote
-     * Used if all Algorithms sort all Files.<br>
      * Used when the data is stored in one sheet containing multiple tables.
      */
     private void writeRowAndColumnNamesOneSheet() {
         // add the topics
         cells[0][0].setCellValue("Benötigte Zeit");
-        cells[10][0].setCellValue("Anzahl Vergleiche");
-        cells[20][0].setCellValue("Anzahl Schreibzugriffe");
-        cells[30][0].setCellValue("Speicherbedarf");
+        cells[11][0].setCellValue("Anzahl Vergleiche");
+        cells[22][0].setCellValue("Anzahl Schreibzugriffe");
+        cells[33][0].setCellValue("Speicherbedarf");
 
-        // add th file names as column headers
+        // array containing al the names of the files containing the values wich are sorted.
         String[] files = {"InversTeilsortiert1000", "InversTeilsortiert10000", "InversTeilsortiert100000",
                 "Ramdom1000", "Ramdom10000", "Ramdom100000",
                 "Teilsortiert1000", "Teilsortiert10000", "Teilsortiert100000"};
+        // add th file names as column headers
         for (int i = 0; i < 9; i++) {
             cells[0][(i+2)].setCellValue(files[i]);
-            cells[10][(i+2)].setCellValue(files[i]);
-            cells[20][(i+2)].setCellValue(files[i]);
-            cells[30][(i+2)].setCellValue(files[i]);
+            cells[11][(i+2)].setCellValue(files[i]);
+            cells[22][(i+2)].setCellValue(files[i]);
+            cells[33][(i+2)].setCellValue(files[i]);
         }
 
-        // add the algorithm names as row headers
+        // array containing all the names of the algorithms
         String[] algorithms = {"BinaryTreeSort", "BubbleSort", "HeapSort",
-                "InsertionSort", "MergeSort", "QuickSort", "ShakerSort"};
-        for (int i = 2; i < 33; i+=10) {
-            for (int j = 0; j < 7; j++) {
+                "InsertionSort", "MergeSort", "QuickSort", "QuickSort2", "ShakerSort"};
+        // add the algorithm names as row headers
+        for (int i = 2; i < 36; i+=11) {
+            for (int j = 0; j < 8; j++) {
                 cells[i+j][0].setCellValue(algorithms[j]);
             }
         }
@@ -460,15 +444,14 @@ public class ExcelWriter {
      * Total of cells: 396<br>
      *
      * @apiNote
-     * Used if all Algorithms sort all files.<br>
      * Used when the data is stored in four different sheets each containing one table.
      */
     public void initColumnsAndRowsInMultipleSheets() {
         for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 9; j++) {
+            for (int j = 0; j < MAX_ROWS_MULTIPLE_SHEETS; j++) {
                 // creating row
                 rowies[i][j] = sheets[i].createRow(j);
-                for (int k = 0; k < 11; k++) {
+                for (int k = 0; k < MAX_CELLS_PER_ROW; k++) {
                     // creating cell
                     cellies[i][j][k] = rowies[i][j].createCell(k);
                 }
@@ -486,7 +469,6 @@ public class ExcelWriter {
      * The rows in between two tables will get no borders.<br>
      *
      * @apiNote
-     * Used if all Algorithms sort all Files.<br>
      * Used when the data is stored in four different sheets each containing one table.
      */
     private void styleRowsAndColumnsInMultipleSheets() {
@@ -515,8 +497,8 @@ public class ExcelWriter {
 
         // apply the style to all cells off all rows of all sheets
         for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 9; j++) {
-                for (int k = 0; k < 11; k++) {
+            for (int j = 0; j < MAX_ROWS_MULTIPLE_SHEETS; j++) {
+                for (int k = 0; k < MAX_CELLS_PER_ROW; k++) {
                     // apply the style
                     cellies[i][j][k].setCellStyle(style);
                 }
@@ -531,28 +513,33 @@ public class ExcelWriter {
      * the row headers contain the algorithm names.<br><br>
      *
      * @apiNote
-     * Used if all Algorithms sort all files.<br>
      * Used when the data is stored in four different sheets each containing one table.
      */
     private void writeRowAndColumnNamesMultipleSheet() {
+        // add the topics
         cellies[0][0][0].setCellValue("Benötigte Zeit");
         cellies[1][0][0].setCellValue("Anzahl Vergleiche");
         cellies[2][0][0].setCellValue("Anzahl Schreibzugriffe");
         cellies[3][0][0].setCellValue("Speicherbedarf");
 
-        String[] algorithms = {"BinaryTreeSort", "BubbleSort", "HeapSort",
-                "InsertionSort", "MergeSort", "QuickSort", "ShakerSort"};
-        for (int i = 0; i < 4; i++) {
-            for (int j = 2; j < 9; j++) {
-                cellies[i][j][0].setCellValue(algorithms[j-2]);
-            }
-        }
+        // array containing al the names of the files containing the values wich are sorted.
         String[] files = {"InversTeilsortiert1000", "InversTeilsortiert10000", "InversTeilsortiert100000",
                 "Ramdom1000", "Ramdom10000", "Ramdom100000",
                 "Teilsortiert1000", "Teilsortiert10000", "Teilsortiert100000"};
+        // add th file names as column headers
         for (int i = 0; i < 4; i++) {
-            for (int j = 2; j < 11; j++) {
+            for (int j = 2; j < MAX_CELLS_PER_ROW; j++) {
                 cellies[i][0][j].setCellValue(files[j-2]);
+            }
+        }
+
+        // array containing all the names of the algorithms
+        String[] algorithms = {"BinaryTreeSort", "BubbleSort", "HeapSort",
+                "InsertionSort", "MergeSort", "QuickSort", "QuickSort2", "ShakerSort"};
+        // add the algorithm names as row headers
+        for (int i = 0; i < 4; i++) {
+            for (int j = 2; j < MAX_ROWS_MULTIPLE_SHEETS; j++) {
+                cellies[i][j][0].setCellValue(algorithms[j-2]);
             }
         }
     }

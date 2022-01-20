@@ -1,7 +1,5 @@
 package App;
 
-import App.MemoryCalculator;
-
 import java.util.Vector;
 
 /**

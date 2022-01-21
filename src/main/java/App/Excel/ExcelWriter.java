@@ -177,6 +177,7 @@ public class ExcelWriter {
     }
 
     /**
+     * <p>
      * Will write the data, given in a Vector, into the right place in the tables.<br><br>
      *
      * @param data Vector of type long[], containing data from the sorting through the algorithms.
@@ -199,6 +200,7 @@ public class ExcelWriter {
     }
 
     /**
+     * <p>
      * Will write the data, given in a Vector, into the right place in the tables in one single sheet.<br><br>
      *
      * @param data Vector of type long[], containing data from the sorting through the algorithms.
@@ -232,6 +234,7 @@ public class ExcelWriter {
     }
 
     /**
+     * <p>
      * Will write the data, given in a Vector, into the right place in the tables in four multiple sheets.<br><br>
      *
      * @param data Vector of type long[], containing data from the sorting through the algorithms.
@@ -284,9 +287,11 @@ public class ExcelWriter {
     }
 
     /**
+     * <p>
      * Creates a XSSFCellStyle object which contains styling of the borders.
-     * Border on the Bottom, the Top, the Right and the Left are all thin, black borders.<br><br>
-     *
+     * <p>
+     * Border on the Bottom, the Top, the Right and the Left are all thin, black borders.
+     * <p>
      * XSSFCellStyle can be used to apply a Style to cells.<br><br>
      *
      * @return XSSFCellStyle object containing border styling
@@ -385,6 +390,7 @@ public class ExcelWriter {
     }
 
     /**
+     * <p>
      * Writes the column headers and the row headers into the correct cells.
      * So it becomes clear what the data in the table is about.<br>
      * The column headers contain the file names and the topic and

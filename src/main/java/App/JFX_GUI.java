@@ -23,7 +23,7 @@ import java.util.Objects;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.1.7
+ * @version 0.1.8
  */
 public class JFX_GUI extends Application {
     private static final String iconLoc = Objects.requireNonNull(Main.class.getResource("/images/sort.png")).toString();
@@ -31,7 +31,7 @@ public class JFX_GUI extends Application {
     // application stage is stored so that it can be shown and hidden based on system tray icon operations.
     private Stage stage;
 
-    // label containing a text, wich shows which algorithm sorts what file.
+    // label containing a text, which shows which algorithm sorts what file.
     private javafx.scene.control.Label label;
 
     @Override
@@ -58,19 +58,18 @@ public class JFX_GUI extends Application {
         buttonBox.setPadding(new Insets(110, 30, 10, 30));
 
         //
-        ProgressBar pb = new ProgressBar(0.2);
+        ProgressBar pb = new ProgressBar(0.0);
         pb.setMinSize(345,25);
         pb.setPrefSize(345, 25);
         pb.setStyle("-fx-accent: #f5b80f");
 
         //
-        ProgressIndicator pi = new ProgressIndicator(0.2);
+        ProgressIndicator pi = new ProgressIndicator(0.0);
         pi.setMinSize(45, 45);
         pi.setStyle("-fx-accent: #f5b80f");
 
         //
         label = new javafx.scene.control.Label();
-        label.setText("Algorithm BinaryTreeSort is sorting InversTeilsortiert100000");
         label.setStyle("-fx-font-weight: bold");
 
         //
@@ -79,6 +78,9 @@ public class JFX_GUI extends Application {
         button.setPrefSize(85,30);
         button.setOnAction(actionEvent -> {
             button.setVisible(false);
+            label.setText("initializing sorting");
+            pb.setProgress(-1.0);
+            pi.setProgress(-1.0);
             // TODO start Sorting
         });
 

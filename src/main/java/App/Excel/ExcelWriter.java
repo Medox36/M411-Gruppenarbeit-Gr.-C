@@ -13,7 +13,7 @@ import java.util.Vector;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.2.0
+ * @version 0.2.1
  */
 public class ExcelWriter {
 
@@ -212,9 +212,6 @@ public class ExcelWriter {
         // counter to iterate through the data Vector<long[]>
         int k = 0;
 
-        // counter to check the syntax logic of the array
-        int h = 0;
-
         //rows, skipping row 0 and 1
         for (int i = 2; i < MAX_ROWS_ONE_SHEET; i++) {
             // further rows to skip
@@ -225,15 +222,11 @@ public class ExcelWriter {
             for (int j = 2; j < MAX_CELLS_PER_ROW; j++) {
                 long[] arr = data.get(k);
                 // check if the syntax logic for the arrays has been followed correctly
-                if (arr[0] != h) {
+                if (arr[0] != k) {
                     throw new DataArraySyntaxException();
                 }
                 cells[i][j].setCellValue(arr[1]);
                 k++;
-                h++;
-                if (h == 63) {
-                    h = 0;
-                }
             }
         }
     }
@@ -252,9 +245,6 @@ public class ExcelWriter {
         // counter to iterate through the data Vector<long[]>
         int h = 0;
 
-        // counter to check the syntax logic of the array
-        int l = 0;
-
         // sheets
         for (int i = 0; i < 4; i++) {
             // rows, skipping row 0 and 1
@@ -263,15 +253,13 @@ public class ExcelWriter {
                 for (int k = 2; k < MAX_CELLS_PER_ROW; k++) {
                     long[] arr = data.get(h);
                     // check if the syntax logic for the arrays has been followed correctly
-                    if (arr[0] != l) {
+                    if (arr[0] != h) {
                         throw new DataArraySyntaxException();
                     }
                     cellies[i][j][k].setCellValue(arr[1]);
                     h++;
-                    l++;
                 }
             }
-            l = 0;
         }
     }
 

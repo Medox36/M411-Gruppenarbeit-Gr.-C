@@ -13,7 +13,7 @@ import java.util.Vector;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.2.1
+ * @version 0.2.2
  */
 public class ExcelWriter {
 
@@ -494,6 +494,7 @@ public class ExcelWriter {
     }
 
     /**
+     * <p>
      * Writes the column headers and the row headers into the correct cells.
      * So it becomes clear what the data in the table is about.<br>
      * The column headers contain the file names and the topic and

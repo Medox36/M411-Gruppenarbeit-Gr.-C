@@ -60,8 +60,7 @@ public class Sorting extends Thread{
         for (int i = 0; i < sortingTypes.length-1; i++) {
             for (int j = 0; j < fileArrays.size(); j++) {
                 if (!noGui) {
-                    String a = "Algorithm " + "getNameOfSortingType " + "is sorting " + "currentFileBeingSortedName";
-                    String s = "";
+                    String s = "Algorithm " + sortingTypes[i].getAlgorithmName() + "is sorting " + "currentFileBeingSortedName";
                     Platform.runLater(() -> gui.setLabelText(s));
                 }
                 sortingTypes[i].run(fileArrays.get(j));

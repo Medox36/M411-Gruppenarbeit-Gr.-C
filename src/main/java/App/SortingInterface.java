@@ -8,10 +8,11 @@ import java.util.Vector;
  * @author Andras Tarlos
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.1.5
+ * @version 0.1.6
  */
 public interface SortingInterface {
     MemoryCalculator mc = new MemoryCalculator();
+    ArrayCopier ac = new ArrayCopier();
 
     void run(Vector<Integer> array);
     /**

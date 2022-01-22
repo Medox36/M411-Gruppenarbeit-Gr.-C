@@ -59,7 +59,7 @@ public class QuickSort2 extends ArrayCopier implements SortingInterface {
                 temp = arr[i];
                 arr[i] = arr[k];
                 arr[k] = temp;
-                writeChanges += 3;
+                writeChanges += 2;
             }
             amountOfComparisons += 1;
         } while (i < k);
@@ -69,7 +69,7 @@ public class QuickSort2 extends ArrayCopier implements SortingInterface {
             temp = arr[i];
             arr[i] = arr[rightIndex];
             arr[rightIndex] = temp;
-            writeChanges += 3;
+            writeChanges += 2;
         }
 
         _quickSort(leftIndex, i - 1);

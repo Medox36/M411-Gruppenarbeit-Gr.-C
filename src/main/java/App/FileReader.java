@@ -14,7 +14,7 @@ import java.util.*;
  * @version 0.1.3
  */
 public class FileReader {
-    private final Vector<File> files;
+    private Vector<File> files;
     private final Vector<Vector<Integer>> fileArrays;
     private final String[] fileNames;
 

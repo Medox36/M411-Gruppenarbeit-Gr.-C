@@ -38,7 +38,7 @@ public class HeapSort extends ArrayCopier implements SortingInterface {
             arr[0] = arr[i];
             arr[i] = temp;
             writeChanges += 2;
-
+            storageSpaceRequired += 64;
             heapify(arr, i, 0);
         }
     }

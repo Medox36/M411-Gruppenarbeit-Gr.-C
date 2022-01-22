@@ -2,6 +2,7 @@ package App;
 
 import App.Excel.ExcelFile;
 import App.Excel.ExcelHandler;
+import App.SortClasses.BinaryTreeSort;
 import javafx.application.Application;
 
 import java.awt.*;

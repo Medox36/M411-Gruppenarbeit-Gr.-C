@@ -5,7 +5,7 @@ import javafx.application.Platform;
 
 import java.util.Vector;
 
-public class Sorting extends Thread{
+public class Sorting implements Runnable{
     private Vector<Vector<Integer>> fileArrays;
     private SortingInterface[] sortingTypes;
     private Vector<long[]> results;
@@ -14,12 +14,10 @@ public class Sorting extends Thread{
     private final boolean noGui;
 
     public Sorting() {
-        super();
         noGui = true;
     }
 
     public Sorting(JFX_GUI gui) {
-        super();
         this.gui = gui;
         noGui = false;
     }

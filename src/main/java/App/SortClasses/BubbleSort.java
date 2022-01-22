@@ -7,7 +7,7 @@ import java.util.Vector;
 /**
  *
  * @author Andras Tarlos
- * @author Lorenzo Giuntini
+ * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.22
  * @version 0.2.0
  */

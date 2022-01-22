@@ -53,13 +53,13 @@ public class Sorting implements Runnable{
     }
 
     public void updateSortingResults() {
+        double h = 0.0;
         for (int i = 0; i < sortingTypes.length-1; i++) {
             for (int j = 0; j < fileArrays.size(); j++) {
                 if (!noGui) {
                     String s = "Algorithm " + sortingTypes[i].getAlgorithmName() + " is sorting " + "currentFileBeingSortedName";
-                    // TODO calculate the right progress p
-                    double p = 1.0-0.5;
                     Platform.runLater(() -> gui.setLabelText(s));
+                    double p = h;
                     Platform.runLater(() -> gui.setProgress(p));
                 }
                 sortingTypes[i].run(fileArrays.get(j));
@@ -67,11 +67,14 @@ public class Sorting implements Runnable{
                 results.set(i * sortingTypes.length + j + 71, new long[] {(long) i * sortingTypes.length + j + 72, sortingTypes[i].getAmountOfComparisons()});
                 results.set(i * sortingTypes.length + j + 142, new long[] {(long) i * sortingTypes.length + j + 144, sortingTypes[i].getWriteChanges()});
                 results.set(i * sortingTypes.length + j + 213, new long[] {(long) i * sortingTypes.length + j + 216, sortingTypes[i].getStorageSpaceRequired()});
+                h += 1.0/288.0;
             }
         }
-        Platform.runLater(() -> gui.setProgress(1.0));
-        Platform.runLater(() -> gui.setLabelText("done"));
-        Platform.runLater(() -> gui.showCloseButton());
+        if (!noGui) {
+            Platform.runLater(() -> gui.setProgress(1.0));
+            Platform.runLater(() -> gui.setLabelText("done"));
+            Platform.runLater(() -> gui.showCloseButton());
+        }
     }
 
     @Override

@@ -1,15 +1,29 @@
 package App;
 
 import App.SortClasses.*;
+import javafx.application.Platform;
 
 import java.util.Vector;
 
-public class Sorting {
+public class Sorting extends Thread{
     private Vector<Vector<Integer>> fileArrays;
     private FileReader reader;
     private SortingInterface[] sortingTypes;
     private Vector<long[]> results;
 
+    private JFX_GUI gui;
+    private final boolean noGui;
+
+    public Sorting() {
+        super();
+        noGui = true;
+    }
+
+    public Sorting(JFX_GUI gui) {
+        super();
+        this.gui = gui;
+        noGui = false;
+    }
 
     //4 * 8 * 9
     public void start() {
@@ -45,6 +59,11 @@ public class Sorting {
     public void updateSortingResults() {
         for (int i = 0; i < sortingTypes.length-1; i++) {
             for (int j = 0; j < fileArrays.size(); j++) {
+                if (!noGui) {
+                    String a = "Algorithm " + "getNameOfSortingType " + "is sorting " + "currentFileBeingSortedName";
+                    String s = "";
+                    Platform.runLater(() -> gui.setLabelText(s));
+                }
                 sortingTypes[i].run(fileArrays.get(j));
                 results.set(i * sortingTypes.length + j, new long[] {(long) i * sortingTypes.length + j, sortingTypes[i].getTimeForSorting()});
                 results.set(i * sortingTypes.length + j + 71, new long[] {(long) i * sortingTypes.length + j + 72, sortingTypes[i].getAmountOfComparisons()});
@@ -52,5 +71,10 @@ public class Sorting {
                 results.set(i * sortingTypes.length + j + 213, new long[] {(long) i * sortingTypes.length + j + 216, sortingTypes[i].getStorageSpaceRequired()});
             }
         }
+    }
+
+    @Override
+    public void run() {
+        start();
     }
 }

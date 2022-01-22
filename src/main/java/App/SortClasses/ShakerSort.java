@@ -83,4 +83,9 @@ public class ShakerSort extends ArrayCopier implements SortingInterface {
     public long getStorageSpaceRequired() {
         return storageSpaceRequired;
     }
+
+    @Override
+    public String getAlgorithmName() {
+        return "ShakerSort";
+    }
 }

@@ -34,4 +34,9 @@ public class BinaryTreeSort implements SortingInterface {
     public long getStorageSpaceRequired() {
         return storageSpaceRequired;
     }
+
+    @Override
+    public String getAlgorithmName() {
+        return "BinaryTreeSort";
+    }
 }

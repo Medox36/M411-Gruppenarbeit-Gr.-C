@@ -85,4 +85,9 @@ public class QuickSort extends ArrayCopier implements SortingInterface {
     public long getStorageSpaceRequired() {
         return storageSpaceRequired;
     }
+
+    @Override
+    public String getAlgorithmName() {
+        return "QuickSort";
+    }
 }

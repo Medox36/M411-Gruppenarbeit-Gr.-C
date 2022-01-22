@@ -6,8 +6,9 @@ import java.util.Vector;
  *
  *
  * @author Andras Tarlos
+ * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.1.4
+ * @version 0.1.5
  */
 public interface SortingInterface {
     MemoryCalculator mc = new MemoryCalculator();
@@ -29,4 +30,9 @@ public interface SortingInterface {
      * @return The needed storage space in bits
      */
     long getStorageSpaceRequired();
+
+    /**
+     * @return The Name of the sorting-algorithm
+     */
+    String getAlgorithmName();
 }

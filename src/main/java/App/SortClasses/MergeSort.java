@@ -11,7 +11,6 @@ public class MergeSort extends ArrayCopier implements SortingInterface {
     private long amountOfComparisons = 0;
     private long storageSpaceRequired = 0;
 
-
     @Override
     public void run(Vector<Integer> array) {
 
@@ -35,5 +34,10 @@ public class MergeSort extends ArrayCopier implements SortingInterface {
     @Override
     public long getStorageSpaceRequired() {
         return storageSpaceRequired;
+    }
+
+    @Override
+    public String getAlgorithmName() {
+        return "MergeSort";
     }
 }

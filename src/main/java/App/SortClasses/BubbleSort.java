@@ -58,4 +58,9 @@ public class BubbleSort implements SortingInterface {
     public long getStorageSpaceRequired() {
         return storageSpaceRequired;
     }
+
+    @Override
+    public String getAlgorithmName() {
+        return "BubbleSort";
+    }
 }

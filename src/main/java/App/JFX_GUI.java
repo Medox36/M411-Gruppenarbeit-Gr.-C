@@ -95,10 +95,10 @@ public class JFX_GUI extends Application {
         });
 
         //
-        startButton.setStyle("-fx-background-color: #f5b80f; -fx-border-width: 1px; -fx-border-color: black");
-        startButton.setOnMouseEntered(mouseEvent -> startButton.setStyle("-fx-background-color: #f1c64b; -fx-border-color: #4d4d4d"));
-        startButton.setOnMouseExited(mouseEvent -> startButton.setStyle("-fx-background-color: #f5b80f; -fx-border-color: black"));
-        startButton.setOnMousePressed(mouseEvent -> startButton.setStyle("-fx-background-color: #a5d24c; -fx-border-color: #62675b"));
+        startButton.setStyle("-fx-background-color: #f5b80f; -fx-border-width: 1px; -fx-border-color: black; -fx-font-weight: bold");
+        startButton.setOnMouseEntered(mouseEvent -> startButton.setStyle("-fx-background-color: #a5d24c; -fx-border-color: #62675b; -fx-font-weight: bold"));
+        startButton.setOnMouseExited(mouseEvent -> startButton.setStyle("-fx-background-color: #f5b80f; -fx-border-color: black; -fx-font-weight: bold"));
+        startButton.setOnMousePressed(mouseEvent -> startButton.setStyle("-fx-background-color: #8db242; -fx-border-color: #42463e; -fx-font-weight: bold"));
 
         //
         closeButton = new javafx.scene.control.Button("Close");
@@ -107,11 +107,10 @@ public class JFX_GUI extends Application {
         closeButton.setOnAction(actionEvent -> close());
 
         //
-        closeButton.setStyle("-fx-background-color: #f5b80f; -fx-border-width: 1px; -fx-border-color: black");
-        closeButton.setOnMouseEntered(mouseEvent -> closeButton.setStyle("-fx-background-color: #f1c64b; -fx-border-color: #4d4d4d"));
-        closeButton.setOnMouseExited(mouseEvent -> closeButton.setStyle("-fx-background-color: #f5b80f; -fx-border-color: black"));
-        closeButton.setOnMousePressed(mouseEvent -> closeButton
-                .setStyle("-fx-background-color: #d2604c; -fx-border-color: #5e5353"));
+        closeButton.setStyle("-fx-background-color: #f5b80f; -fx-border-width: 1px; -fx-border-color: black; -fx-font-weight: bold");
+        closeButton.setOnMouseEntered(mouseEvent -> closeButton.setStyle("-fx-background-color: #d2604c; -fx-border-color: #5e5353; -fx-font-weight: bold"));
+        closeButton.setOnMouseExited(mouseEvent -> closeButton.setStyle("-fx-background-color: #f5b80f; -fx-border-color: black; -fx-font-weight: bold"));
+        closeButton.setOnMousePressed(mouseEvent -> closeButton.setStyle("-fx-background-color: #ab4e3e; -fx-border-color: #443c3c; -fx-font-weight: bold"));
         closeButton.setVisible(false);
 
         //

@@ -23,7 +23,7 @@ import java.util.Objects;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.1.8
+ * @version 0.1.9
  */
 public class JFX_GUI extends Application {
     private static final String iconLoc = Objects.requireNonNull(Main.class.getResource("/images/sort.png")).toString();
@@ -83,6 +83,12 @@ public class JFX_GUI extends Application {
             pi.setProgress(-1.0);
             // TODO start Sorting
         });
+
+        //
+        button.setStyle("-fx-background-color: #f5b80f; -fx-border-width: 1px; -fx-border-color: black");
+        button.setOnMouseEntered(mouseEvent -> button.setStyle("-fx-background-color: #f1c64b; -fx-border-color: #4d4d4d"));
+        button.setOnMouseExited(mouseEvent -> button.setStyle("-fx-background-color: #f5b80f; -fx-border-color: black"));
+        button.setOnMousePressed(mouseEvent -> button.setStyle("-fx-background-color: #a5d24c; -fx-border-color: #62675b"));
 
         //
         progressBox.getChildren().addAll(pb, pi);

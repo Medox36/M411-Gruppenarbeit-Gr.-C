@@ -5,6 +5,14 @@ import App.SortingInterface;
 
 import java.util.Vector;
 
+/**
+ *
+ * @author Andras Tarlos
+ * @author Lorenzo Giuntini
+ * @author Sven Wildhaber
+ * @since 2022.01.22
+ * @version 0.1.0
+ */
 public class BubbleSort extends ArrayCopier implements SortingInterface {
     private long writeChanges = 0;
     private long timeForSorting = 0;
@@ -21,17 +29,17 @@ public class BubbleSort extends ArrayCopier implements SortingInterface {
     }
     
     public void sort(int[] arr) {
-      int i,j,temp,n=7;
-      
-        for(i=0;i<n;i++)
-        {
-            for(j=0;j<n-i-1;j++)
-            {
-                if(arr[j]>arr[j+1])
-                {
+        int i, j, temp, n = 7;
+        storageSpaceRequired += 142;
+        for (i = 0; i < n; i++) {
+            for (j = 0; j < n - i - 1; j++) {
+                amountOfComparisons++;
+                if (arr[j] > arr[j + 1]) {
                     temp = arr[j];
-                    arr[j] = arr[j+1];
-                    arr[j+1] = temp;
+                    storageSpaceRequired += 32;
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    writeChanges += 2;
                 }
             }
         }

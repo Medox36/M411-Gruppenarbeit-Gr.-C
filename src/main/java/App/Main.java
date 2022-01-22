@@ -32,9 +32,10 @@ public class Main {
                 System.out.println("--no-gui: No GUI will be shown");
                 new Sorting().start();
             } else {
-                new Thread(() -> Application.launch(JFX_GUI.class)).start();
-                new Sorting().start();
+                System.out.println("Unrecognised option");
             }
+        } else {
+            Application.launch(JFX_GUI.class);
         }
 
         //Excel

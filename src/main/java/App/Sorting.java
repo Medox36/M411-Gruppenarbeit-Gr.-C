@@ -57,7 +57,10 @@ public class Sorting implements Runnable{
             for (int j = 0; j < fileArrays.size(); j++) {
                 if (!noGui) {
                     String s = "Algorithm " + sortingTypes[i].getAlgorithmName() + " is sorting " + "currentFileBeingSortedName";
+                    // TODO calculate the right progress p
+                    double p = 1.0-0.5;
                     Platform.runLater(() -> gui.setLabelText(s));
+                    Platform.runLater(() -> gui.setProgress(p));
                 }
                 sortingTypes[i].run(fileArrays.get(j));
                 results.set(i * sortingTypes.length + j, new long[] {(long) i * sortingTypes.length + j, sortingTypes[i].getTimeForSorting()});
@@ -66,6 +69,9 @@ public class Sorting implements Runnable{
                 results.set(i * sortingTypes.length + j + 213, new long[] {(long) i * sortingTypes.length + j + 216, sortingTypes[i].getStorageSpaceRequired()});
             }
         }
+        Platform.runLater(() -> gui.setProgress(1.0));
+        Platform.runLater(() -> gui.setLabelText("done"));
+        Platform.runLater(() -> gui.showCloseButton());
     }
 
     @Override

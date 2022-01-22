@@ -23,7 +23,7 @@ import java.util.Objects;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.1.9
+ * @version 0.1.10
  */
 public class JFX_GUI extends Application {
     private static final String iconLoc = Objects.requireNonNull(Main.class.getResource("/images/sort.png")).toString();
@@ -33,6 +33,16 @@ public class JFX_GUI extends Application {
 
     // label containing a text, which shows which algorithm sorts what file.
     private javafx.scene.control.Label label;
+
+    private ProgressBar pb;
+
+    private ProgressIndicator pi;
+
+    private java.awt.SystemTray tray;
+
+    private java.awt.TrayIcon trayIcon;
+
+    private javafx.scene.control.Button closeButton;
 
     @Override
     public void start(Stage stage) {
@@ -58,13 +68,13 @@ public class JFX_GUI extends Application {
         buttonBox.setPadding(new Insets(110, 30, 10, 30));
 
         //
-        ProgressBar pb = new ProgressBar(0.0);
+        pb = new ProgressBar(0.0);
         pb.setMinSize(345,25);
         pb.setPrefSize(345, 25);
         pb.setStyle("-fx-accent: #f5b80f");
 
         //
-        ProgressIndicator pi = new ProgressIndicator(0.0);
+        pi = new ProgressIndicator(0.0);
         pi.setMinSize(45, 45);
         pi.setStyle("-fx-accent: #f5b80f");
 
@@ -73,11 +83,11 @@ public class JFX_GUI extends Application {
         label.setStyle("-fx-font-weight: bold");
 
         //
-        javafx.scene.control.Button button = new javafx.scene.control.Button("Start");
-        button.setMinSize(85, 30);
-        button.setPrefSize(85,30);
-        button.setOnAction(actionEvent -> {
-            button.setVisible(false);
+        javafx.scene.control.Button startButton = new javafx.scene.control.Button("Start");
+        startButton.setMinSize(85, 30);
+        startButton.setPrefSize(85,30);
+        startButton.setOnAction(actionEvent -> {
+            startButton.setVisible(false);
             label.setText("initializing sorting");
             pb.setProgress(-1.0);
             pi.setProgress(-1.0);
@@ -85,19 +95,33 @@ public class JFX_GUI extends Application {
         });
 
         //
-        button.setStyle("-fx-background-color: #f5b80f; -fx-border-width: 1px; -fx-border-color: black");
-        button.setOnMouseEntered(mouseEvent -> button.setStyle("-fx-background-color: #f1c64b; -fx-border-color: #4d4d4d"));
-        button.setOnMouseExited(mouseEvent -> button.setStyle("-fx-background-color: #f5b80f; -fx-border-color: black"));
-        button.setOnMousePressed(mouseEvent -> button.setStyle("-fx-background-color: #a5d24c; -fx-border-color: #62675b"));
+        startButton.setStyle("-fx-background-color: #f5b80f; -fx-border-width: 1px; -fx-border-color: black");
+        startButton.setOnMouseEntered(mouseEvent -> startButton.setStyle("-fx-background-color: #f1c64b; -fx-border-color: #4d4d4d"));
+        startButton.setOnMouseExited(mouseEvent -> startButton.setStyle("-fx-background-color: #f5b80f; -fx-border-color: black"));
+        startButton.setOnMousePressed(mouseEvent -> startButton.setStyle("-fx-background-color: #a5d24c; -fx-border-color: #62675b"));
+
+        //
+        closeButton = new javafx.scene.control.Button("Close");
+        closeButton.setMinSize(85, 30);
+        closeButton.setPrefSize(85,30);
+        closeButton.setOnAction(actionEvent -> close());
+
+        //
+        closeButton.setStyle("-fx-background-color: #f5b80f; -fx-border-width: 1px; -fx-border-color: black");
+        closeButton.setOnMouseEntered(mouseEvent -> closeButton.setStyle("-fx-background-color: #f1c64b; -fx-border-color: #4d4d4d"));
+        closeButton.setOnMouseExited(mouseEvent -> closeButton.setStyle("-fx-background-color: #f5b80f; -fx-border-color: black"));
+        closeButton.setOnMousePressed(mouseEvent -> closeButton
+                .setStyle("-fx-background-color: #d2604c; -fx-border-color: #5e5353"));
+        closeButton.setVisible(false);
 
         //
         progressBox.getChildren().addAll(pb, pi);
         labelBox.getChildren().add(label);
-        buttonBox.getChildren().add(button);
+        buttonBox.getChildren().addAll(startButton, closeButton);
 
         //
         Group root = new Group();
-        root.getChildren().addAll(progressBox, buttonBox, labelBox);
+        root.getChildren().addAll(progressBox, labelBox, buttonBox);
 
         //
         Scene scene = new Scene(root, Color.CADETBLUE);
@@ -143,10 +167,10 @@ public class JFX_GUI extends Application {
                 Platform.setImplicitExit(true);
             } else {
                 // set up a system tray icon.
-                java.awt.SystemTray tray = java.awt.SystemTray.getSystemTray();
+                tray = java.awt.SystemTray.getSystemTray();
                 URL imageLoc = new URL(iconLoc);
                 java.awt.Image image = ImageIO.read(imageLoc);
-                java.awt.TrayIcon trayIcon = new java.awt.TrayIcon(image);
+                trayIcon = new java.awt.TrayIcon(image);
 
                 trayIcon.setImageAutoSize(true);
 
@@ -176,10 +200,7 @@ public class JFX_GUI extends Application {
                 // and select the exit option, this will shut down JavaFX and remove the
                 // tray icon (removing the tray icon will also shut down AWT).
                 java.awt.MenuItem exitItem = new java.awt.MenuItem("Exit");
-                exitItem.addActionListener(e -> {
-                    Platform.exit();
-                    tray.remove(trayIcon);
-                });
+                exitItem.addActionListener(e -> close());
 
                 // set up the popup menu for the application.
                 final java.awt.PopupMenu popup = new java.awt.PopupMenu();
@@ -197,6 +218,11 @@ public class JFX_GUI extends Application {
         }
     }
 
+    private void close() {
+        Platform.exit();
+        tray.remove(trayIcon);
+    }
+
     /**
      * Sets a given text to the label, wich shows what algorithm sorts wich file.
      *
@@ -204,6 +230,28 @@ public class JFX_GUI extends Application {
      */
     public synchronized void setLabelText(String s) {
         label.setText(s);
+    }
+
+    /**
+     * <p>
+     * Sets the ProgressBar and ProgressIndicator to the given value.
+     * <p>
+     * The value being from 0.0 to 1.0.<br>
+     * 0.0 = 0%
+     * 1.0 = 100%
+     *
+     * @param progress value of the progress
+     */
+    public synchronized void setProgress(double progress) {
+        pb.setProgress(progress);
+        pi.setProgress(progress);
+    }
+
+    /**
+     * makes the close-button visible again so the program can be exited by the user, without having to use the TracIcon
+     */
+    public synchronized void showCloseButton() {
+        closeButton.setVisible(true);
     }
 
     /**

@@ -9,19 +9,20 @@ import java.util.Vector;
  *
  * @author Andras Tarlos
  * @since 2022.01.22
+ * @version 0.1
  */
+
 public class BinaryTreeSort implements SortingInterface {
     private long writeChanges = 0;
     private long timeForSorting = 0;
     private long amountOfComparisons = 0;
     private long storageSpaceRequired = 0;
     private Node root;
-    private int[] arr;
 
     @Override
     public void run(Vector<Integer> array) {
         storageSpaceRequired += mc.getMemorySpace(array);
-        arr = ac.copyVectorToArray(array);
+        int[] arr = ac.copyVectorToArray(array);
         root = null;
         timeForSorting = System.nanoTime();
         treeins(arr);
@@ -44,20 +45,25 @@ public class BinaryTreeSort implements SortingInterface {
     }
 
     public Node insertRec(Node root, int key) {
+        amountOfComparisons++;
         if (root == null) {
             root = new Node(key);
+            writeChanges++;
             return root;
         }
-
-        if (key < root.key)
+        amountOfComparisons++;
+        if (key < root.key) {
             root.left = insertRec(root.left, key);
-        else if (key > root.key)
+        } else if (key > root.key) {
+            amountOfComparisons++;
             root.right = insertRec(root.right, key);
-
+        }
+        writeChanges++;
         return root;
     }
 
     public void inorderRec(Node root) {
+        amountOfComparisons++;
         if (root != null) {
             inorderRec(root.left);
             inorderRec(root.right);
@@ -65,7 +71,7 @@ public class BinaryTreeSort implements SortingInterface {
     }
 
     public void treeins(int arr[]) {
-        for(int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < arr.length; i++) {
             storageSpaceRequired += 32;
             insert(arr[i]);
         }

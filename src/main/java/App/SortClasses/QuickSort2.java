@@ -2,10 +2,15 @@ package App.SortClasses;
 
 import App.ArrayCopier;
 import App.SortingInterface;
-
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.ThreadLocalRandom.*;
 import java.util.Vector;
+
+/**
+ *
+ * @author Andras Tarlos
+ * @since 2022.01.22
+ * @version 0.1
+ */
 
 public class QuickSort2 extends ArrayCopier implements SortingInterface {
     private long writeChanges = 0;
@@ -13,7 +18,6 @@ public class QuickSort2 extends ArrayCopier implements SortingInterface {
     private long amountOfComparisons = 0;
     private long storageSpaceRequired = 0;
     private int[] arr;
-    private int temp;
     private boolean firstSort;
 
     @Override
@@ -43,6 +47,7 @@ public class QuickSort2 extends ArrayCopier implements SortingInterface {
         }
         storageSpaceRequired += 32 * 3;
 
+        int temp;
         do {
             amountOfComparisons += 2;
             while (arr[i] <= pivot && i < rightIndex) {
@@ -55,7 +60,7 @@ public class QuickSort2 extends ArrayCopier implements SortingInterface {
                 amountOfComparisons += 2;
             }
             amountOfComparisons += 1;
-            if (i<k) {
+            if (i < k) {
                 temp = arr[i];
                 arr[i] = arr[k];
                 arr[k] = temp;

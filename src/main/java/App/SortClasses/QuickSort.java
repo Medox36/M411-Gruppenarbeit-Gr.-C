@@ -5,13 +5,19 @@ import App.SortingInterface;
 
 import java.util.Vector;
 
+/**
+ *
+ * @author Andras Tarlos
+ * @since 2022.01.22
+ * @version 0.1
+ */
+
 public class QuickSort extends ArrayCopier implements SortingInterface {
     private long writeChanges = 0;
     private long timeForSorting = 0;
     private long amountOfComparisons = 0;
     private long storageSpaceRequired = 0;
     private int[] arr;
-    private int temp;
 
     @Override
     public void run(Vector<Integer> array) {
@@ -33,6 +39,7 @@ public class QuickSort extends ArrayCopier implements SortingInterface {
         int pivot = arr[rightIndex];
         storageSpaceRequired += 32 * 3;
 
+        int temp;
         do {
             amountOfComparisons += 2;
             while (arr[i] <= pivot && i < rightIndex) {

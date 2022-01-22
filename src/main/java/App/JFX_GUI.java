@@ -202,7 +202,7 @@ public class JFX_GUI extends Application {
      *
      * @param s Text to be shown in the label
      */
-    public void setLabelText(String s) {
+    public synchronized void setLabelText(String s) {
         label.setText(s);
     }
 

@@ -81,7 +81,7 @@ public class JFX_GUI extends Application {
             label.setText("initializing sorting");
             pb.setProgress(-1.0);
             pi.setProgress(-1.0);
-            // TODO start Sorting
+            new Thread(new Sorting(this)).start();
         });
 
         //

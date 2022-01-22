@@ -32,6 +32,7 @@ public class HeapSort extends ArrayCopier implements SortingInterface {
         for (int i = n / 2 - 1; i >= 0; i--) {
             storageSpaceRequired += 32;
             heapify(arr, n, i);
+        }
 
         for (int i = n - 1; i > 0; i--) {
             int temp = arr[0];
@@ -59,6 +60,7 @@ public class HeapSort extends ArrayCopier implements SortingInterface {
 
         amountOfComparisons++;
         if (largest != i) {
+            storageSpaceRequired += 32;
             int swap = arr[i];
             arr[i] = arr[largest];
             arr[largest] = swap;

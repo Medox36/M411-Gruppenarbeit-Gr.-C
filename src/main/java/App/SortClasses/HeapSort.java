@@ -9,7 +9,7 @@ import java.util.Vector;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.22
- * @version 0.1.2
+ * @version 0.1.3
  */
 public class HeapSort extends ArrayCopier implements SortingInterface {
     private long writeChanges = 0;
@@ -27,7 +27,10 @@ public class HeapSort extends ArrayCopier implements SortingInterface {
 
     public void sort(int[] arr) {
         int n = arr.length;
-        for (int i = n / 2 - 1; i >= 0; i--)
+        storageSpaceRequired += 32;
+
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            storageSpaceRequired += 32;
             heapify(arr, n, i);
 
         for (int i = n - 1; i > 0; i--) {
@@ -44,6 +47,7 @@ public class HeapSort extends ArrayCopier implements SortingInterface {
         int largest = i;
         int l = 2 * i + 1;
         int r = 2 * i + 2;
+        storageSpaceRequired += 3 * 32;
 
         amountOfComparisons += 2;
         if (l < n && arr[l] > arr[largest])

@@ -16,12 +16,14 @@ import java.util.Vector;
 public class FileReader {
     private final Vector<File> files;
     private final Vector<Vector<Integer>> fileArrays;
+    private String[] fileNames;
 
     /***
      * Das ist der Constructor dieser Klasse. Hier werden die benötigte Vectors initialisiert und
      * die gebrauchte Methoden ausgeführt
      */
     public FileReader() {
+        fileNames = new String[9];
         files = new Vector<>();
         fileArrays = new Vector<>();
 
@@ -36,12 +38,17 @@ public class FileReader {
     public void addFilesToList() throws IOException {
         File folder = new File(new File("./src/main/resources/Files/").getCanonicalPath());
         File[] listOfFiles = folder.listFiles();
+        //FileReader.class.getResource("");
 
         assert listOfFiles != null;
         for (File file : listOfFiles) {
             if (file.isFile()) {
                 files.add(file);
             }
+        }
+
+        for (int i = 0; i < files.size(); i++) {
+            fileNames[i] = files.get(i).getName();
         }
     }
 
@@ -69,5 +76,9 @@ public class FileReader {
 
     public Vector<Vector<Integer>> getFileArrays() {
         return fileArrays;
+    }
+
+    public String[] getFileNames() {
+        return fileNames;
     }
 }

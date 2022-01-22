@@ -1,10 +1,11 @@
 package App.SortClasses;
 
+import App.ArrayCopier;
 import App.SortingInterface;
 
 import java.util.Vector;
 
-public class BubbleSort implements SortingInterface {
+public class BubbleSort extends ArrayCopier implements SortingInterface {
     private long writeChanges = 0;
     private long timeForSorting = 0;
     private long amountOfComparisons = 0;
@@ -12,11 +13,8 @@ public class BubbleSort implements SortingInterface {
 
     @Override
     public void run(Vector<Integer> array) {
-        int[] arr = new int[array.size()];
+        int[] arr = copyVectorToArray(array);
         storageSpaceRequired += mc.getMemorySpace(array);
-        for (int i = 0; i < array.size(); i++) {
-            arr[i] = array.get(i);
-        }
         timeForSorting = System.nanoTime();
         sort(arr);
         timeForSorting = System.nanoTime() - timeForSorting;

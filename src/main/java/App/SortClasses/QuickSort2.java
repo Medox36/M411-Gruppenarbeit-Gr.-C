@@ -11,7 +11,6 @@ import java.util.Vector;
  * @since 2022.01.22
  * @version 0.1
  */
-
 public class QuickSort2 extends ArrayCopier implements SortingInterface {
     private long writeChanges = 0;
     private long timeForSorting = 0;

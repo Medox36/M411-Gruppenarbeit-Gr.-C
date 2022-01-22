@@ -2,7 +2,6 @@ package App.SortClasses;
 
 import App.ArrayCopier;
 import App.SortingInterface;
-
 import java.util.Vector;
 
 /**

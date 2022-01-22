@@ -2,16 +2,15 @@ package App.SortClasses;
 
 import App.ArrayCopier;
 import App.SortingInterface;
-
 import java.util.Vector;
 
 /**
  *
  * @author Andras Tarlos
+ * @author Sven Wildhaber
  * @since 2022.01.22
  * @version 0.1
  */
-
 public class ShakerSort extends ArrayCopier implements SortingInterface {
     private long writeChanges = 0;
     private long timeForSorting = 0;

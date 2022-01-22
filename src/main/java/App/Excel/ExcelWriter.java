@@ -408,7 +408,7 @@ public class ExcelWriter {
 
         // array containing al the names of the files containing the values wich are sorted.
         String[] files = {"InversTeilsortiert1000", "InversTeilsortiert10000", "InversTeilsortiert100000",
-                "Ramdom1000", "Ramdom10000", "Ramdom100000",
+                "Random1000", "Random10000", "Random100000",
                 "Teilsortiert1000", "Teilsortiert10000", "Teilsortiert100000"};
         // add th file names as column headers
         for (int i = 0; i < 9; i++) {
@@ -518,7 +518,7 @@ public class ExcelWriter {
 
         // array containing al the names of the files containing the values wich are sorted.
         String[] files = {"InversTeilsortiert1000", "InversTeilsortiert10000", "InversTeilsortiert100000",
-                "Ramdom1000", "Ramdom10000", "Ramdom100000",
+                "Random1000", "Random10000", "Random100000",
                 "Teilsortiert1000", "Teilsortiert10000", "Teilsortiert100000"};
         // add th file names as column headers
         for (int i = 0; i < 4; i++) {

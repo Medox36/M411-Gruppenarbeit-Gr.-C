@@ -8,9 +8,8 @@ import java.util.Vector;
  *
  * @author Andras Tarlos
  * @author Lorenzo Giuntini
- * @author Sven Wildhaber
  * @since 2022.01.22
- * @version 0.1.0
+ * @version 0.2.0
  */
 public class BubbleSort extends ArrayCopier implements SortingInterface {
     private long writeChanges = 0;
@@ -28,16 +27,16 @@ public class BubbleSort extends ArrayCopier implements SortingInterface {
     }
     
     public void sort(int[] arr) {
-        int i, j, temp, n = 7;
-        storageSpaceRequired += 142;
-        for (i = 0; i < n; i++) {
-            for (j = 0; j < n - i - 1; j++) {
+        storageSpaceRequired += 32;
+        for (int i = 0; i < arr.length; i++) {
+            storageSpaceRequired += 32;
+            for (int j = i + 1; j < arr.length; j++) {
                 amountOfComparisons++;
-                if (arr[j] > arr[j + 1]) {
-                    temp = arr[j];
+                if (arr[i] < arr[j]) {
+                    int swap = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = swap;
                     storageSpaceRequired += 32;
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
                     writeChanges += 2;
                 }
             }

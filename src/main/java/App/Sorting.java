@@ -7,7 +7,6 @@ import java.util.Vector;
 
 public class Sorting extends Thread{
     private Vector<Vector<Integer>> fileArrays;
-    private FileReader reader;
     private SortingInterface[] sortingTypes;
     private Vector<long[]> results;
 
@@ -29,8 +28,7 @@ public class Sorting extends Thread{
     public void start() {
         results = new Vector<>();
         results.capacity();
-        reader = new FileReader();
-        fileArrays = reader.getFileArrays();
+        fileArrays = new FileReader().getFileArrays();
 
         sortingTypes = new SortingInterface[fileArrays.size()];
         sortingTypes[0] = new BinaryTreeSort();
@@ -49,8 +47,8 @@ public class Sorting extends Thread{
         updateSortingResults();
 
         for (long[] l: results) {
-            for (int i = 0; i < l.length; i++) {
-                System.out.print(l[i] + ", ");
+            for (long value : l) {
+                System.out.print(value + ", ");
             }
             System.out.println();
         }

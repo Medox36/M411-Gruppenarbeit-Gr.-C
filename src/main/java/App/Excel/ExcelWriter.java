@@ -217,7 +217,7 @@ public class ExcelWriter {
         //rows, skipping row 0 and 1
         for (int i = 2; i < MAX_ROWS_ONE_SHEET; i++) {
             // further rows to skip
-            if (i == 10||i == 11||i == 12||i == 19||i == 21||i == 22||i == 23||i == 32||i == 33||i == 34) {
+            if (i == 10||i == 11||i == 12||i == 21||i == 22||i == 23||i == 32||i == 33||i == 34) {
                 continue;
             }
             // cell, skipping cell 0 and 1

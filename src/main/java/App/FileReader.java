@@ -11,11 +11,12 @@ import java.util.*;
  *
  *
  * @author Andras Tarlos
+ * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.1.3
+ * @version 0.1.4
  */
 public class FileReader {
-    private Vector<File> files;
+    private final Vector<File> files;
     private final Vector<Vector<Integer>> fileArrays;
     private final String[] fileNames;
 
@@ -24,9 +25,9 @@ public class FileReader {
      * die gebrauchte Methoden ausgeführt
      */
     public FileReader() {
-        fileNames = new String[]{"InversTeilsortiert1000.txt", "InversTeilsortiert10000.txt", "InversTeilsortiert100000.txt",
-                "Random1000.txt", "Random10000.txt", "Random100000.txt",
-                "Teilsortiert1000.txt", "Teilsortiert10000.txt", "Teilsortiert100000.txt"};
+        fileNames = new String[]{"InversTeilsortiert1000.dat.txt", "InversTeilsortiert10000.dat.txt", "InversTeilsortiert100000.dat.txt",
+                "Random1000.dat.txt", "Random10000.dat.txt", "Random100000.dat.txt",
+                "Teilsortiert1000.dat.txt", "Teilsortiert10000.dat.txt", "Teilsortiert100000.dat.txt"};
         files = new Vector<>();
         fileArrays = new Vector<>();
 

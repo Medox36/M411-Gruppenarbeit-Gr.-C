@@ -9,7 +9,7 @@ import java.util.Vector;
  *
  * @author Andras Tarlos
  * @since 2022.01.22
- * @version 0.1
+ * @version 0.2.0
  */
 public class Sorting implements Runnable{
     private Vector<Vector<Integer>> fileArrays;
@@ -36,7 +36,7 @@ public class Sorting implements Runnable{
 
         System.out.println(fileArrays.size());
 
-        sortingTypes = new SortingInterface[fileArrays.size()];
+        sortingTypes = new SortingInterface[8];
         sortingTypes[0] = new BinaryTreeSort();
         sortingTypes[1] = new BubbleSort();
         sortingTypes[2] = new HeapSort();
@@ -63,11 +63,12 @@ public class Sorting implements Runnable{
 
     public void updateSortingResults() {
         double h = 0.0;
+        String[] names = new FileReader().getFileNames();
         for (int i = 0; i < sortingTypes.length-1; i++) {
             System.out.print("*");
             for (int j = 0; j < fileArrays.size(); j++) {
                 if (!noGui) {
-                    String s = "Algorithm " + sortingTypes[i].getAlgorithmName() + " is sorting " + "currentFileBeingSortedName";
+                    String s = "Algorithm " + sortingTypes[i].getAlgorithmName() + " is sorting " + names[j];
                     Platform.runLater(() -> gui.setLabelText(s));
                     double p = h;
                     Platform.runLater(() -> gui.setProgress(p));
@@ -77,7 +78,7 @@ public class Sorting implements Runnable{
                 results.set(i * sortingTypes.length + j + 71, new long[] {(long) i * sortingTypes.length + j + 72, sortingTypes[i].getAmountOfComparisons()});
                 results.set(i * sortingTypes.length + j + 142, new long[] {(long) i * sortingTypes.length + j + 144, sortingTypes[i].getWriteChanges()});
                 results.set(i * sortingTypes.length + j + 213, new long[] {(long) i * sortingTypes.length + j + 216, sortingTypes[i].getStorageSpaceRequired()});
-                h += 1.0/288.0;
+                h += 1.0/72.0;
             }
             System.out.print("*");
         }

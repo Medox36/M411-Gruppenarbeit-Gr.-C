@@ -13,16 +13,9 @@ import java.util.Vector;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.2.2
+ * @version 0.3.1
  */
 public class ExcelWriter {
-
-    /**
-     * Reference to the ExcelFile which the data will be written to.
-     *
-     * @see ExcelFile
-     */
-    private final ExcelFile excelFile;
 
     /**
      * High level representation of an Excel workbook. This object is used for reading or writing a workbook.
@@ -130,9 +123,8 @@ public class ExcelWriter {
     private final int MAX_CELLS_PER_ROW = 11;
 
 
-    public ExcelWriter(ExcelFile excelFile, boolean multipleSheets) throws IOException {
-        this.excelFile = excelFile;
-        workbook = new XSSFWorkbookFactory().create(new FileInputStream(excelFile));
+    public ExcelWriter(boolean multipleSheets) {
+        workbook = new XSSFWorkbook();
         this.multipleSheets = multipleSheets;
         removeExistingSheets();
         if (multipleSheets) {
@@ -268,7 +260,7 @@ public class ExcelWriter {
 
     /**
      * <p>
-     * Will write the changes to the .xlsx-file given in the constructor.
+     * Will write the changes to the default Auswertung_Gr-C.xlsx file.
      * <p>
      * After writing the workbook wil be closed and the FileOutputStream, which is opened to write to the .xlsx-file
      * will be closed as well.<br><br>
@@ -280,7 +272,7 @@ public class ExcelWriter {
      * because a closed Workbook can't be opened again.
      */
     public void finish() throws IOException {
-        OutputStream out = new FileOutputStream(excelFile);
+        OutputStream out = new FileOutputStream("Auswertung_Gr-C.xlsx");
         workbook.write(out);
         out.close();
         workbook.close();

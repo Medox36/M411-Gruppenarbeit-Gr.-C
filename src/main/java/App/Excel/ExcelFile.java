@@ -1,34 +1,24 @@
 package App.Excel;
 
 import java.io.File;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Objects;
+import java.io.IOException;
 
 /**
  *
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.0.2
+ * @version 0.2.0
  */
 public class ExcelFile extends File {
 
     /**
      * default constructor
-     * will use the default file Auswertung_Gr-C.xlsx
+     * will create the default file Auswertung_Gr-C.xlsx
      *
-     * @throws URISyntaxException when the default file has not been found or is missing for some reason
+     * @throws IOException when the program was unable to create the new file
      */
-    public ExcelFile() throws URISyntaxException {
-        super(Objects.requireNonNull(ExcelFile.class.getResource("/excel/Auswertung_Gr-C.xlsx")).toURI());
-    }
-
-    public ExcelFile(String pathname) {
-        super(pathname);
-    }
-
-    public ExcelFile(URI uri) {
-        super(uri);
+    public ExcelFile() throws IOException {
+        super("Auswertung_Gr-C.xlsx");
     }
 }

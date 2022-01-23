@@ -1,14 +1,12 @@
 package App;
 
+import App.Excel.ExcelFile;
 import App.Excel.ExcelHandler;
 import App.SortClasses.*;
 import javafx.application.Platform;
 
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.Objects;
 import java.util.Vector;
 
 /**
@@ -17,7 +15,7 @@ import java.util.Vector;
  * @author Andras Tarlos
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.22
- * @version 0.2.1
+ * @version 0.2.2
  */
 public class Sorting implements Runnable{
     private Vector<Vector<Integer>> fileArrays;
@@ -57,10 +55,28 @@ public class Sorting implements Runnable{
 
         updateSortingResults();
 
-        new ExcelHandler().initWriteAndFinish(results);
         try {
-            Desktop.getDesktop().open(new File(Objects.requireNonNull(Main.class.getResource("/excel/Auswertung_Gr-C.xlsx")).toURI()));
-        } catch (IOException | URISyntaxException e) {
+            ExcelFile file = new ExcelFile();
+            if (file.exists()) {
+                if (file.delete()) {
+                    if (!file.createNewFile()) {
+                        System.out.println("ExcelFile (.xlsx-File) couldn't be created.");
+                    } else {
+                        new ExcelHandler(false).initWriteAndFinish(results);
+                        Desktop.getDesktop().open(file);
+                    }
+                } else {
+                    System.out.println("ExcelFile (.xlsx) already exists, but couldn't be deleted!\n\tPlease delete the ExcelFile (.xlsx) and run the program again.");
+                }
+            } else {
+                if (!file.createNewFile()) {
+                    System.out.println("ExcelFile (.xlsx-File) couldn't be created.");
+                } else {
+                    new ExcelHandler(false).initWriteAndFinish(results);
+                    Desktop.getDesktop().open(file);
+                }
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

@@ -149,9 +149,7 @@ public class JFX_GUI extends Application {
         // set the scene of the stage
         stage.setScene(scene);
 
-        if (!java.awt.SystemTray.isSupported()) {
-            showStage();
-        }
+        showStage();
     }
 
     /**
@@ -180,14 +178,12 @@ public class JFX_GUI extends Application {
 
                 // if the user selects the default menu item (which includes the app name),
                 // show the main app stage.
-                java.awt.MenuItem openItem = new java.awt.MenuItem("show");
+                java.awt.MenuItem openItem = new java.awt.MenuItem("show/hide");
                 openItem.addActionListener(e -> {
                     if (stage.isShowing()) {
                         Platform.runLater(this::hideStage);
-                        setTrayMenuItemText(openItem, "show");
                     } else {
                         Platform.runLater(this::showStage);
-                        setTrayMenuItemText(openItem, "hide");
                     }
                 });
 

@@ -15,8 +15,9 @@ import java.util.Vector;
  *
  *
  * @author Andras Tarlos
+ * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.22
- * @version 0.2.0
+ * @version 0.2.1
  */
 public class Sorting implements Runnable{
     private Vector<Vector<Integer>> fileArrays;
@@ -35,7 +36,6 @@ public class Sorting implements Runnable{
         noGui = false;
     }
 
-    //4 * 8 * 9
     public void start() {
         results = new Vector<>();
         results.capacity();
@@ -54,18 +54,8 @@ public class Sorting implements Runnable{
         for (int i = 0; i < 288; i++) {
             results.add(new long[] {});
         }
-        progressBar();
+
         updateSortingResults();
-        progressBar();
-
-        for (long[] l: results) {
-            for (long value : l) {
-                System.out.print(value + ", ");
-            }
-            System.out.println();
-        }
-
-        System.out.println(results.size());
 
         new ExcelHandler().initWriteAndFinish(results);
         try {
@@ -79,7 +69,6 @@ public class Sorting implements Runnable{
         double h = 0.0;
         String[] names = new FileReader().getFileNames();
         for (int i = 0; i < sortingTypes.length-1; i++) {
-            System.out.print("*");
             for (int j = 0; j < fileArrays.size(); j++) {
                 if (!noGui) {
                     String s = "Algorithm " + sortingTypes[i].getAlgorithmName() + " is sorting " + names[j];
@@ -94,7 +83,6 @@ public class Sorting implements Runnable{
                 results.set(i * sortingTypes.length + j + 216, new long[] {(long) i * sortingTypes.length + j + 216, sortingTypes[i].getStorageSpaceRequired()});
                 h += 1.0/72.0;
             }
-            System.out.print("*");
         }
         if (!noGui) {
             Platform.runLater(() -> gui.setProgress(1.0));
@@ -106,9 +94,5 @@ public class Sorting implements Runnable{
     @Override
     public void run() {
         start();
-    }
-
-    public void progressBar() {
-        System.out.println("\n----------------");
     }
 }

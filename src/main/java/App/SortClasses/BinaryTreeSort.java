@@ -7,7 +7,7 @@ import java.util.Vector;
  *
  * @author Andras Tarlos
  * @since 2022.01.22
- * @version 0.1
+ * @version 0.1.1
  */
 public class BinaryTreeSort implements SortingInterface {
     private long writeChanges = 0;
@@ -67,10 +67,10 @@ public class BinaryTreeSort implements SortingInterface {
         }
     }
 
-    public void treeins(int arr[]) {
-        for (int i = 0; i < arr.length; i++) {
+    public void treeins(int[] arr) {
+        for (int j : arr) {
             storageSpaceRequired += 32;
-            insert(arr[i]);
+            insert(j);
         }
     }
 

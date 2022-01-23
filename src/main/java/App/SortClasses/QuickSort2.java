@@ -9,7 +9,7 @@ import java.util.Vector;
  *
  * @author Andras Tarlos
  * @since 2022.01.22
- * @version 0.1
+ * @version 0.1.1
  */
 public class QuickSort2 extends ArrayCopier implements SortingInterface {
     private long writeChanges = 0;

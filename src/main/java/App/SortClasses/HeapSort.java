@@ -2,13 +2,14 @@ package App.SortClasses;
 
 import App.ArrayCopier;
 import App.SortingInterface;
+
 import java.util.Vector;
 
 /**
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.22
- * @version 0.1.3
+ * @version 0.1.4
  */
 public class HeapSort extends ArrayCopier implements SortingInterface {
     private long writeChanges = 0;

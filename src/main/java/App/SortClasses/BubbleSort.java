@@ -2,6 +2,7 @@ package App.SortClasses;
 
 import App.ArrayCopier;
 import App.SortingInterface;
+
 import java.util.Vector;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Vector;
  * @author Andras Tarlos
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.22
- * @version 0.2.0
+ * @version 0.2.1
  */
 public class BubbleSort extends ArrayCopier implements SortingInterface {
     private long writeChanges = 0;

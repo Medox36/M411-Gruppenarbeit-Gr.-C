@@ -2,13 +2,14 @@ package App.SortClasses;
 
 import App.ArrayCopier;
 import App.SortingInterface;
+
 import java.util.Vector;
 
 /**
  *
  * @author Andras Tarlos
  * @since 2022.01.22
- * @version 0.1
+ * @version 0.1.1
  */
 public class InsertionSort extends ArrayCopier implements SortingInterface {
     private long writeChanges = 0;

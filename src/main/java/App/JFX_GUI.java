@@ -269,14 +269,4 @@ public class JFX_GUI extends Application {
             stage.hide();
         }
     }
-
-    /**
-     * Sets the text of a given MenuItem
-     *
-     * @param item MenuItem of which the text wil be changed
-     * @param s change to this text
-     */
-    private void setTrayMenuItemText(MenuItem item,String s) {
-        item.setLabel(s);
-    }
 }

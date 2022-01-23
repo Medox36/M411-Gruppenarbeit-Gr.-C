@@ -41,8 +41,6 @@ public class Sorting implements Runnable{
         results.capacity();
         fileArrays = new FileReader().getFileArrays();
 
-        System.out.println(fileArrays.size());
-
         sortingTypes = new SortingInterface[9];
         sortingTypes[0] = new BinaryTreeSort();
         sortingTypes[1] = new BubbleSort();

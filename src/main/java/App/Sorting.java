@@ -113,8 +113,8 @@ public class Sorting implements Runnable{
                 } else {
                     int p = (int) (h*10);
                     int pr = (int) (h*100);
-                    String prs = "#".repeat(p) + " ".repeat(10-p);
-                    System.out.print("Progress: [" + prs + "] " + pr +  "%, " + s + "\r");
+                    String prs = "Progress: [" + "#".repeat(p) + " ".repeat(10-p) + "] " + pr + "%, " + s;
+                    System.out.print(prs + " ".repeat(110-prs.length()) + "\r");
                 }
                 sortingTypes[i].run(fileArrays.get(j));
                 results.set(i * sortingTypes.length + j, new long[] {(long) i * sortingTypes.length + j, sortingTypes[i].getTimeForSorting()});

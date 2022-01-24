@@ -13,7 +13,7 @@ import java.util.Vector;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.3.1
+ * @version 0.3.2
  */
 public class ExcelWriter {
 
@@ -131,10 +131,10 @@ public class ExcelWriter {
             sheets = new XSSFSheet[4];
             rowies = new XSSFRow[4][MAX_ROWS_MULTIPLE_SHEETS];
             cellies = new XSSFCell[4][MAX_ROWS_MULTIPLE_SHEETS][MAX_CELLS_PER_ROW];
-            sheets[0] = workbook.createSheet("Benötigte Zeit");
+            sheets[0] = workbook.createSheet("Benötigte Zeit (Nanosekunden)");
             sheets[1] = workbook.createSheet("Anzahl Vergleiche");
             sheets[2] = workbook.createSheet("Anzahl Schreibzugriffe");
-            sheets[3] = workbook.createSheet("Speicherbedarf");
+            sheets[3] = workbook.createSheet("Speicherbedarf (Bits)");
         } else {
             sheets = new XSSFSheet[1];
             rows = new XSSFRow[MAX_ROWS_ONE_SHEET];
@@ -393,10 +393,10 @@ public class ExcelWriter {
      */
     private void writeRowAndColumnNamesOneSheet() {
         // add the topics
-        cells[0][0].setCellValue("Benötigte Zeit");
+        cells[0][0].setCellValue("Benötigte Zeit (Nanosekunden)");
         cells[11][0].setCellValue("Anzahl Vergleiche");
         cells[22][0].setCellValue("Anzahl Schreibzugriffe");
-        cells[33][0].setCellValue("Speicherbedarf");
+        cells[33][0].setCellValue("Speicherbedarf (Bits)");
 
         // array containing al the names of the files containing the values wich are sorted.
         String[] files = {"InversTeilsortiert1000", "InversTeilsortiert10000", "InversTeilsortiert100000",
@@ -412,7 +412,7 @@ public class ExcelWriter {
 
         // array containing all the names of the algorithms
         String[] algorithms = {"BinaryTreeSort", "BubbleSort", "HeapSort",
-                "InsertionSort", "MergeSort", "QuickSort", "QuickSort2", "ShakerSort"};
+                "InsertionSort", "MergeSort", "QuickSort (Pivot am Anfang)", "QuickSort2 (Random Pivot)", "ShakerSort"};
         // add the algorithm names as row headers
         for (int i = 2; i < 36; i+=11) {
             for (int j = 0; j < 8; j++) {
@@ -503,10 +503,10 @@ public class ExcelWriter {
      */
     private void writeRowAndColumnNamesMultipleSheet() {
         // add the topics
-        cellies[0][0][0].setCellValue("Benötigte Zeit");
+        cellies[0][0][0].setCellValue("Benötigte Zeit (Nanosekunden)");
         cellies[1][0][0].setCellValue("Anzahl Vergleiche");
         cellies[2][0][0].setCellValue("Anzahl Schreibzugriffe");
-        cellies[3][0][0].setCellValue("Speicherbedarf");
+        cellies[3][0][0].setCellValue("Speicherbedarf (Bits)");
 
         // array containing al the names of the files containing the values wich are sorted.
         String[] files = {"InversTeilsortiert1000", "InversTeilsortiert10000", "InversTeilsortiert100000",
@@ -521,7 +521,7 @@ public class ExcelWriter {
 
         // array containing all the names of the algorithms
         String[] algorithms = {"BinaryTreeSort", "BubbleSort", "HeapSort",
-                "InsertionSort", "MergeSort", "QuickSort", "QuickSort2", "ShakerSort"};
+                "InsertionSort", "MergeSort", "QuickSort (Pivot am Anfang)", "QuickSort (Random Pivot)", "ShakerSort"};
         // add the algorithm names as row headers
         for (int i = 0; i < 4; i++) {
             for (int j = 2; j < MAX_ROWS_MULTIPLE_SHEETS; j++) {

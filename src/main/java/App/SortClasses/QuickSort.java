@@ -9,7 +9,7 @@ import java.util.Vector;
  *
  * @author Andras Tarlos
  * @since 2022.01.22
- * @version 0.1.1
+ * @version 0.1.2
  */
 public class QuickSort extends ArrayCopier implements SortingInterface {
     private long writeChanges = 0;
@@ -94,6 +94,6 @@ public class QuickSort extends ArrayCopier implements SortingInterface {
 
     @Override
     public String getAlgorithmName() {
-        return "QuickSort";
+        return "QuickSort (Pivot am Anfang )";
     }
 }

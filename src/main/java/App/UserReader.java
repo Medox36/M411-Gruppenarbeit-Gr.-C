@@ -2,6 +2,11 @@ package App;
 
 import java.util.Scanner;
 
+/**
+ * @author Lorenzo Giuntini (Medox36)
+ * @since 2022.01.24
+ * @version 0.1.0
+ */
 public class UserReader {
 
     // attributes

@@ -1,3 +1,12 @@
 Manifest-Version: 1.0
 Main-Class: App.Main
+Implementation-Title: Apache POI
+Automatic-Module-Name: org.apache.poi.ooxml
+Implementation-Version: 5.1.0
+Specification-Vendor: The Apache Software Foundation
+Multi-Release: true
+Specification-Title: Apache POI
+Implementation-Vendor-Id: The Apache Software Foundation
+Specification-Version: 5.1.0
+Implementation-Vendor: org.apache.poi
 

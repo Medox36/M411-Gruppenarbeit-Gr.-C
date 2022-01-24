@@ -8,7 +8,7 @@ import java.util.Vector;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.2.1
+ * @version 0.2.2
  */
 public class ExcelHandler {
     private final ExcelWriter excelWriter;
@@ -20,8 +20,8 @@ public class ExcelHandler {
         excelWriter = new ExcelWriter(false);
     }
 
-    public ExcelHandler(boolean multileSheets) {
-        excelWriter = new ExcelWriter(multileSheets);
+    public ExcelHandler(boolean multipleSheets) {
+        excelWriter = new ExcelWriter(multipleSheets);
     }
 
     public void initWriteAndFinish(Vector<long[]> data) {

@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
@@ -24,7 +25,7 @@ import java.util.Objects;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.1.12
+ * @version 0.1.13
  */
 public class JFX_GUI extends Application {
     private static final String iconLoc = Objects.requireNonNull(Main.class.getResource("/images/sort.png")).toString();
@@ -260,7 +261,7 @@ public class JFX_GUI extends Application {
      *
      * @return Whether the checkbox was selected before starting sorting or not
      */
-    public boolean getCheckBoxState() {
+    public synchronized boolean getCheckBoxState() {
         return checkBox.isSelected();
     }
 
@@ -269,6 +270,16 @@ public class JFX_GUI extends Application {
      */
     public synchronized void showCloseButton() {
         closeButton.setVisible(true);
+    }
+
+    public void createDialog(String s) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("ExcelFile Waring");
+        alert.setHeaderText("An Error occurred in context with the ExcelFile (.xlsx)");
+        alert.setContentText(s);
+        alert.getDialogPane().setMinWidth(504);
+        alert.getDialogPane().setMinHeight(340);
+        alert.showAndWait();
     }
 
     /**

@@ -15,7 +15,7 @@ import java.util.Vector;
  * @author Andras Tarlos
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.22
- * @version 0.2.3
+ * @version 0.2.4
  */
 public class Sorting implements Runnable{
     private Vector<Vector<Integer>> fileArrays;
@@ -57,35 +57,46 @@ public class Sorting implements Runnable{
 
         boolean multipleSheets;
         if (noGui) {
-            multipleSheets = new UserReader().readBooleanJN("\n\nShould the results be saved in multiple Sheets or in one single Sheet.");
+            multipleSheets = new UserReader().readBooleanJN("\n\nShould the results be saved in multiple Sheets or in one single Sheet.\n" +
+                    "Can't decide? Then choose Y (Yes)");
         } else {
             multipleSheets = gui.getCheckBoxState();
-            System.out.println(multipleSheets);
         }
 
         try {
             ExcelFile file = new ExcelFile();
             if (file.exists()) {
                 if (file.delete()) {
-                    if (!file.createNewFile()) {
-                        System.out.println("ExcelFile (.xlsx-File) couldn't be created.");
-                    } else {
-                        new ExcelHandler(multipleSheets).initWriteAndFinish(results);
-                        Desktop.getDesktop().open(file);
-                    }
+                    deleteFileDialog(multipleSheets, file);
                 } else {
-                    System.out.println("ExcelFile (.xlsx) already exists, but couldn't be deleted!\n\tPlease delete the ExcelFile (.xlsx) and run the program again.");
+                    String s = "Either ExcelFile (.xlsx) already exists, but couldn't be deleted, or the ExcelFile is opened in a program and can't be accessed.\n" +
+                            "\tPlease close the program in wich the ExcelFile is opened and run the program again or\n" +
+                            "\tdelete the ExcelFile (.xlsx) and run the program again.";
+                    if (noGui) {
+                        System.out.println(s);
+                    } else {
+                        Platform.runLater(() -> gui.createDialog(s));
+                    }
                 }
             } else {
-                if (!file.createNewFile()) {
-                    System.out.println("ExcelFile (.xlsx-File) couldn't be created.");
-                } else {
-                    new ExcelHandler(multipleSheets).initWriteAndFinish(results);
-                    Desktop.getDesktop().open(file);
-                }
+                deleteFileDialog(multipleSheets, file);
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void deleteFileDialog(boolean multipleSheets, ExcelFile file) throws IOException {
+        if (!file.createNewFile()) {
+            String s = "ExcelFile (.xlsx-File) couldn't be created.";
+            if (noGui) {
+                System.out.println(s);
+            } else {
+                Platform.runLater(() -> gui.createDialog(s));
+            }
+        } else {
+            new ExcelHandler(multipleSheets).initWriteAndFinish(results);
+            Desktop.getDesktop().open(file);
         }
     }
 

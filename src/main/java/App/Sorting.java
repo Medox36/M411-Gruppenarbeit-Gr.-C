@@ -15,7 +15,7 @@ import java.util.Vector;
  * @author Andras Tarlos
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.22
- * @version 0.2.2
+ * @version 0.2.3
  */
 public class Sorting implements Runnable{
     private Vector<Vector<Integer>> fileArrays;
@@ -55,6 +55,14 @@ public class Sorting implements Runnable{
 
         updateSortingResults();
 
+        boolean multipleSheets;
+        if (noGui) {
+            multipleSheets = new UserReader().readBooleanJN("\n\nShould the results be saved in multiple Sheets or in one single Sheet.");
+        } else {
+            multipleSheets = gui.getCheckBoxState();
+            System.out.println(multipleSheets);
+        }
+
         try {
             ExcelFile file = new ExcelFile();
             if (file.exists()) {
@@ -62,7 +70,7 @@ public class Sorting implements Runnable{
                     if (!file.createNewFile()) {
                         System.out.println("ExcelFile (.xlsx-File) couldn't be created.");
                     } else {
-                        new ExcelHandler(false).initWriteAndFinish(results);
+                        new ExcelHandler(multipleSheets).initWriteAndFinish(results);
                         Desktop.getDesktop().open(file);
                     }
                 } else {
@@ -72,7 +80,7 @@ public class Sorting implements Runnable{
                 if (!file.createNewFile()) {
                     System.out.println("ExcelFile (.xlsx-File) couldn't be created.");
                 } else {
-                    new ExcelHandler(false).initWriteAndFinish(results);
+                    new ExcelHandler(multipleSheets).initWriteAndFinish(results);
                     Desktop.getDesktop().open(file);
                 }
             }
@@ -86,11 +94,13 @@ public class Sorting implements Runnable{
         String[] names = new FileReader().getFileNames();
         for (int i = 0; i < sortingTypes.length-1; i++) {
             for (int j = 0; j < fileArrays.size(); j++) {
+                String s = "Algorithm " + sortingTypes[i].getAlgorithmName() + " is sorting " + names[j];
                 if (!noGui) {
-                    String s = "Algorithm " + sortingTypes[i].getAlgorithmName() + " is sorting " + names[j];
                     Platform.runLater(() -> gui.setLabelText(s));
                     double p = h;
                     Platform.runLater(() -> gui.setProgress(p));
+                } else {
+                    System.out.print(s + "\r");
                 }
                 sortingTypes[i].run(fileArrays.get(j));
                 results.set(i * sortingTypes.length + j, new long[] {(long) i * sortingTypes.length + j, sortingTypes[i].getTimeForSorting()});

@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
@@ -23,7 +24,7 @@ import java.util.Objects;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.1.11
+ * @version 0.1.12
  */
 public class JFX_GUI extends Application {
     private static final String iconLoc = Objects.requireNonNull(Main.class.getResource("/images/sort.png")).toString();
@@ -43,6 +44,8 @@ public class JFX_GUI extends Application {
     private java.awt.TrayIcon trayIcon;
 
     private javafx.scene.control.Button closeButton;
+
+    private CheckBox checkBox;
 
     @Override
     public void start(Stage stage) {
@@ -68,6 +71,13 @@ public class JFX_GUI extends Application {
         buttonBox.setPadding(new Insets(110, 30, 10, 30));
 
         //
+        HBox checkBoxHBox = new HBox();
+        checkBoxHBox.setPadding(new Insets(88, 30, 10, 30));
+
+        //
+        checkBox = new CheckBox("Save results in multiple sheets");
+
+        //
         pb = new ProgressBar(0.0);
         pb.setMinSize(345,25);
         pb.setPrefSize(345, 25);
@@ -88,6 +98,7 @@ public class JFX_GUI extends Application {
         startButton.setPrefSize(85,30);
         startButton.setOnAction(actionEvent -> {
             startButton.setVisible(false);
+            checkBox.setVisible(false);
             label.setText("initializing sorting");
             pb.setProgress(-1.0);
             pi.setProgress(-1.0);
@@ -115,14 +126,15 @@ public class JFX_GUI extends Application {
         closeButton.setOnMousePressed(mouseEvent -> closeButton.setStyle("-fx-background-color: #ab4e3e; -fx-border-color: #443c3c; -fx-font-weight: bold"));
         closeButton.setVisible(false);
 
-        //
+                //
         progressBox.getChildren().addAll(pb, pi);
         labelBox.getChildren().add(label);
         buttonBox.getChildren().addAll(startButton, closeButton);
+        checkBoxHBox.getChildren().add(checkBox);
 
         //
         Group root = new Group();
-        root.getChildren().addAll(progressBox, labelBox, buttonBox);
+        root.getChildren().addAll(progressBox, labelBox, buttonBox, checkBoxHBox);
 
         //
         Scene scene = new Scene(root, Color.CADETBLUE);
@@ -242,6 +254,14 @@ public class JFX_GUI extends Application {
     public synchronized void setProgress(double progress) {
         pb.setProgress(progress);
         pi.setProgress(progress);
+    }
+
+    /**
+     *
+     * @return Whether the checkbox was selected before starting sorting or not
+     */
+    public boolean getCheckBoxState() {
+        return checkBox.isSelected();
     }
 
     /**

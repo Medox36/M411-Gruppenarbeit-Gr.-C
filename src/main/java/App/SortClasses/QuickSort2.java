@@ -7,7 +7,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.Vector;
 
 /**
- * <h1>Quicksort (with index 0 pivot)</h1>
+ * <h1>Quicksort (with random pivot)</h1>
  * <h3>Best-Case: O(n * log(n))<br>Average-Case: O(n * log(n))<br>Worst-Case: O(n^2)<br>Stable: No</h3>
  * <p>Quicksort is a recursive based algorithm. If it's well implemented it is somewhat faster than
  * merge sort and about two / three times faster than the heapsort. Quicksort works by selecting a
@@ -51,6 +51,7 @@ public class QuickSort2 extends ArrayCopier implements SortingInterface {
         int i = leftIndex;
         int k = rightIndex - 1;
         int pivot;
+        // Using the first time a random pivot
         if (firstSort) {
             pivot = ThreadLocalRandom.current().nextInt(leftIndex, rightIndex);
             firstSort = false;

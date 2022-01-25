@@ -6,11 +6,10 @@ import App.SortingInterface;
 import java.util.Vector;
 
 /**
- *
- *
- *
- *
- *
+ * <h1>InsertionSort</h1>
+ * <h3>Best-Case: O(n)<br>Average-Case: O(n^2)<br>Worst-Case: O(n^2)<br>Stable: Yes</h3>
+ * <p>InsertionSort is one of the most straight forward algorithms available. <br>It virtually splits the array into a sorted and an unsorted part. <br>Values from the unsorted part are picked and placed <br>at the correct position in the sorted part.</p>
+ * <a href="https://upload.wikimedia.org/wikipedia/commons/0/0f/Insertion-sort-example-300px.gif">InsertionSort visualization</a>
  *
  * @author Andras Tarlos
  * @since 2022.01.22
@@ -31,6 +30,10 @@ public class InsertionSort extends ArrayCopier implements SortingInterface {
         timeForSorting = System.nanoTime() - timeForSorting;
     }
 
+    /**
+     *
+     * @param arr is the unsorted array that has to be sorted
+     */
     private void sort(int[] arr) {
         int n = arr.length;
         storageSpaceRequired += 32;

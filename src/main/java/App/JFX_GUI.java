@@ -10,6 +10,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -19,6 +20,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  *
@@ -39,6 +41,12 @@ public class JFX_GUI extends Application {
     private ProgressBar pb;
 
     private ProgressIndicator pi;
+
+    private javafx.scene.control.Button volumeButton;
+
+    private javafx.scene.image.Image volumeImage;
+
+    private boolean volumeIsMuted;
 
     private java.awt.SystemTray tray;
 
@@ -75,6 +83,8 @@ public class JFX_GUI extends Application {
         HBox checkBoxHBox = new HBox();
         checkBoxHBox.setPadding(new Insets(88, 30, 10, 30));
 
+        volumeIsMuted = false;
+
         //
         checkBox = new CheckBox("Save results in multiple sheets");
 
@@ -94,12 +104,17 @@ public class JFX_GUI extends Application {
         label.setStyle("-fx-font-weight: bold");
 
         //
+        AtomicReference<Image> img = new AtomicReference<>(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/volume_on_tiny.jpeg"))));
+        AtomicReference<ImageView> view = new AtomicReference<>(new ImageView(img.get()));
+
+        //
         javafx.scene.control.Button startButton = new javafx.scene.control.Button("Start");
         startButton.setMinSize(85, 30);
         startButton.setPrefSize(85,30);
         startButton.setOnAction(actionEvent -> {
             startButton.setVisible(false);
             checkBox.setVisible(false);
+            volumeButton.setVisible(true);
             label.setText("initializing sorting");
             pb.setProgress(-1.0);
             pi.setProgress(-1.0);
@@ -109,10 +124,32 @@ public class JFX_GUI extends Application {
         });
 
         //
+        volumeButton = new javafx.scene.control.Button();
+        volumeButton.setVisible(false);
+        volumeButton.setGraphic(view.get());
+        volumeButton.setMinSize(40, 40);
+        volumeButton.setPrefSize(50, 50);
+        volumeButton.setOnAction(actionEvent -> {
+            if (volumeIsMuted) {
+                img.set(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/volume_on_tiny.jpeg"))));
+                view.set(new ImageView(img.get()));
+                volumeIsMuted = false;
+            } else {
+                img.set(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/volume_off_tiny.jpeg"))));
+                view.set(new ImageView(img.get()));
+                volumeIsMuted = true;
+            }
+            volumeButton.setGraphic(view.get());
+        });
+
+        //
         startButton.setStyle("-fx-background-color: #f5b80f; -fx-border-width: 1px; -fx-border-color: black; -fx-font-weight: bold");
         startButton.setOnMouseEntered(mouseEvent -> startButton.setStyle("-fx-background-color: #a5d24c; -fx-border-color: #62675b; -fx-font-weight: bold"));
         startButton.setOnMouseExited(mouseEvent -> startButton.setStyle("-fx-background-color: #f5b80f; -fx-border-color: black; -fx-font-weight: bold"));
         startButton.setOnMousePressed(mouseEvent -> startButton.setStyle("-fx-background-color: #8db242; -fx-border-color: #42463e; -fx-font-weight: bold"));
+
+        //
+        volumeButton.setStyle("-fx-padding: 40,0,0,0");
 
         //
         closeButton = new javafx.scene.control.Button("Close");
@@ -127,10 +164,13 @@ public class JFX_GUI extends Application {
         closeButton.setOnMousePressed(mouseEvent -> closeButton.setStyle("-fx-background-color: #ab4e3e; -fx-border-color: #443c3c; -fx-font-weight: bold"));
         closeButton.setVisible(false);
 
-                //
+        Region region = new Region();
+        HBox.setHgrow(region, Priority.ALWAYS);
+
+        //
         progressBox.getChildren().addAll(pb, pi);
         labelBox.getChildren().add(label);
-        buttonBox.getChildren().addAll(startButton, closeButton);
+        buttonBox.getChildren().addAll(startButton, closeButton, region, volumeButton);
         checkBoxHBox.getChildren().add(checkBox);
 
         //
@@ -159,11 +199,20 @@ public class JFX_GUI extends Application {
         stage.setX((d.width-stage.getWidth())/2);
         stage.setY((d.height-stage.getHeight())/2);
 
+        // exits program if window is closed
+        stage.setOnCloseRequest(e -> {
+            System.out.println("Exiting program...");
+            close();
+        });
+
+        stage.setResizable(false);
+
         // set the scene of the stage
         stage.setScene(scene);
 
         showStage();
     }
+
 
     /**
      * Sets up a system TrayIcon for the application.

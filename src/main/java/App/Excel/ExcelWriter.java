@@ -125,7 +125,6 @@ public class ExcelWriter {
     public ExcelWriter(boolean multipleSheets) {
         workbook = new XSSFWorkbook();
         this.multipleSheets = multipleSheets;
-        removeExistingSheets();
         if (multipleSheets) {
             sheets = new XSSFSheet[4];
             rowies = new XSSFRow[4][MAX_ROWS_MULTIPLE_SHEETS];
@@ -139,15 +138,6 @@ public class ExcelWriter {
             rows = new XSSFRow[MAX_ROWS_ONE_SHEET];
             cells = new XSSFCell[MAX_ROWS_ONE_SHEET][MAX_CELLS_PER_ROW];
             sheets[0] = workbook.createSheet("Auswertung");
-        }
-    }
-
-    /**
-     * Removes all the existing sheets of the ExcelFile given in the constructor
-     */
-    private void removeExistingSheets() {
-        for (int i = workbook.getNumberOfSheets() - 1; i >= 0; i--) {
-            workbook.removeSheetAt(i);
         }
     }
 
@@ -271,7 +261,7 @@ public class ExcelWriter {
      * because a closed Workbook can't be opened again.
      */
     public void finish() throws IOException {
-        OutputStream out = new FileOutputStream("Auswertung_Gr-C.xlsx");
+        OutputStream out = new FileOutputStream("M411_LB2_GruppeC.xlsx");
         workbook.write(out);
         out.close();
         workbook.close();

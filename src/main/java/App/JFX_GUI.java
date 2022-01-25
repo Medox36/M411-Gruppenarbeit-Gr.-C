@@ -12,6 +12,8 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -77,7 +79,9 @@ public class JFX_GUI extends Application {
 
         //
         HBox buttonBox = new HBox();
-        buttonBox.setPadding(new Insets(110, 30, 10, 30));
+        buttonBox.setPadding(new Insets(110, 10, 10, 30));
+        buttonBox.setMinWidth(384);
+        buttonBox.setPrefWidth(384);
 
         //
         HBox checkBoxHBox = new HBox();
@@ -87,6 +91,7 @@ public class JFX_GUI extends Application {
 
         //
         checkBox = new CheckBox("Save results in multiple sheets");
+        checkBox.setSelected(true);
 
         //
         pb = new ProgressBar(0.0);
@@ -181,7 +186,7 @@ public class JFX_GUI extends Application {
         Scene scene = new Scene(root, Color.CADETBLUE);
 
         // add a Logo to tha stage
-        stage.getIcons().add(new Image(Objects.requireNonNull(Main.class.getResourceAsStream("/images/sort.png"))));
+        stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/sort.png"))));
 
         // change the title of the stage
         stage.setTitle("Sorting Analytics");

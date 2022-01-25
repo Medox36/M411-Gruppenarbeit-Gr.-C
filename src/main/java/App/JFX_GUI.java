@@ -93,9 +93,6 @@ public class JFX_GUI extends Application {
         HBox checkBoxHBox = new HBox();
         checkBoxHBox.setPadding(new Insets(88, 30, 10, 30));
 
-        //
-        //AudioClip clip = new AudioClip(getClass().getResourceAsStream("").to)
-
         volumeIsMuted = false;
 
         Media media = new Media(Objects.requireNonNull(getClass().getResource("/music/elevator.mp3")).toString());
@@ -344,6 +341,8 @@ public class JFX_GUI extends Application {
     }
 
     public void createDialog(String s) {
+        MediaPlayer player = new MediaPlayer(new Media(Objects.requireNonNull(getClass().getResource("/music/robert_weide.mp3")).toString()));
+        player.play();
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("ExcelFile Waring");
         alert.setHeaderText("An Error occurred in context with the ExcelFile (.xlsx)");

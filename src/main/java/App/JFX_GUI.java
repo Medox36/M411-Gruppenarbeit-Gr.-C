@@ -23,6 +23,7 @@ import javafx.scene.media.MediaPlayer;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
@@ -61,6 +62,8 @@ public class JFX_GUI extends Application {
 
     private CheckBox checkBox;
 
+    private MediaPlayer player;
+
     @Override
     public void start(Stage stage) {
         // stores a reference to the stage.
@@ -95,15 +98,9 @@ public class JFX_GUI extends Application {
 
         volumeIsMuted = false;
 
-        Media media = new Media("music/elevator.mp3");
-        MediaPlayer player = new MediaPlayer(media);
-        player.play();
-        Media media = null;
-        try {
-            media = new Media(getClass().getResource("/music/hero.mp3").toURI().toString());
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        Media media = new Media(Objects.requireNonNull(getClass().getResource("/music/elevator.mp3")).toString());
+        player = new MediaPlayer(media);
+
         //
         checkBox = new CheckBox("Save results in multiple sheets");
         checkBox.setSelected(true);
@@ -138,6 +135,7 @@ public class JFX_GUI extends Application {
             label.setText("initializing sorting");
             pb.setProgress(-1.0);
             pi.setProgress(-1.0);
+            player.play();
             Thread t = new Thread(new Sorting(this));
             t.setDaemon(true);
             t.start();
@@ -154,10 +152,12 @@ public class JFX_GUI extends Application {
                 img.set(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/volume_on_tiny.jpeg"))));
                 view.set(new ImageView(img.get()));
                 volumeIsMuted = false;
+                player.setMute(false);
             } else {
                 img.set(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/volume_off_tiny.jpeg"))));
                 view.set(new ImageView(img.get()));
                 volumeIsMuted = true;
+                player.setMute(true);
             }
             volumeButton.setGraphic(view.get());
         });
@@ -338,7 +338,9 @@ public class JFX_GUI extends Application {
      * makes the close-button visible again so the program can be exited by the user, without having to use the TracIcon
      */
     public synchronized void showCloseButton() {
+        player.stop();
         closeButton.setVisible(true);
+
     }
 
     public void createDialog(String s) {

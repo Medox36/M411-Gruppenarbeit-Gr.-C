@@ -16,6 +16,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -89,6 +91,9 @@ public class JFX_GUI extends Application {
 
         volumeIsMuted = false;
 
+        Media media = new Media());
+        MediaPlayer player = new MediaPlayer(media);
+        player.play();
         //
         checkBox = new CheckBox("Save results in multiple sheets");
         checkBox.setSelected(true);

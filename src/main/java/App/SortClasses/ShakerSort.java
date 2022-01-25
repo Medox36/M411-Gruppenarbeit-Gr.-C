@@ -7,8 +7,11 @@ import java.util.Vector;
 
 /**
  *
+ * <h1>Shakersort (Cocktailsort)</h1>
+ * <h3>Best-Case: O(n)<br>Average-Case: O(n^2)<br>Worst-Case: O(n^2)<br>Stable: Yes</h3>
+ * <p>The cocktail shaker sort is an extension of bubble sort. It operates in two <br>directions that results moving items to the beginning of the list, improving<br> bubble sort. However, only marginal there is only marginal<br> performance improvement.  </p>
+ * <a href="https://upload.wikimedia.org/wikipedia/commons/e/ef/Sorting_shaker_sort_anim.gif">Shaker sort visualisation</a>
  * @author Andras Tarlos
- * @author Sven Wildhaber
  * @since 2022.01.22
  * @version 0.1.1
  */
@@ -29,6 +32,9 @@ public class ShakerSort extends ArrayCopier implements SortingInterface {
         timeForSorting = System.nanoTime() - timeForSorting;
     }
 
+    /**
+     * The first method that will be executed. This makes sure that the program runs until everything is sorted.
+     */
     private void sort() {
         storageSpaceRequired += 3 * 32;
         int i = 0, l = arr.length;
@@ -43,6 +49,11 @@ public class ShakerSort extends ArrayCopier implements SortingInterface {
         }
     }
 
+    /**
+     *
+     * @param i stands for the index that moves from left to the right
+     * @param l stands for the index that moves from right to the left
+     */
     private void shaker1(int i, int l) {
         storageSpaceRequired += 32;
         for (int j = i; j < l - 1; j++) {
@@ -57,6 +68,11 @@ public class ShakerSort extends ArrayCopier implements SortingInterface {
         }
     }
 
+    /**
+     *
+     * @param i stands for the index that moves from left to the right
+     * @param l stands for the index that moves from right to the left
+     */
     private void shaker2(int i, int l) {
         storageSpaceRequired += 32;
         for (int j = l - 1; j >= i; j--) {

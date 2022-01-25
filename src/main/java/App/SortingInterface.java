@@ -3,7 +3,7 @@ package App;
 import java.util.Vector;
 
 /**
- *
+ * The interface that hast the basic methods for the sorting classes to implement
  *
  * @author Andras Tarlos
  * @author Lorenzo Giuntini (Medox36)

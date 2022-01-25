@@ -42,7 +42,7 @@ public class InsertionSort extends ArrayCopier implements SortingInterface {
     private void sort(int[] arr) {
         int n = arr.length;
         storageSpaceRequired += 32;
-        for (int i = 1; i < n; ++i) {
+        for (int i = 1; i < n; i++) {
             int key = arr[i];
             int j = i - 1;
             storageSpaceRequired += 96;

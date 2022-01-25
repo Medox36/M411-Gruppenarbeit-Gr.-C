@@ -6,6 +6,13 @@ import App.SortingInterface;
 import java.util.Vector;
 
 /**
+ * <h1>Quicksort (with index 0 pivot)</h1>
+ * <h3>Best-Case: O(n * log(n))<br>Average-Case: O(n * log(n))<br>Worst-Case: O(n^2)<br>Stable: No</h3>
+ * <p>Quicksort is a recursive based algorithm. If it's well implemented it is somewhat faster than
+ * merge sort and about two / three times faster than the heapsort. Quicksort works by selecting a
+ * 'pivot' element from the array and paritioning the other elements into two sub-arrays, according
+ * to weather their value is lower or greater.</p>
+ * <a href="https://www.youtube.com/watch?v=Hoixgm4-P4M">Quicksort visualization</a>
  *
  * @author Andras Tarlos
  * @since 2022.01.22
@@ -27,6 +34,11 @@ public class QuickSort extends ArrayCopier implements SortingInterface {
         timeForSorting = System.nanoTime() - timeForSorting;
     }
 
+    /**
+     * This is a recursive methode that uses a value called 'pivot' at a certain index and sorts the given array.
+     * @param leftIndex is the index value that moves from left to right
+     * @param rightIndex is the index value that moves from right to left
+     */
     private void _quickSort(int leftIndex, int rightIndex) {
         amountOfComparisons += 1;
         if (leftIndex >= rightIndex) {

@@ -5,6 +5,11 @@ import java.util.Vector;
 
 /**
  *
+ * <h1>Binary Tree Sort</h1>
+ * <h3>Best-Case: O(n * log(n))<br>Average-Case: O(n * log(n))<br>Worst-Case: O(n^2)<br>Stable: Yes</h3>
+ * <p>This algorithm builds a binary search tree from the <br>elements (int[] in this case) with Nodes, and traverses<br> the tree in ascending order. The Binary Tree Sort<br> uses a recursive method to solve the problem.</p>
+ * <a href="https://www.youtube.com/watch?v=n2MLjGeK7qA">Binary Tree Sort visualization</a>
+ *
  * @author Andras Tarlos
  * @since 2022.01.22
  * @version 0.1.1
@@ -27,6 +32,9 @@ public class BinaryTreeSort implements SortingInterface {
         timeForSorting = System.nanoTime() - timeForSorting;
     }
 
+    /**
+     * Creates a Node class
+     */
     class Node {
         int key;
         Node left, right;
@@ -37,10 +45,18 @@ public class BinaryTreeSort implements SortingInterface {
         }
     }
 
+    /**
+     * This methods main job is to call the methode insertRec()
+     * @param key will be given to insertRec()
+     */
     private void insert(int key) {
         root = insertRec(root, key);
     }
 
+    /**
+     * This is a recursive function that inserts a new key in the BST
+     * @return a Node
+     */
     private Node insertRec(Node root, int key) {
         amountOfComparisons++;
         if (root == null) {
@@ -59,6 +75,10 @@ public class BinaryTreeSort implements SortingInterface {
         return root;
     }
 
+    /**
+     * Does inorder traversal of Binary Search Tree (BST)
+     * @param root
+     */
     private void inorderRec(Node root) {
         amountOfComparisons++;
         if (root != null) {
@@ -67,6 +87,10 @@ public class BinaryTreeSort implements SortingInterface {
         }
     }
 
+    /**
+     *
+     * @param arr
+     */
     private void treeins(int[] arr) {
         for (int j : arr) {
             storageSpaceRequired += 32;

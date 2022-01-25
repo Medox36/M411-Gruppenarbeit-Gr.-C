@@ -9,8 +9,9 @@ import java.util.Vector;
  *
  * <h1>Shakersort (Cocktailsort)</h1>
  * <h3>Best-Case: O(n)<br>Average-Case: O(n^2)<br>Worst-Case: O(n^2)<br>Stable: Yes</h3>
- * <p>The cocktail shaker sort is an extension of bubble sort. It operates in two <br>directions that results moving items to the beginning of the list, improving<br> bubble sort. However, only marginal there is only marginal<br> performance improvement.  </p>
- * <a href="https://upload.wikimedia.org/wikipedia/commons/e/ef/Sorting_shaker_sort_anim.gif">Shaker sort visualisation</a>
+ * <p>The cocktail shaker sort is an extension of bubble sort. It operates in two <br>directions that results moving items to the beginning of the list, improving<br> bubble sort. However, only marginal there is only marginal<br> performance improvement.</p>
+ * <a href="https://upload.wikimedia.org/wikipedia/commons/e/ef/Sorting_shaker_sort_anim.gif">Shaker sort visualization</a>
+ *
  * @author Andras Tarlos
  * @since 2022.01.22
  * @version 0.1.1

@@ -15,7 +15,7 @@ import java.util.Vector;
  * @author Andras Tarlos
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.22
- * @version 0.2.4
+ * @version 0.2.5
  */
 public class Sorting implements Runnable{
     private Vector<Vector<Integer>> fileArrays;

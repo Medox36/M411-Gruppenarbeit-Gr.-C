@@ -1,6 +1,5 @@
 package App;
 
-import java.util.Arrays;
 import java.util.Vector;
 
 public class ArrayCopier {
@@ -10,9 +9,5 @@ public class ArrayCopier {
             arr[i] = array.get(i);
         }
         return arr;
-    }
-
-    public Vector<long[]> copyArrayToVector(long[][] array) {
-        return new Vector<>(Arrays.asList(array));
     }
 }

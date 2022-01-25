@@ -26,8 +26,8 @@ public class BubbleSort extends ArrayCopier implements SortingInterface {
         sort(arr);
         timeForSorting = System.nanoTime() - timeForSorting;
     }
-    
-    public void sort(int[] arr) {
+
+    private void sort(int[] arr) {
         storageSpaceRequired += 32;
         for (int i = 0; i < arr.length; i++) {
             storageSpaceRequired += 32;

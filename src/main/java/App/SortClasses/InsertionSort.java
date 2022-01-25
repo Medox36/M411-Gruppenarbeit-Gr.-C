@@ -7,6 +7,11 @@ import java.util.Vector;
 
 /**
  *
+ *
+ *
+ *
+ *
+ *
  * @author Andras Tarlos
  * @since 2022.01.22
  * @version 0.1.1
@@ -26,7 +31,7 @@ public class InsertionSort extends ArrayCopier implements SortingInterface {
         timeForSorting = System.nanoTime() - timeForSorting;
     }
 
-    void sort(int[] arr) {
+    private void sort(int[] arr) {
         int n = arr.length;
         storageSpaceRequired += 32;
         for (int i = 1; i < n; ++i) {

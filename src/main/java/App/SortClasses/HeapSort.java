@@ -25,7 +25,7 @@ public class HeapSort extends ArrayCopier implements SortingInterface {
         timeForSorting = System.nanoTime() - timeForSorting;
     }
 
-    public void sort(int[] arr) {
+    private void sort(int[] arr) {
         int n = arr.length;
         storageSpaceRequired += 32;
 
@@ -44,7 +44,7 @@ public class HeapSort extends ArrayCopier implements SortingInterface {
         }
     }
 
-    void heapify(int[] arr, int n, int i) {
+    private void heapify(int[] arr, int n, int i) {
         int largest = i;
         int l = 2 * i + 1;
         int r = 2 * i + 2;

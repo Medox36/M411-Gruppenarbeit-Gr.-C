@@ -29,7 +29,7 @@ public class ShakerSort extends ArrayCopier implements SortingInterface {
         timeForSorting = System.nanoTime() - timeForSorting;
     }
 
-    public void sort() {
+    private void sort() {
         storageSpaceRequired += 3 * 32;
         int i = 0, l = arr.length;
         while (i < l) {

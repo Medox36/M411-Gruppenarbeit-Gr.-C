@@ -37,11 +37,11 @@ public class BinaryTreeSort implements SortingInterface {
         }
     }
 
-    public void insert(int key) {
+    private void insert(int key) {
         root = insertRec(root, key);
     }
 
-    public Node insertRec(Node root, int key) {
+    private Node insertRec(Node root, int key) {
         amountOfComparisons++;
         if (root == null) {
             root = new Node(key);
@@ -59,7 +59,7 @@ public class BinaryTreeSort implements SortingInterface {
         return root;
     }
 
-    public void inorderRec(Node root) {
+    private void inorderRec(Node root) {
         amountOfComparisons++;
         if (root != null) {
             inorderRec(root.left);
@@ -67,7 +67,7 @@ public class BinaryTreeSort implements SortingInterface {
         }
     }
 
-    public void treeins(int[] arr) {
+    private void treeins(int[] arr) {
         for (int j : arr) {
             storageSpaceRequired += 32;
             insert(j);

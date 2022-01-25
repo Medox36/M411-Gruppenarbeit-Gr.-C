@@ -8,8 +8,12 @@ import java.util.Vector;
 /**
  * <h1>MergeSort</h1>
  * <h3>Best-Case: O(n * log(n))<br>Average-Case: O(n * log(n))<br>Worst-Case: O(n * log(n))<br>Stable: Yes</h3>
- * <p>MergeSort is an efficient and comparison-based sorting algorithm. <br>It uses the divide an conquer solving approach by making subarrays and <br>sorting the values with the help of them. </p>
+ * <p>MergeSort is an efficient and comparison-based sorting algorithm. <br>It uses the divide an conquer solving approach
+ * by making subarrays and <br>sorting the values with the help of them. </p>
  * <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Merge-sort-example-300px.gif/220px-Merge-sort-example-300px.gif">MergeSort visualization</a>
+ *
+ * @see App.ArrayCopier
+ * @see App.SortingInterface
  *
  * @author Andras Tarlos
  * @since 2022.01.22

@@ -6,6 +6,15 @@ import App.SortingInterface;
 import java.util.Vector;
 
 /**
+ * <h1>Heap Sort</h1>
+ * <h3>Best-Case: O(n * log(n))<br>Average-Case: O(n * log(n))<br>Worst-Case: O(n * log(n))<br>Stable: No</h3>
+ * <p>The Heapsort is a comparison-based sorting algorithm. It also can be regared as an improved selection sort,
+ * like selection sort, heap sort divides its input into a sorted and unsorted region and iteratively shrinks the
+ * unsorted region by extracting th largest element from it and inserting it ino the sorted region.</p>
+ * <a href="https://www.youtube.com/watch?v=MtQL_ll5KhQ">Heap Sort visualization</a>
+ *
+ * @see App.ArrayCopier
+ * @see App.SortingInterface
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.22

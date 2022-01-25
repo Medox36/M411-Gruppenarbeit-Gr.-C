@@ -15,6 +15,9 @@ import java.util.Vector;
  * to weather their value is lower or greater.</p>
  * <a href="https://www.youtube.com/watch?v=Hoixgm4-P4M">Quicksort visualization</a>
  *
+ * @see App.ArrayCopier
+ * @see App.SortingInterface
+ *
  * @author Andras Tarlos
  * @since 2022.01.22
  * @version 0.1.2

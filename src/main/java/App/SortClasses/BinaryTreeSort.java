@@ -4,11 +4,13 @@ import App.SortingInterface;
 import java.util.Vector;
 
 /**
- *
  * <h1>Binary Tree Sort</h1>
  * <h3>Best-Case: O(n * log(n))<br>Average-Case: O(n * log(n))<br>Worst-Case: O(n^2)<br>Stable: Yes</h3>
- * <p>This algorithm builds a binary search tree from the <br>elements (int[] in this case) with Nodes, and traverses<br> the tree in ascending order. The Binary Tree Sort<br> uses a recursive method to solve the problem.</p>
+ * <p>This algorithm builds a binary search tree from the <br>elements (int[] in this case) with Nodes, and traverses<br>
+ * the tree in ascending order. The Binary Tree Sort<br> uses a recursive method to solve the problem.</p>
  * <a href="https://www.youtube.com/watch?v=n2MLjGeK7qA">Binary Tree Sort visualization</a>
+ *
+ * @see App.SortingInterface
  *
  * @author Andras Tarlos
  * @since 2022.01.22

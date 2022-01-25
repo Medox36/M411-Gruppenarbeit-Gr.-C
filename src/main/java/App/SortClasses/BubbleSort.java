@@ -6,10 +6,15 @@ import App.SortingInterface;
 import java.util.Vector;
 
 /**
- *  <h1>Bubblesort</h1>
- *  <h3>Best-Case: O(n)<br>Average-Case: O(n^2)<br>Worst-Case: O(n^2)<br>Stable: Yes</h3>
- *  <p>The Bubblesort is one of the simplest sorting algorithms<br> existing. It repeatedly steps through the list or array, compares<br>adjacent elements and swaps them if they aren't in the correct order.<br> This process is repeated until the given list is sorted. </p>
- *  <a href="https://upload.wikimedia.org/wikipedia/commons/c/c8/Bubble-sort-example-300px.gif">BubbleSort visualization</a>
+ * <h1>Bubblesort</h1>
+ * <h3>Best-Case: O(n)<br>Average-Case: O(n^2)<br>Worst-Case: O(n^2)<br>Stable: Yes</h3>
+ * <p>The Bubblesort is one of the simplest sorting algorithms<br> existing. It repeatedly steps through the list or array,
+ * compares<br>adjacent elements and swaps them if they aren't in the correct order.<br> This process is repeated until
+ * the given list is sorted. </p>
+ * <a href="https://upload.wikimedia.org/wikipedia/commons/c/c8/Bubble-sort-example-300px.gif">BubbleSort visualization</a>
+ *
+ * @see App.ArrayCopier
+ * @see App.SortingInterface
  *
  * @author Andras Tarlos
  * @author Lorenzo Giuntini (Medox36)

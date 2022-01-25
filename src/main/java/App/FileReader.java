@@ -34,7 +34,7 @@ public class FileReader {
 
     public void addFilesToList() throws IOException {
         for (int i = 0; i < 9; i++) {
-            readFile(new BufferedReader(new InputStreamReader(Objects.requireNonNull(getClass().getResourceAsStream("/Files/" + fileNames[i])))));
+            readFile(new BufferedReader(new InputStreamReader(Objects.requireNonNull(getClass().getResourceAsStream("/files/" + fileNames[i])))));
         }
     }
 

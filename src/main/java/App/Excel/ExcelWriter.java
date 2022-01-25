@@ -13,7 +13,7 @@ import java.util.Vector;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.3.2
+ * @version 0.3.3
  */
 public class ExcelWriter {
 
@@ -47,7 +47,7 @@ public class ExcelWriter {
     private XSSFRow[] rows;
 
     /**
-     * XSSFCell-Array containing all 429 cells of the sheet.<br><br>
+     * XSSFCell-Array containing all 390 cells of the sheet.<br><br>
      *
      * @apiNote
      * Used when the data is stored in one sheet containing multiple tables.
@@ -75,9 +75,9 @@ public class ExcelWriter {
 
     /**
      * <p>
-     * XSSFCell-Array containing total of 396 cells, 99 per sheet/table, 11 per row.<br>
+     * XSSFCell-Array containing total of 360 cells, 90 per sheet/table, 10 per row.<br>
      * First array-dimension is the identifier for the sheet, the second array-dimension is the identifier for the row and
-     * the third array-dimension is the cell in the row of a sheet.
+     * the third array-dimension is the cell, in the row of a sheet.
      * <p>
      * XSSFCell[x][y][z] ->
      *      x: from 0 to 3,
@@ -107,7 +107,7 @@ public class ExcelWriter {
      * @apiNote
      * Used when the data is stored in one sheet containing multiple tables.
      */
-    private final int MAX_ROWS_ONE_SHEET = 43;
+    private final int MAX_ROWS_ONE_SHEET = 39;
 
     /**
      * The maximum of rows in one of four sheets.
@@ -115,12 +115,12 @@ public class ExcelWriter {
      * @apiNote
      * Used when the data is stored in one sheet containing multiple tables.
      */
-    private final int MAX_ROWS_MULTIPLE_SHEETS = 10;
+    private final int MAX_ROWS_MULTIPLE_SHEETS = 9;
 
     /**
      * The maximum of cells there can be in a row.
      */
-    private final int MAX_CELLS_PER_ROW = 11;
+    private final int MAX_CELLS_PER_ROW = 10;
 
 
     public ExcelWriter(boolean multipleSheets) {
@@ -206,14 +206,14 @@ public class ExcelWriter {
         // counter to iterate through the data Vector<long[]>
         int k = 0;
 
-        //rows, skipping row 0 and 1
-        for (int i = 2; i < MAX_ROWS_ONE_SHEET; i++) {
+        //rows, skipping row 0
+        for (int i = 1; i < MAX_ROWS_ONE_SHEET; i++) {
             // further rows to skip
-            if (i == 10||i == 11||i == 12||i == 21||i == 22||i == 23||i == 32||i == 33||i == 34) {
+            if (i == 9||i == 10||i == 19||i == 20||i == 29||i == 30) {
                 continue;
             }
             // cell, skipping cell 0 and 1
-            for (int j = 2; j < MAX_CELLS_PER_ROW; j++) {
+            for (int j = 1; j < MAX_CELLS_PER_ROW; j++) {
                 long[] arr = data.get(k);
                 // check if the syntax logic for the arrays has been followed correctly
                 if (arr[0] != k) {
@@ -242,10 +242,10 @@ public class ExcelWriter {
 
         // sheets
         for (int i = 0; i < 4; i++) {
-            // rows, skipping row 0 and 1
-            for (int j = 2; j < MAX_ROWS_MULTIPLE_SHEETS; j++) {
-                // cells, skipping cell 0 and 1
-                for (int k = 2; k < MAX_CELLS_PER_ROW; k++) {
+            // rows, skipping row 0
+            for (int j = 1; j < MAX_ROWS_MULTIPLE_SHEETS; j++) {
+                // cells, skipping cell 0
+                for (int k = 1; k < MAX_CELLS_PER_ROW; k++) {
                     long[] arr = data.get(h);
                     // check if the syntax logic for the arrays has been followed correctly
                     if (arr[0] != h) {
@@ -312,9 +312,9 @@ public class ExcelWriter {
     // OneSheet-Methods
     /**
      * <p>
-     * Creates 39 rows and to each row 11 cells.
+     * Creates 39 rows and to each row 10 cells.
      * Creates all rows and cells in one Excel-Sheet.<br>
-     * Total of cells: 429<br>
+     * Total of cells: 390<br>
      *
      * @apiNote
      * Used when the data is stored in one sheet containing multiple tables.
@@ -334,17 +334,16 @@ public class ExcelWriter {
      * <p>
      * Styles the rows, columns and cells of the ExcelFile given in the constructor.
      * It auto-sizes the columns, which contain text so the text doesn't overlap.
-     * It sets the width of the 2nd column(in Excel column B), which is used to make the table look better.
-     * It sets the height of the rows, which used to make the tables look better.
-     * And it adds borders to te cells, which are used to create the tables.
-     * The rows in between two tables will get no borders.<br>
+     * And it adds borders to te cells, which are used to create the tables.<br>
      *
      * @apiNote
-     * Used when the data is stored in one sheet containing multiple tables.
+     * Used when the data is stored in one sheet containing multiple tables.<br>
+     * The rows in between two tables will get no borders.
      */
     private void styleRowsAndColumnsInOneSheet() {
         // set auto-sizing to the necessary columns
         sheets[0].autoSizeColumn(0);
+        sheets[0].autoSizeColumn(1);
         sheets[0].autoSizeColumn(2);
         sheets[0].autoSizeColumn(3);
         sheets[0].autoSizeColumn(4);
@@ -355,23 +354,13 @@ public class ExcelWriter {
         sheets[0].autoSizeColumn(9);
         sheets[0].autoSizeColumn(10);
 
-        // set the width of the remaining column to 22 Pixels(measurement of Excel)
-        sheets[0].setColumnWidth(1, 512);
-
-        // set the height of the selected rows 1, 12, 23 and 34 to 11 Points = 22 Pixels(measurement of Excel)
-        for (int i = 0; i < MAX_ROWS_ONE_SHEET; i++) {
-            if (i == 1||i == 12||i == 23||i == 34) {
-                rows[i].setHeightInPoints(11);
-            }
-        }
-
         // get the CellStyle for the borders
         XSSFCellStyle style = getBorderCellStyle();
 
         // apply the style to all cells off all rows, except for rows 9, 19 and 29
         for (int i = 0; i < MAX_ROWS_ONE_SHEET; i++) {
-            // leave out rows 9, 21 and 32
-            if (i == 10||i == 21||i == 32) {
+            // leave out rows 9, 19 and 29
+            if (i == 9||i == 19||i == 29) {
                 continue;
             }
             for (int j = 0; j < MAX_CELLS_PER_ROW; j++) {
@@ -403,18 +392,18 @@ public class ExcelWriter {
                 "Random1000", "Random10000", "Random100000",
                 "Teilsortiert1000", "Teilsortiert10000", "Teilsortiert100000"};
         // add th file names as column headers
-        for (int i = 0; i < 9; i++) {
-            cells[0][(i+2)].setCellValue(files[i]);
-            cells[11][(i+2)].setCellValue(files[i]);
-            cells[22][(i+2)].setCellValue(files[i]);
-            cells[33][(i+2)].setCellValue(files[i]);
+        for (int i = 1; i < 9; i++) {
+            cells[0][(i)].setCellValue(files[i-1]);
+            cells[10][(i)].setCellValue(files[i-1]);
+            cells[20][(i)].setCellValue(files[i-1]);
+            cells[30][(i)].setCellValue(files[i-1]);
         }
 
         // array containing all the names of the algorithms
         String[] algorithms = {"BinaryTreeSort", "BubbleSort", "HeapSort",
                 "InsertionSort", "MergeSort", "QuickSort (Pivot am Anfang)", "QuickSort2 (Random Pivot)", "ShakerSort"};
         // add the algorithm names as row headers
-        for (int i = 2; i < 36; i+=11) {
+        for (int i = 1; i < 36; i+=11) {
             for (int j = 0; j < 8; j++) {
                 cells[i+j][0].setCellValue(algorithms[j]);
             }
@@ -424,9 +413,9 @@ public class ExcelWriter {
     // MultipleSheet-Methods
     /**
      * <p>
-     * Creates 9 rows to each of the 4 tables in the 4 Excel-Sheets and to each row 11 cells.<br>
-     * Total of cells per sheet/table: 99<br>
-     * Total of cells: 396<br>
+     * Creates 9 rows to each of the 4 tables in the 4 Excel-Sheets and to each row 10 cells.<br>
+     * Total of cells per sheet/table: 90<br>
+     * Total of cells: 360<br>
      *
      * @apiNote
      * Used when the data is stored in four different sheets each containing one table.
@@ -448,10 +437,7 @@ public class ExcelWriter {
      * <p>
      * Styles the rows, columns and cells of the ExcelFile given in the constructor.
      * It auto-sizes the columns, which contain text so the text doesn't overlap.
-     * It sets the width of the 2nd column(in Excel column B), which is used to make the table look better.
-     * It sets the height of the rows, which used to make the tables look better.
-     * And it adds borders to te cells, which are used to create the tables.
-     * The rows in between two tables will get no borders.<br>
+     * And it adds borders to te cells, which are used to create the tables.<br>
      *
      * @apiNote
      * Used when the data is stored in four different sheets each containing one table.
@@ -460,6 +446,7 @@ public class ExcelWriter {
         for (int i = 0; i < 4; i++) {
             // set auto-sizing to the necessary columns
             sheets[i].autoSizeColumn(0);
+            sheets[i].autoSizeColumn(1);
             sheets[i].autoSizeColumn(2);
             sheets[i].autoSizeColumn(3);
             sheets[i].autoSizeColumn(4);
@@ -469,12 +456,6 @@ public class ExcelWriter {
             sheets[i].autoSizeColumn(8);
             sheets[i].autoSizeColumn(9);
             sheets[i].autoSizeColumn(10);
-
-            // set the width of the remaining column to 22 Pixels(measurement of Excel)
-            sheets[i].setColumnWidth(1, 512);
-
-            // set the height of the 2nd row on each sheet to 11 Points = 22 Pixels(measurement of Excel)
-            rowies[i][1].setHeightInPoints(11);
         }
 
         // get the CellStyle for the borders
@@ -514,8 +495,8 @@ public class ExcelWriter {
                 "Teilsortiert1000", "Teilsortiert10000", "Teilsortiert100000"};
         // add th file names as column headers
         for (int i = 0; i < 4; i++) {
-            for (int j = 2; j < MAX_CELLS_PER_ROW; j++) {
-                cellies[i][0][j].setCellValue(files[j-2]);
+            for (int j = 1; j < MAX_CELLS_PER_ROW; j++) {
+                cellies[i][0][j].setCellValue(files[j-1]);
             }
         }
 
@@ -524,8 +505,8 @@ public class ExcelWriter {
                 "InsertionSort", "MergeSort", "QuickSort (Pivot am Anfang)", "QuickSort (Random Pivot)", "ShakerSort"};
         // add the algorithm names as row headers
         for (int i = 0; i < 4; i++) {
-            for (int j = 2; j < MAX_ROWS_MULTIPLE_SHEETS; j++) {
-                cellies[i][j][0].setCellValue(algorithms[j-2]);
+            for (int j = 1; j < MAX_ROWS_MULTIPLE_SHEETS; j++) {
+                cellies[i][j][0].setCellValue(algorithms[j-1]);
             }
         }
     }

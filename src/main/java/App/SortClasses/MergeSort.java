@@ -6,6 +6,10 @@ import App.SortingInterface;
 import java.util.Vector;
 
 /**
+ * <h1>MergeSort</h1>
+ * <h3>Best-Case: O(n * log(n))<br>Average-Case: O(n * log(n))<br>Worst-Case: O(n * log(n))<br>Stable: Yes</h3>
+ * <p>MergeSort is an efficient and comparison-based sorting algorithm. <br>It uses the divide an conquer solving approach by making subarrays and <br>sorting the values with the help of them. </p>
+ * <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Merge-sort-example-300px.gif/220px-Merge-sort-example-300px.gif">MergeSort visualization</a>
  *
  * @author Andras Tarlos
  * @since 2022.01.22
@@ -26,6 +30,28 @@ public class MergeSort extends ArrayCopier implements SortingInterface {
         timeForSorting = System.nanoTime() - timeForSorting;
     }
 
+    /**
+     * This is the method that is called in the run(Vector<Integer> array) method.
+     *
+     * @param arr is the unsorted list that has to be sorted
+     * @param l left
+     * @param r right
+     */
+    private void sort(int[] arr, int l, int r) {
+        if (l < r) {
+            amountOfComparisons++;
+            int m =l+ (r-l)/2;
+            storageSpaceRequired += 32;
+            sort(arr, l, m);
+            sort(arr, m + 1, r);
+            merge(arr, l, m, r);
+        }
+    }
+
+    /**
+     * This method makes subarrays from arrays and sorts them.
+     * @param arr is the unsorted array
+     */
     private void merge(int[] arr, int l, int m, int r) {
         int n1 = m - l + 1;
         int n2 = r - m;
@@ -74,17 +100,6 @@ public class MergeSort extends ArrayCopier implements SortingInterface {
             writeChanges++;
             j++;
             k++;
-        }
-    }
-
-    private void sort(int[] arr, int l, int r) {
-        if (l < r) {
-            amountOfComparisons++;
-            int m =l+ (r-l)/2;
-            storageSpaceRequired += 32;
-            sort(arr, l, m);
-            sort(arr, m + 1, r);
-            merge(arr, l, m, r);
         }
     }
 

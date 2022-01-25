@@ -1,8 +1,7 @@
 package App.Excel;
 
 import App.Sorting;
-import org.apache.poi.ss.usermodel.BorderStyle;
-import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
 
 import java.io.*;
@@ -309,6 +308,22 @@ public class ExcelWriter {
         return cellStyle;
     }
 
+    /**
+     * <p>
+     * Creates a XSSFCellStyle object which contains background color of a cell.<br>
+     * Color is:
+     * <p>
+     * XSSFCellStyle can be used to apply a Style to cells.<br><br>
+     *
+     * @return XSSFCellStyle object containing border styling
+     */
+    private XSSFCellStyle getColorCellStyle() {
+        XSSFCellStyle cellStyle = workbook.createCellStyle();
+        cellStyle.setFillForegroundColor(IndexedColors.AQUA.getIndex());
+        cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        return cellStyle;
+    }
+
     // OneSheet-Methods
     /**
      * <p>
@@ -368,6 +383,15 @@ public class ExcelWriter {
                 cells[i][j].setCellStyle(style);
             }
         }
+
+        // get the CellStyle for colouring the cells
+        XSSFCellStyle color = getColorCellStyle();
+
+        // apply the colour to the cells containing the topics
+        cells[0][0].setCellStyle(color);
+        cells[10][0].setCellStyle(color);
+        cells[20][0].setCellStyle(color);
+        cells[30][0].setCellStyle(color);
     }
 
     /**
@@ -383,16 +407,16 @@ public class ExcelWriter {
     private void writeRowAndColumnNamesOneSheet() {
         // add the topics
         cells[0][0].setCellValue("Benötigte Zeit (Nanosekunden)");
-        cells[11][0].setCellValue("Anzahl Vergleiche");
-        cells[22][0].setCellValue("Anzahl Schreibzugriffe");
-        cells[33][0].setCellValue("Speicherbedarf (Bits)");
+        cells[10][0].setCellValue("Anzahl Vergleiche");
+        cells[20][0].setCellValue("Anzahl Schreibzugriffe");
+        cells[30][0].setCellValue("Speicherbedarf (Bits)");
 
         // array containing al the names of the files containing the values wich are sorted.
         String[] files = {"InversTeilsortiert1000", "InversTeilsortiert10000", "InversTeilsortiert100000",
                 "Random1000", "Random10000", "Random100000",
                 "Teilsortiert1000", "Teilsortiert10000", "Teilsortiert100000"};
         // add th file names as column headers
-        for (int i = 1; i < 9; i++) {
+        for (int i = 1; i < 10; i++) {
             cells[0][(i)].setCellValue(files[i-1]);
             cells[10][(i)].setCellValue(files[i-1]);
             cells[20][(i)].setCellValue(files[i-1]);
@@ -403,7 +427,7 @@ public class ExcelWriter {
         String[] algorithms = {"BinaryTreeSort", "BubbleSort", "HeapSort",
                 "InsertionSort", "MergeSort", "QuickSort (Pivot am Anfang)", "QuickSort2 (Random Pivot)", "ShakerSort"};
         // add the algorithm names as row headers
-        for (int i = 1; i < 36; i+=11) {
+        for (int i = 1; i < 34; i+=10) {
             for (int j = 0; j < 8; j++) {
                 cells[i+j][0].setCellValue(algorithms[j]);
             }
@@ -437,7 +461,8 @@ public class ExcelWriter {
      * <p>
      * Styles the rows, columns and cells of the ExcelFile given in the constructor.
      * It auto-sizes the columns, which contain text so the text doesn't overlap.
-     * And it adds borders to te cells, which are used to create the tables.<br>
+     * It adds borders to te cells, which are used to create the tables.
+     * And it adds background colour to the cells in the top left corner wich contain the topic.<br>
      *
      * @apiNote
      * Used when the data is stored in four different sheets each containing one table.
@@ -461,6 +486,9 @@ public class ExcelWriter {
         // get the CellStyle for the borders
         XSSFCellStyle style = getBorderCellStyle();
 
+        // get the CellStyle for colouring the cells
+        XSSFCellStyle color = getColorCellStyle();
+
         // apply the style to all cells off all rows of all sheets
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < MAX_ROWS_MULTIPLE_SHEETS; j++) {
@@ -469,6 +497,8 @@ public class ExcelWriter {
                     cellies[i][j][k].setCellStyle(style);
                 }
             }
+            // apply the colour to the cells containing the topics
+            cellies[i][0][0].setCellStyle(color);
         }
     }
 

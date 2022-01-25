@@ -277,7 +277,7 @@ public class JFX_GUI extends Application {
         alert.setTitle("ExcelFile Waring");
         alert.setHeaderText("An Error occurred in context with the ExcelFile (.xlsx)");
         alert.setContentText(s);
-        alert.getDialogPane().setMinWidth(504);
+        alert.getDialogPane().setMinWidth(505);
         alert.getDialogPane().setMinHeight(340);
         alert.showAndWait();
     }

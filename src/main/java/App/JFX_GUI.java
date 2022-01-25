@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.media.Media;
@@ -88,6 +89,9 @@ public class JFX_GUI extends Application {
         //
         HBox checkBoxHBox = new HBox();
         checkBoxHBox.setPadding(new Insets(88, 30, 10, 30));
+
+        //
+        AudioClip clip = new AudioClip(getClass().getResourceAsStream("").to)
 
         volumeIsMuted = false;
 

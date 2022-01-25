@@ -91,13 +91,19 @@ public class JFX_GUI extends Application {
         checkBoxHBox.setPadding(new Insets(88, 30, 10, 30));
 
         //
-        AudioClip clip = new AudioClip(getClass().getResourceAsStream("").to)
+        //AudioClip clip = new AudioClip(getClass().getResourceAsStream("").to)
 
         volumeIsMuted = false;
 
-        Media media = new Media());
+        Media media = new Media("music/elevator.mp3");
         MediaPlayer player = new MediaPlayer(media);
         player.play();
+        Media media = null;
+        try {
+            media = new Media(getClass().getResource("/music/hero.mp3").toURI().toString());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
         //
         checkBox = new CheckBox("Save results in multiple sheets");
         checkBox.setSelected(true);

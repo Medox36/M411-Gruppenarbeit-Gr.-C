@@ -331,7 +331,7 @@ public class JFX_GUI extends Application {
      * makes the close-button visible again so the program can be exited by the user, without having to use the TracIcon
      */
     public synchronized void showCloseButton() {
-        player.stopElevatorMusic();
+        player.stopMusic();
         closeButton.setVisible(true);
 
     }

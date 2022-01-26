@@ -5,6 +5,7 @@ import java.util.*;
 
 /**
  * <h1>FileReader</h1>
+ * Is responsible for reading and saving the txt files
  *
  * @author Andras Tarlos
  * @author Lorenzo Giuntini (Medox36)
@@ -33,7 +34,7 @@ public class FileReader {
     }
 
     /**
-     *
+     * Gets the data files from directory "resources/files/" and gives them to method readFile()
      *
      * @throws IOException
      */

@@ -19,9 +19,22 @@ import java.util.Objects;
  * @version 0.1.1
  */
 public class MusicPlayer {
+    /**
+     * Reference to the MediaPlayer
+     */
     private MediaPlayer player;
+
+    /**
+     * References to the music files (.mp3)<br><br>
+     *
+     * media_elevator: Elevator sound.<br>
+     * media_robert: Directed By Robert B Weide sound.
+     */
     private final Media media_elevator, media_robert;
 
+    /**
+     * Constructor, which reads the music files (.mp3) and creates Media objects from those files.
+     */
     public MusicPlayer() {
         media_elevator = new Media(Objects.requireNonNull(getClass().getResource("/music/elevator.mp3")).toString());
         media_robert = new Media(Objects.requireNonNull(getClass().getResource("/music/robert_weide.mp3")).toString());

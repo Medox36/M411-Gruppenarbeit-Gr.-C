@@ -307,9 +307,23 @@ public class ExcelWriter {
      *
      * @return XSSFCellStyle object containing border styling
      */
-    private XSSFCellStyle getColorCellStyle() {
+    private XSSFCellStyle getColorCellStyle(short colour) {
         XSSFCellStyle cellStyle = workbook.createCellStyle();
-        cellStyle.setFillForegroundColor(IndexedColors.AQUA.getIndex());
+
+        short black = IndexedColors.BLACK.getIndex();
+        // bottom border
+        cellStyle.setBorderBottom(BorderStyle.THIN);
+        cellStyle.setBottomBorderColor(black);
+        // right border
+        cellStyle.setBorderRight(BorderStyle.THIN);
+        cellStyle.setRightBorderColor(black);
+        // left border
+        cellStyle.setBorderLeft(BorderStyle.THIN);
+        cellStyle.setLeftBorderColor(black);
+        // top border
+        cellStyle.setBorderTop(BorderStyle.THIN);
+        cellStyle.setTopBorderColor(black);
+        cellStyle.setFillForegroundColor(colour);
         cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         return cellStyle;
     }
@@ -375,13 +389,36 @@ public class ExcelWriter {
         }
 
         // get the CellStyle for colouring the cells
-        XSSFCellStyle color = getColorCellStyle();
+        XSSFCellStyle blueColour = getColorCellStyle(IndexedColors.AQUA.getIndex());
+
+        XSSFCellStyle grayColour = getColorCellStyle(IndexedColors.GREY_40_PERCENT.getIndex());
+
+        XSSFCellStyle lightGrayColour = getColorCellStyle(IndexedColors.GREY_25_PERCENT.getIndex());
 
         // apply the colour to the cells containing the topics
-        cells[0][0].setCellStyle(color);
-        cells[10][0].setCellStyle(color);
-        cells[20][0].setCellStyle(color);
-        cells[30][0].setCellStyle(color);
+        cells[0][0].setCellStyle(blueColour);
+        cells[10][0].setCellStyle(blueColour);
+        cells[20][0].setCellStyle(blueColour);
+        cells[30][0].setCellStyle(blueColour);
+
+        for (int i = 0; i < MAX_ROWS_ONE_SHEET; i++) {
+            for (int j = 0; j < MAX_CELLS_PER_ROW; j++) {
+                if (i == 0||i == 10||i == 20||i == 30) {
+                    if (j % 2 == 0) {
+                        cells[i][j].setCellStyle(grayColour);
+                    } else {
+                        cells[i][j].setCellStyle(lightGrayColour);
+                    }
+                }
+            }
+            if (i != 0&&i !=9 &&i != 10&&i != 19&&i !=20&&i !=29&&i != 30) {
+                if (i % 2 == 0) {
+                    cells[i][0].setCellStyle(grayColour);
+                } else {
+                    cells[i][0].setCellStyle(lightGrayColour);
+                }
+            }
+        }
     }
 
     /**
@@ -476,19 +513,37 @@ public class ExcelWriter {
         // get the CellStyle for the borders
         XSSFCellStyle style = getBorderCellStyle();
 
-        // get the CellStyle for colouring the cells
-        XSSFCellStyle color = getColorCellStyle();
+        // get the CellStyles for colouring the cells
+        XSSFCellStyle blueColour = getColorCellStyle(IndexedColors.AQUA.getIndex());
+
+        XSSFCellStyle grayColour = getColorCellStyle(IndexedColors.GREY_40_PERCENT.getIndex());
+
+        XSSFCellStyle lightGrayColour = getColorCellStyle(IndexedColors.GREY_25_PERCENT.getIndex());
 
         // apply the style to all cells off all rows of all sheets
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < MAX_ROWS_MULTIPLE_SHEETS; j++) {
                 for (int k = 0; k < MAX_CELLS_PER_ROW; k++) {
                     // apply the style
-                    cellies[i][j][k].setCellStyle(style);
+                    if (j == 0 && k > 0) {
+                        if (k % 2 == 0) {
+                            cellies[i][j][k].setCellStyle(grayColour);
+                        } else {
+                            cellies[i][j][k].setCellStyle(lightGrayColour);
+                        }
+                    } else if (j > 0 && k < 1){
+                        if (j % 2 == 0) {
+                            cellies[i][j][k].setCellStyle(grayColour);
+                        } else {
+                            cellies[i][j][k].setCellStyle(lightGrayColour);
+                        }
+                    } else {
+                        cellies[i][j][k].setCellStyle(style);
+                    }
                 }
             }
             // apply the colour to the cells containing the topics
-            cellies[i][0][0].setCellStyle(color);
+            cellies[i][0][0].setCellStyle(blueColour);
         }
     }
 

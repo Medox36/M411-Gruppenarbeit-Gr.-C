@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 /**
- *
+ * <h1>FileReader</h1>
  *
  * @author Andras Tarlos
  * @author Lorenzo Giuntini (Medox36)
@@ -32,12 +32,22 @@ public class FileReader {
         }
     }
 
+    /**
+     *
+     *
+     * @throws IOException
+     */
     public void addFilesToList() throws IOException {
         for (int i = 0; i < 9; i++) {
             readFile(new BufferedReader(new InputStreamReader(Objects.requireNonNull(getClass().getResourceAsStream("/files/" + fileNames[i])))));
         }
     }
 
+    /**
+     * Reads all files and puts them in fileArrays
+     *
+     * @param br is a variable of BufferedReader
+     */
     public void readFile(BufferedReader br) {
         Vector<Integer> array = new Vector<>();
         String str;

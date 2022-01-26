@@ -27,9 +27,11 @@ public class QuickSort2 extends ArrayCopier implements SortingInterface {
     private long amountOfComparisons = 0;
     private long storageSpaceRequired = 0;
     private int[] arr;
+    private boolean firstComparison;
 
     @Override
     public void run(Vector<Integer> array) {
+        firstComparison = true;
         storageSpaceRequired += mc.getMemorySpace(array);
         arr = copyVectorToArray(array);
         timeForSorting = System.nanoTime();
@@ -50,8 +52,14 @@ public class QuickSort2 extends ArrayCopier implements SortingInterface {
 
         int i = leftIndex;
         int k = rightIndex - 1;
+        int pivot;
         // Using the first time a random pivot
-        int pivot = ThreadLocalRandom.current().nextInt(leftIndex, rightIndex);;
+        if (firstComparison) {
+            pivot = ThreadLocalRandom.current().nextInt(leftIndex, rightIndex);
+            firstComparison = false;
+        } else {
+            pivot = arr[rightIndex];
+        }
         storageSpaceRequired += 32 * 3;
 
         int temp;

@@ -14,7 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.media.Media;
@@ -23,7 +22,6 @@ import javafx.scene.media.MediaPlayer;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
@@ -33,7 +31,7 @@ import java.util.concurrent.atomic.AtomicReference;
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
- * @version 0.1.13
+ * @version 0.1.15
  */
 public class JFX_GUI extends Application {
     private static final String iconLoc = Objects.requireNonNull(Main.class.getResource("/images/sort.png")).toString();

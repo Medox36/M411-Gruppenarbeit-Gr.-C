@@ -25,13 +25,14 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * <h1>JFX_GUI</h1>
- * This java file is responsible for the GUI shown, when the application is started. The GUI is shown via JavaFX.
+ * <h1>The JFX_GUI</h1>
+ * <h3>Class responsible for the GUI of the application.</h3>
+ * GUI was created with <a href="https://openjfx.io/">JavaFx</a>
  *
  * @author Lorenzo Giuntini (Medox36)
  * @author Andras Tarlos
  * @since 2022.01.12
- * @version 0.1.15
+ * @version 0.1.16
  */
 public class JFX_GUI extends Application {
     private static final String iconLoc = Objects.requireNonNull(Main.class.getResource("/images/sort.png")).toString();

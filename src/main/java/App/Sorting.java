@@ -106,7 +106,7 @@ public class Sorting implements Runnable {
      *
      * @param multipleSheets is a boolean value that shows if the user wants to get multiple sheets in the excel file
      * @param file is the Excel file
-     * @throws IOException
+     * @throws IOException If the File can't be created or deleted
      */
     private void deleteFileDialog(boolean multipleSheets, ExcelFile file) throws IOException {
         if (!file.createNewFile()) {

@@ -9,7 +9,7 @@ import java.util.Vector;
  * <h3>Best-Case: O(n)<br>Average-Case: O(n^2)<br>Worst-Case: O(n^2)<br>Stable: Yes</h3>
  * <p>InsertionSort is one of the most straight forward algorithms available. <br>It virtually splits the array into a
  * sorted and an unsorted part. <br>Values from the unsorted part are picked and placed <br>at the correct position in
- * the sorted part.</p>
+ * the sorted part. This process is repeated until the array is sorted. </p>
  * <a href="https://upload.wikimedia.org/wikipedia/commons/0/0f/Insertion-sort-example-300px.gif">InsertionSort visualization</a>
  *
  * @see ArrayCopier

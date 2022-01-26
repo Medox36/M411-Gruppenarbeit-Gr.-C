@@ -6,6 +6,7 @@ import javafx.scene.media.MediaPlayer;
 import java.util.Objects;
 
 /**
+ * <h1>MusicPlayer</h1>
  * This class is responsible for playing music during the sorting process.
  * The two music files can be found in "resources/music/"
  *

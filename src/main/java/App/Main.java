@@ -3,7 +3,7 @@ package App;
 import javafx.application.Application;
 
 /**
- *
+ * <h1>Main</h1>
  *
  * @author Andras Tarlos
  * @author Lorenzo Giuntini (Medox36)

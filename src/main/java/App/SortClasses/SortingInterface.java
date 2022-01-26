@@ -6,6 +6,7 @@ import App.MemoryCalculator;
 import java.util.Vector;
 
 /**
+ * <h1>SortingInterface</h1>
  * The interface that hast the basic methods for the sorting classes to implement
  *
  * @author Andras Tarlos

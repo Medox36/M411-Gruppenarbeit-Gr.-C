@@ -25,6 +25,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
+ * <h1>JFX_GUI</h1>
  * This java file is responsible for the GUI shown, when the application is started. The GUI is shown via JavaFX.
  *
  * @author Lorenzo Giuntini (Medox36)

@@ -8,7 +8,9 @@ import java.io.*;
 import java.util.Vector;
 
 /**
- *
+ * <h1>Excel Writer</h1>
+ * <h3>Class used to create Excel files (.xlsx), by using the Apache POI</h3>
+ * <a href="https://poi.apache.org/">Apache POI</a>
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.12
@@ -300,16 +302,22 @@ public class ExcelWriter {
 
     /**
      * <p>
-     * Creates a XSSFCellStyle object which contains background color of a cell.<br>
-     * Color is:
+     * Creates a XSSFCellStyle object which contains styling of the borders and a background colour.
+     * <p>
+     * Border on the Bottom, the Top, the Right and the Left are all thin, black borders.
      * <p>
      * XSSFCellStyle can be used to apply a Style to cells.<br><br>
      *
+     * @param colour Index of the colour for the background from IndexedColours.
      * @return XSSFCellStyle object containing border styling
+     *
+     * @see IndexedColors
      */
     private XSSFCellStyle getColorCellStyle(short colour) {
+        // create a new CellStyle
         XSSFCellStyle cellStyle = workbook.createCellStyle();
 
+        // get the index for the colour black
         short black = IndexedColors.BLACK.getIndex();
         // bottom border
         cellStyle.setBorderBottom(BorderStyle.THIN);
@@ -323,8 +331,13 @@ public class ExcelWriter {
         // top border
         cellStyle.setBorderTop(BorderStyle.THIN);
         cellStyle.setTopBorderColor(black);
+
+        // set the background colour to the given index
+        // Note: yes we know the method called has the word ForegroundColour in it, but it only works this way
         cellStyle.setFillForegroundColor(colour);
         cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+        // return the CellStyle
         return cellStyle;
     }
 
@@ -351,16 +364,16 @@ public class ExcelWriter {
 
     /**
      * <p>
-     * Styles the rows, columns and cells of the ExcelFile given in the constructor.
+     * Styles the rows, columns and cells.
      * It auto-sizes the columns, which contain text so the text doesn't overlap.
-     * And it adds borders to te cells, which are used to create the tables.<br>
+     * It adds borders and colour to te cells, which are used to create the tables.<br><br>
      *
      * @apiNote
      * Used when the data is stored in one sheet containing multiple tables.<br>
      * The rows in between two tables will get no borders.
      */
     private void styleRowsAndColumnsInOneSheet() {
-        // set auto-sizing to the necessary columns
+        // auto-size the columns
         sheets[0].autoSizeColumn(0);
         sheets[0].autoSizeColumn(1);
         sheets[0].autoSizeColumn(2);
@@ -388,11 +401,13 @@ public class ExcelWriter {
             }
         }
 
-        // get the CellStyle for colouring the cells
+        // get the CellStyle for colouring the cells blue
         XSSFCellStyle blueColour = getColorCellStyle(IndexedColors.AQUA.getIndex());
 
+        // get the CellStyle for colouring the cells grey
         XSSFCellStyle grayColour = getColorCellStyle(IndexedColors.GREY_40_PERCENT.getIndex());
 
+        // get the CellStyle for colouring the cells light grey
         XSSFCellStyle lightGrayColour = getColorCellStyle(IndexedColors.GREY_25_PERCENT.getIndex());
 
         // apply the colour to the cells containing the topics
@@ -401,8 +416,10 @@ public class ExcelWriter {
         cells[20][0].setCellStyle(blueColour);
         cells[30][0].setCellStyle(blueColour);
 
+        // apply the colour to the right cells
         for (int i = 0; i < MAX_ROWS_ONE_SHEET; i++) {
             for (int j = 0; j < MAX_CELLS_PER_ROW; j++) {
+                // apply to row 0, 10, 20 and 30
                 if (i == 0||i == 10||i == 20||i == 30) {
                     if (j % 2 == 0) {
                         cells[i][j].setCellStyle(grayColour);
@@ -411,7 +428,8 @@ public class ExcelWriter {
                     }
                 }
             }
-            if (i != 0&&i !=9 &&i != 10&&i != 19&&i !=20&&i !=29&&i != 30) {
+            // apply to all rows except 0, 9, 10, 20 and 30
+            if (i != 0 && i !=9 && i != 10 && i != 19 && i !=20 && i !=29 && i != 30) {
                 if (i % 2 == 0) {
                     cells[i][0].setCellStyle(grayColour);
                 } else {
@@ -486,9 +504,9 @@ public class ExcelWriter {
 
     /**
      * <p>
-     * Styles the rows, columns and cells of the ExcelFile given in the constructor.
+     * Styles the rows, columns and cells.
      * It auto-sizes the columns, which contain text so the text doesn't overlap.
-     * It adds borders to te cells, which are used to create the tables.
+     * It adds borders and colour to te cells, which are used to create the tables.
      * And it adds background colour to the cells in the top left corner wich contain the topic.<br>
      *
      * @apiNote
@@ -496,7 +514,7 @@ public class ExcelWriter {
      */
     private void styleRowsAndColumnsInMultipleSheets() {
         for (int i = 0; i < 4; i++) {
-            // set auto-sizing to the necessary columns
+            // auto-size the columns
             sheets[i].autoSizeColumn(0);
             sheets[i].autoSizeColumn(1);
             sheets[i].autoSizeColumn(2);
@@ -516,11 +534,13 @@ public class ExcelWriter {
         // get the CellStyles for colouring the cells
         XSSFCellStyle blueColour = getColorCellStyle(IndexedColors.AQUA.getIndex());
 
+        // get the CellStyle for colouring the cells grey
         XSSFCellStyle grayColour = getColorCellStyle(IndexedColors.GREY_40_PERCENT.getIndex());
 
+        // get the CellStyle for colouring the cells light grey
         XSSFCellStyle lightGrayColour = getColorCellStyle(IndexedColors.GREY_25_PERCENT.getIndex());
 
-        // apply the style to all cells off all rows of all sheets
+        // apply the right styles to the cells
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < MAX_ROWS_MULTIPLE_SHEETS; j++) {
                 for (int k = 0; k < MAX_CELLS_PER_ROW; k++) {

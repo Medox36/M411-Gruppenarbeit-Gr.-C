@@ -16,8 +16,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -27,9 +25,10 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- *
+ * This java file is responsible for the GUI shown, when the application is started. The GUI is shown via JavaFX.
  *
  * @author Lorenzo Giuntini (Medox36)
+ * @author Andras Tarlos
  * @since 2022.01.12
  * @version 0.1.15
  */
@@ -48,8 +47,6 @@ public class JFX_GUI extends Application {
 
     private javafx.scene.control.Button volumeButton;
 
-    private javafx.scene.image.Image volumeImage;
-
     private boolean volumeIsMuted;
 
     private java.awt.SystemTray tray;
@@ -60,12 +57,13 @@ public class JFX_GUI extends Application {
 
     private CheckBox checkBox;
 
-    private MediaPlayer player;
+    private MusicPlayer player;
 
     @Override
     public void start(Stage stage) {
         // stores a reference to the stage.
         this.stage = stage;
+        player = new MusicPlayer();
 
         // instructs the javafx system not to exit implicitly when the last application window is shut.
         Platform.setImplicitExit(false);
@@ -92,9 +90,6 @@ public class JFX_GUI extends Application {
         checkBoxHBox.setPadding(new Insets(88, 30, 10, 30));
 
         volumeIsMuted = false;
-
-        Media media = new Media(Objects.requireNonNull(getClass().getResource("/music/elevator.mp3")).toString());
-        player = new MediaPlayer(media);
 
         //
         checkBox = new CheckBox("Save results in multiple sheets");
@@ -130,7 +125,7 @@ public class JFX_GUI extends Application {
             label.setText("initializing sorting");
             pb.setProgress(-1.0);
             pi.setProgress(-1.0);
-            player.play();
+            player.playElevatorMusic();
             Thread t = new Thread(new Sorting(this));
             t.setDaemon(true);
             t.start();
@@ -147,12 +142,12 @@ public class JFX_GUI extends Application {
                 img.set(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/volume_on_tiny.jpeg"))));
                 view.set(new ImageView(img.get()));
                 volumeIsMuted = false;
-                player.setMute(false);
+                player.setPlayerMute(false);
             } else {
                 img.set(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/volume_off_tiny.jpeg"))));
                 view.set(new ImageView(img.get()));
                 volumeIsMuted = true;
-                player.setMute(true);
+                player.setPlayerMute(true);
             }
             volumeButton.setGraphic(view.get());
         });
@@ -333,14 +328,13 @@ public class JFX_GUI extends Application {
      * makes the close-button visible again so the program can be exited by the user, without having to use the TracIcon
      */
     public synchronized void showCloseButton() {
-        player.stop();
+        player.stopElevatorMusic();
         closeButton.setVisible(true);
 
     }
 
     public void createDialog(String s) {
-        MediaPlayer player = new MediaPlayer(new Media(Objects.requireNonNull(getClass().getResource("/music/robert_weide.mp3")).toString()));
-        player.play();
+        player.playRobertWeideMusic();
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("ExcelFile Waring");
         alert.setHeaderText("An Error occurred in context with the ExcelFile (.xlsx)");

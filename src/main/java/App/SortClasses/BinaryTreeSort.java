@@ -90,8 +90,8 @@ public class BinaryTreeSort implements SortingInterface {
     }
 
     /**
-     *
-     * @param arr
+     * Gets the elements of the array and gives it as a parameter (j) to insert()
+     * @param arr is unsorted array
      */
     private void treeins(int[] arr) {
         for (int j : arr) {

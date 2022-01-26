@@ -10,6 +10,9 @@ import java.util.Objects;
  * This class is responsible for playing music during the sorting process.
  * The two music files can be found in "resources/music/"
  *
+ * @see javafx.scene.media.Media
+ * @see javafx.scene.media.MediaPlayer
+ *
  * @author Tarlos Andras
  * @author Lorenzo Giuntini (Medo36)
  * @since 2022.01.26

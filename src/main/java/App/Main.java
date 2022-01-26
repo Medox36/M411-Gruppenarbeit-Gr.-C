@@ -4,7 +4,8 @@ import javafx.application.Application;
 
 /**
  * <h1>Main</h1>
- * <p>This is the class where the program begins. It can handle a couple <br>of arguments. The program can be started with or without GUI.</p>
+ * <p>This is the class where the program begins. It can handle a couple <br>of arguments.
+ * The program can be started with or without GUI.</p>
  *
  * @author Andras Tarlos
  * @author Lorenzo Giuntini (Medox36)

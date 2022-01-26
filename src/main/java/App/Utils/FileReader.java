@@ -36,7 +36,7 @@ public class FileReader {
     /**
      * Gets the data files from directory "resources/files/" and gives them to method readFile()
      *
-     * @throws IOException
+     * @throws IOException Thrown if the files weren't found
      */
     public void addFilesToList() throws IOException {
         for (int i = 0; i < 9; i++) {

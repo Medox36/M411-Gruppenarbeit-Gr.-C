@@ -4,6 +4,8 @@ import org.openjdk.jol.info.GraphLayout;
 import java.util.Vector;
 
 /**
+ * <h1>MemoryCalculator</h1>
+ * This class uses Java Object Layout as a dependency and uses it to get the memory used by a Vector
  *
  * @author Andras Tarlos
  * @since 2022.01.12

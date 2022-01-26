@@ -13,7 +13,7 @@ import java.util.Objects;
  * @author Tarlos Andras
  * @author Lorenzo Giuntini (Medo36)
  * @since 2022.01.26
- * @version 0.1
+ * @version 0.1.0
  */
 public class MusicPlayer {
     private MediaPlayer player;

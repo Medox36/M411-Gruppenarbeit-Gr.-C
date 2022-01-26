@@ -12,14 +12,14 @@ import java.io.IOException;
 import java.util.Vector;
 
 /**
- *
+ * <h1>Sorting</h1>
  *
  * @author Andras Tarlos
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.22
  * @version 0.2.5
  */
-public class Sorting implements Runnable{
+public class Sorting implements Runnable {
     private Vector<Vector<Integer>> fileArrays;
     private SortingInterface[] sortingTypes;
     private Vector<long[]> results;
@@ -27,15 +27,28 @@ public class Sorting implements Runnable{
     private JFX_GUI gui;
     private final boolean noGui;
 
+    /**
+     * Constructor without Graphical User Interface
+     */
     public Sorting() {
         noGui = true;
     }
 
+    /**
+     * Constructor with Graphical User Interface
+     *
+     * @param gui is a GUI
+     */
     public Sorting(JFX_GUI gui) {
         this.gui = gui;
         noGui = false;
     }
 
+    /**
+     * This is the method where the program starts
+     * All sorting types are put in an array of SortingInterface
+     * Excel file will be verified
+     */
     public void start() {
         results = new Vector<>();
         results.capacity();
@@ -88,6 +101,13 @@ public class Sorting implements Runnable{
         }
     }
 
+    /**
+     * Excel file will be verified
+     *
+     * @param multipleSheets is a boolean value that shows if the user wants to get multiple sheets in the excel file
+     * @param file is the Excel file
+     * @throws IOException
+     */
     private void deleteFileDialog(boolean multipleSheets, ExcelFile file) throws IOException {
         if (!file.createNewFile()) {
             String s = "ExcelFile (.xlsx-File) couldn't be created.";
@@ -102,6 +122,10 @@ public class Sorting implements Runnable{
         }
     }
 
+    /**
+     * This is the method where all the sorting algorithms are run. The needed results will be saved in results (Vector<long[]>)
+     * If the user runs the program without GUI, a little progress bar will be shown in the terminal.
+     */
     public void updateSortingResults() {
         double h = 0.0;
         String[] names = new FileReader().getFileNames();

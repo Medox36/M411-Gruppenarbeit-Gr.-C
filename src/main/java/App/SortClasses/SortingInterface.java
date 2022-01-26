@@ -1,7 +1,7 @@
 package App.SortClasses;
 
-import App.ArrayCopier;
-import App.MemoryCalculator;
+import App.Utils.ArrayCopier;
+import App.Utils.MemoryCalculator;
 
 import java.util.Vector;
 

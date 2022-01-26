@@ -1,4 +1,4 @@
-package App;
+package App.Utils;
 
 import java.util.Scanner;
 

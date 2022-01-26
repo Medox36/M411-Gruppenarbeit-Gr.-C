@@ -1,6 +1,6 @@
 package App.SortClasses;
 
-import App.ArrayCopier;
+import App.Utils.ArrayCopier;
 
 import java.util.Vector;
 
@@ -12,7 +12,7 @@ import java.util.Vector;
  * the given list is sorted. </p>
  * <a href="https://upload.wikimedia.org/wikipedia/commons/c/c8/Bubble-sort-example-300px.gif">BubbleSort visualization</a>
  *
- * @see App.ArrayCopier
+ * @see ArrayCopier
  * @see SortingInterface
  *
  * @author Andras Tarlos

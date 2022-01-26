@@ -3,6 +3,8 @@ package App;
 import App.Excel.ExcelFile;
 import App.Excel.ExcelHandler;
 import App.SortClasses.*;
+import App.Utils.FileReader;
+import App.Utils.UserReader;
 import javafx.application.Platform;
 
 import java.awt.*;

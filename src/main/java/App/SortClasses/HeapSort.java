@@ -1,6 +1,6 @@
 package App.SortClasses;
 
-import App.ArrayCopier;
+import App.Utils.ArrayCopier;
 
 import java.util.Vector;
 
@@ -12,7 +12,7 @@ import java.util.Vector;
  * unsorted region by extracting th largest element from it and inserting it ino the sorted region.</p>
  * <a href="https://www.youtube.com/watch?v=MtQL_ll5KhQ">Heap Sort visualization</a>
  *
- * @see App.ArrayCopier
+ * @see ArrayCopier
  * @see SortingInterface
  *
  * @author Lorenzo Giuntini (Medox36)

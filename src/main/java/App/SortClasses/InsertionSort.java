@@ -1,6 +1,6 @@
 package App.SortClasses;
 
-import App.ArrayCopier;
+import App.Utils.ArrayCopier;
 
 import java.util.Vector;
 
@@ -12,7 +12,7 @@ import java.util.Vector;
  * the sorted part.</p>
  * <a href="https://upload.wikimedia.org/wikipedia/commons/0/0f/Insertion-sort-example-300px.gif">InsertionSort visualization</a>
  *
- * @see App.ArrayCopier
+ * @see ArrayCopier
  * @see SortingInterface
  *
  * @author Andras Tarlos

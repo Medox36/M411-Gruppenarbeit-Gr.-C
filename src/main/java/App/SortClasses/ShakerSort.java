@@ -1,6 +1,6 @@
 package App.SortClasses;
 
-import App.ArrayCopier;
+import App.Utils.ArrayCopier;
 
 import java.util.Vector;
 
@@ -12,7 +12,7 @@ import java.util.Vector;
  * to the beginning of the list, improving<br> bubble sort. However, only marginal there is only marginal<br> performance improvement.</p>
  * <a href="https://upload.wikimedia.org/wikipedia/commons/e/ef/Sorting_shaker_sort_anim.gif">Shaker sort visualization</a>
  *
- * @see App.ArrayCopier
+ * @see ArrayCopier
  * @see SortingInterface
  *
  * @author Andras Tarlos

@@ -1,6 +1,6 @@
 package App.SortClasses;
 
-import App.ArrayCopier;
+import App.Utils.ArrayCopier;
 
 import java.util.Vector;
 
@@ -11,7 +11,7 @@ import java.util.Vector;
  * by making subarrays and <br>sorting the values with the help of them. </p>
  * <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Merge-sort-example-300px.gif/220px-Merge-sort-example-300px.gif">MergeSort visualization</a>
  *
- * @see App.ArrayCopier
+ * @see ArrayCopier
  * @see SortingInterface
  *
  * @author Andras Tarlos

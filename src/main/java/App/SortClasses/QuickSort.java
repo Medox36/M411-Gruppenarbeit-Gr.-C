@@ -1,6 +1,6 @@
 package App.SortClasses;
 
-import App.ArrayCopier;
+import App.Utils.ArrayCopier;
 
 import java.util.Vector;
 
@@ -13,7 +13,7 @@ import java.util.Vector;
  * to weather their value is lower or greater.</p>
  * <a href="https://www.youtube.com/watch?v=Hoixgm4-P4M">Quicksort visualization</a>
  *
- * @see App.ArrayCopier
+ * @see ArrayCopier
  * @see SortingInterface
  *
  * @author Andras Tarlos

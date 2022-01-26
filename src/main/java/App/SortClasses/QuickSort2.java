@@ -1,7 +1,6 @@
 package App.SortClasses;
 
 import App.ArrayCopier;
-import App.SortingInterface;
 
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.Vector;
@@ -16,7 +15,7 @@ import java.util.Vector;
  * <a href="https://www.youtube.com/watch?v=Hoixgm4-P4M">Quicksort visualization</a>
  *
  * @see App.ArrayCopier
- * @see App.SortingInterface
+ * @see SortingInterface
  *
  * @author Andras Tarlos
  * @since 2022.01.22

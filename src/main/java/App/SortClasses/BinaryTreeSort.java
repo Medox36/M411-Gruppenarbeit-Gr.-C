@@ -1,6 +1,5 @@
 package App.SortClasses;
 
-import App.SortingInterface;
 import java.util.Vector;
 
 /**
@@ -10,7 +9,7 @@ import java.util.Vector;
  * the tree in ascending order. The Binary Tree Sort<br> uses a recursive method to solve the problem.</p>
  * <a href="https://www.youtube.com/watch?v=n2MLjGeK7qA">Binary Tree Sort visualization</a>
  *
- * @see App.SortingInterface
+ * @see SortingInterface
  *
  * @author Andras Tarlos
  * @since 2022.01.22

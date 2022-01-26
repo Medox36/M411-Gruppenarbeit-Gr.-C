@@ -1,7 +1,6 @@
 package App.SortClasses;
 
 import App.ArrayCopier;
-import App.SortingInterface;
 
 import java.util.Vector;
 
@@ -14,7 +13,7 @@ import java.util.Vector;
  * <a href="https://upload.wikimedia.org/wikipedia/commons/e/ef/Sorting_shaker_sort_anim.gif">Shaker sort visualization</a>
  *
  * @see App.ArrayCopier
- * @see App.SortingInterface
+ * @see SortingInterface
  *
  * @author Andras Tarlos
  * @since 2022.01.22

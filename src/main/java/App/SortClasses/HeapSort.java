@@ -1,7 +1,6 @@
 package App.SortClasses;
 
 import App.ArrayCopier;
-import App.SortingInterface;
 
 import java.util.Vector;
 
@@ -14,7 +13,7 @@ import java.util.Vector;
  * <a href="https://www.youtube.com/watch?v=MtQL_ll5KhQ">Heap Sort visualization</a>
  *
  * @see App.ArrayCopier
- * @see App.SortingInterface
+ * @see SortingInterface
  *
  * @author Lorenzo Giuntini (Medox36)
  * @since 2022.01.22

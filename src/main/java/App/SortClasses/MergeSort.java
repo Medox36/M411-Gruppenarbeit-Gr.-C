@@ -1,7 +1,6 @@
 package App.SortClasses;
 
 import App.ArrayCopier;
-import App.SortingInterface;
 
 import java.util.Vector;
 
@@ -13,7 +12,7 @@ import java.util.Vector;
  * <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Merge-sort-example-300px.gif/220px-Merge-sort-example-300px.gif">MergeSort visualization</a>
  *
  * @see App.ArrayCopier
- * @see App.SortingInterface
+ * @see SortingInterface
  *
  * @author Andras Tarlos
  * @since 2022.01.22
